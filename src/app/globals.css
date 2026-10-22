@@ -1,26 +1,221 @@
 @import "tailwindcss";
 
+/*
+ * Tr. Revathi Phonics — design tokens.
+ * Colours sampled from the client's logo (public/images/logo/logo-original.png).
+ * Contrast (WCAG): ink on paper 15.7 · white on red 4.9 · white on teal 6.2 · ink on action 5.6
+ * · muted on paper 7.8. Letter colours are for the sound-tile motif only, never body text.
+ */
+@theme {
+  --color-paper: #ffffff;
+  --color-surface: #eef5f2; /* one tone step from paper, tinted from the logo's teal frame */
+  --color-ink: #16204a; /* from the logo's "s" blue, deepened */
+  --color-muted: #4a5170;
+  --color-red: #e3001b; /* "TR. REVATHI" */
+  --color-red-deep: #c4001a;
+  --color-teal: #0e6e5d; /* logo frame, deepened for white text */
+  --color-action: #1db33a; /* logo "c" green, used for WhatsApp; ink text */
+  --color-action-hover: #2bc94a;
+  --color-calm: #e9eef5; /* ARPAN section ground */
+  --color-calm-ink: #2f3a5c;
+
+  /* The seven "Phonics" letters, in logo order: P h o n i c s */
+  --color-letter-p: #f80000;
+  --color-letter-h: #f87000;
+  --color-letter-o: #00b8e8;
+  --color-letter-n: #f80098;
+  --color-letter-i: #f8b000;
+  --color-letter-c: #10b800;
+  --color-letter-s: #1848a0;
+
+  --font-display: var(--font-baloo), ui-rounded, system-ui, sans-serif;
+  --font-body: var(--font-mukta), system-ui, sans-serif;
+
+  /* Five type steps; nothing else. */
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+  --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-body--line-height: 1.55;
+  --text-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --text-lead--line-height: 1.35;
+  --text-head: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
+  --text-head--line-height: 1;
+  --text-display: clamp(3rem, 1.6rem + 6.4vw, 7.5rem);
+  --text-display--line-height: 0.95;
+
+  /* One large radius for panels and cards; buttons are fully round. */
+  --radius-panel: 1.75rem;
+  --radius-pill: 999px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gutter: clamp(1.25rem, 3vw, 2rem);
+  --section-gap: clamp(4.5rem, 10vw, 10rem);
+  --content-max: 80rem;
+  --sticky-bar-h: 4.5rem;
+  --focus: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-dark {
+    --focus: #ffffff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Buttons: flat fill, fully round, one shape site-wide. */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.1;
+    text-decoration: none;
+    transition:
+      background-color 160ms ease-out,
+      transform 160ms ease-out;
+  }
+  .cta:active {
+    transform: scale(0.97);
+  }
+  .cta-whatsapp.cta-primary {
+    background: var(--color-action);
+    color: var(--color-ink);
+  }
+  .cta-whatsapp.cta-primary:hover {
+    background: var(--color-action-hover);
+  }
+  .cta-call.cta-primary {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .cta-call.cta-primary:hover {
+    background: #26326a;
+  }
+  .cta-secondary {
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+  .cta-secondary:hover {
+    background: #dcebe5;
+  }
+  .on-dark .cta-secondary {
+    background: var(--color-paper);
+  }
+  .cta-secondary.cta-whatsapp svg {
+    color: #128c2b;
+  }
+  .cta-inline {
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .cta-inline:active {
+    transform: none;
+  }
+
+  /* Dev-only markers (never rendered in production). */
+  .todo-marker {
+    display: inline-block;
+    margin: 0.25rem 0;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    background: #fff3a8;
+    color: #5a4600;
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .image-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    padding: 1rem;
+    background: repeating-linear-gradient(45deg, #f4f6f9 0 12px, #e9edf3 12px 24px);
+    outline: 2px dashed #9aa3b8;
+    outline-offset: -2px;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .image-placeholder-id {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .branch-card .cta-secondary {
+    background: var(--color-paper);
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+    font-size: 1rem;
+  }
+  .branch-card .cta-secondary:hover {
+    background: #ffffff;
+    outline: 2px solid var(--color-action);
+    outline-offset: -2px;
+  }
 }

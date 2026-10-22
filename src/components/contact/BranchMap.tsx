@@ -12,7 +12,7 @@ export function BranchMap({ name, src }: Props) {
   const [shown, setShown] = useState(false);
 
   return (
-    <div data-part="map" className="branch-map">
+    <div data-part="map" className="branch-map mt-3 overflow-hidden rounded-2xl">
       {shown ? (
         <iframe
           src={src}
@@ -22,7 +22,7 @@ export function BranchMap({ name, src }: Props) {
           className="aspect-[4/3] w-full rounded-[inherit] border-0"
         />
       ) : (
-        <button type="button" onClick={() => setShown(true)} className="branch-map-button">
+        <button type="button" onClick={() => setShown(true)} className="branch-map-button cta cta-inline">
           Show map
         </button>
       )}

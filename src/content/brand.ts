@@ -1,7 +1,13 @@
 import { todo } from "./todo";
 
-/** Logo shown site-wide. The PNG is the client's original; "/images/logo/logo.svg" is the redraw (approval pending). */
-export const LOGO_SRC = "/images/logo/logo-original.png";
+/**
+ * Logo shown site-wide: the SVG redraw (client approval pending, todo:logo-approval).
+ * Fallback to the client's original: "/images/logo/logo-original.png" with LOGO_SIZE 561×206.
+ */
+export const LOGO_SRC = "/images/logo/logo.svg";
+
+/** Intrinsic size of the logo file in LOGO_SRC (SVG: 560×210, PNG: 561×206). */
+export const LOGO_SIZE = { width: 560, height: 210 } as const;
 
 export const brand = {
   name: "Tr. Revathi Phonics",

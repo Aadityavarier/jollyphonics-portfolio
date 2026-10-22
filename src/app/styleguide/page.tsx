@@ -1,0 +1,235 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { Logo } from "@/components/layout/Logo";
+import { StickyContactBar } from "@/components/layout/StickyContactBar";
+import { PhonicsAccent } from "@/components/blocks/PhonicsAccent";
+import { CtaBand } from "@/components/blocks/CtaBand";
+import { ImageSlot } from "@/components/blocks/ImageSlot";
+import { ButtonLink } from "@/components/blocks/ButtonLink";
+import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
+import { CallLink } from "@/components/contact/CallLink";
+import { BranchList } from "@/components/contact/BranchList";
+import { messages } from "@/content/messages";
+
+export const metadata: Metadata = {
+  title: "Styleguide | Tr. Revathi Phonics",
+  robots: { index: false, follow: false },
+};
+
+function luminance(hex: string) {
+  const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const [r, g, b] = c.map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+function contrast(a: string, b: string) {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return ((hi + 0.05) / (lo + 0.05)).toFixed(1);
+}
+
+const COLOURS = [
+  { name: "paper", hex: "#ffffff", text: "#16204a", role: "Page ground" },
+  { name: "surface", hex: "#eef5f2", text: "#16204a", role: "Tone step: cards, tiles" },
+  { name: "ink", hex: "#16204a", text: "#ffffff", role: "Text, dark fields" },
+  { name: "muted", hex: "#4a5170", text: "#ffffff", role: "Secondary text" },
+  { name: "red", hex: "#e3001b", text: "#ffffff", role: "Brand field, display type" },
+  { name: "teal", hex: "#0e6e5d", text: "#ffffff", role: "Second field (logo frame)" },
+  { name: "action", hex: "#1db33a", text: "#16204a", role: "WhatsApp only" },
+  { name: "calm", hex: "#e9eef5", text: "#2f3a5c", role: "ARPAN section" },
+];
+const LETTERS = [
+  ["P", "#f80000"],
+  ["h", "#f87000"],
+  ["o", "#00b8e8"],
+  ["n", "#f80098"],
+  ["i", "#f8b000"],
+  ["c", "#10b800"],
+  ["s", "#1848a0"],
+];
+const TYPE = [
+  { token: "display", sample: "Confident readers", note: "Baloo 2 800 · 48–120px · leading 0.95" },
+  { token: "head", sample: "Is it right for my child?", note: "Baloo 2 800 · 36–72px · leading 1" },
+  { token: "lead", sample: "Ambernath East — Vadavali", note: "Baloo 2 800 or Mukta · 20–26px" },
+  { token: "body", sample: "Knowing letter names is different from knowing the sounds letters make.", note: "Mukta 400 · 17–19px · leading 1.55" },
+  { token: "small", sample: "Jolly Phonics and Jolly Grammar are trademarks of Jolly Learning Ltd.", note: "Mukta 400 · 14px" },
+];
+const TYPE_CLASS: Record<string, string> = {
+  display: "text-display font-display font-extrabold",
+  head: "text-head font-display font-extrabold",
+  lead: "text-lead",
+  body: "text-body",
+  small: "text-small",
+};
+const SPACE = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
+
+function Block({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+  return (
+    <section id={id} aria-labelledby={`${id}-h`} className="mx-auto max-w-[var(--content-max)] px-[var(--gutter)] py-14">
+      <h2 id={`${id}-h`} className="mb-8 text-head">
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+export default function StyleguidePage() {
+  return (
+    <main className="pb-[var(--sticky-bar-h)] md:pb-0">
+      <header className="mx-auto max-w-[var(--content-max)] px-[var(--gutter)] pt-10">
+        <Logo className="h-12 w-auto" preload />
+        <h1 className="mt-10 text-display">Styleguide</h1>
+        <p className="mt-4 max-w-[52ch] text-lead">
+          Tokens and shared components for the Tr. Revathi Phonics site. Not indexed, not in the navigation.
+        </p>
+      </header>
+
+      <Block id="colour" title="Colour">
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {COLOURS.map((c) => (
+            <li key={c.name} className="overflow-hidden rounded-[var(--radius-panel)] bg-surface">
+              <div className="grid aspect-[4/3] content-end p-4" style={{ background: c.hex, color: c.text }}>
+                <span className="font-display text-lead font-extrabold">Aa</span>
+              </div>
+              <div className="p-4 text-small">
+                <p className="font-bold">{c.name}</p>
+                <p>{c.hex}</p>
+                <p>{c.role}</p>
+                <p>
+                  Text {contrast(c.hex, c.text)}:1 · on paper {contrast(c.hex, "#ffffff")}:1
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <h3 className="mt-12 mb-4 text-lead">Letter colours (motif only)</h3>
+        <ul className="flex flex-wrap gap-3">
+          {LETTERS.map(([l, hex]) => (
+            <li key={l} className="text-small">
+              <span className="mb-2 grid size-16 place-items-center rounded-2xl font-display text-head font-extrabold text-paper" style={{ background: hex }}>
+                {l}
+              </span>
+              {hex}
+            </li>
+          ))}
+        </ul>
+      </Block>
+
+      <Block id="type" title="Type">
+        <p className="mb-8 max-w-[60ch]">
+          Baloo 2 for headings and Mukta for text, both by Ek Type, Mumbai, both with Devanagari. Five sizes only.
+        </p>
+        <ul className="grid gap-8">
+          {TYPE.map((t) => (
+            <li key={t.token} className="grid gap-2 md:grid-cols-[10rem_1fr] md:items-baseline">
+              <span className="text-small text-muted">
+                {t.token}
+                <br />
+                {t.note}
+              </span>
+              <span className={TYPE_CLASS[t.token]}>
+                {t.sample}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Block>
+
+      <Block id="space" title="Spacing and radius">
+        <ul className="grid gap-2">
+          {SPACE.map((s) => (
+            <li key={s} className="flex items-center gap-4 text-small">
+              <span className="w-12 text-muted">{s}px</span>
+              <span className="h-4 rounded-full bg-teal" style={{ width: s * 2 }} />
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 flex flex-wrap gap-6 text-small">
+          <div className="grid size-40 content-end rounded-[var(--radius-panel)] bg-surface p-4">Panel radius 28px</div>
+          <div className="grid h-14 place-items-center rounded-full bg-surface px-6">Buttons: fully round</div>
+        </div>
+        <p className="mt-6 max-w-[60ch] text-small text-muted">
+          Page margins 20–32px. Sections 72–160px apart. No borders or shadows on resting elements; surfaces differ by one tone step.
+        </p>
+      </Block>
+
+      <Block id="logo" title="Logo">
+        <div className="grid gap-6 md:grid-cols-2">
+          <figure className="grid gap-3">
+            <div className="grid place-items-center rounded-[var(--radius-panel)] bg-surface p-8">
+              <Image src="/images/logo/logo.svg" alt="Tr. Revathi Phonics logo, SVG redraw" width={560} height={210} unoptimized className="h-auto w-full max-w-[28rem]" />
+            </div>
+            <figcaption className="text-small">SVG redraw, text as outlines (in use; approval pending)</figcaption>
+          </figure>
+          <figure className="grid gap-3">
+            <div className="grid place-items-center rounded-[var(--radius-panel)] bg-surface p-8">
+              <Image src="/images/logo/logo-original.png" alt="Tr. Revathi Phonics logo, client's original" width={561} height={206} className="h-auto w-full max-w-[28rem]" />
+            </div>
+            <figcaption className="text-small">Client&apos;s original PNG (fallback: one line in src/content/brand.ts)</figcaption>
+          </figure>
+        </div>
+      </Block>
+
+      <Block id="motif" title="Sound tiles">
+        <p className="mb-8 max-w-[60ch]">
+          The logo&apos;s seven letter colours, used as phonics flash cards. Used sparingly: the <span className="whitespace-nowrap">c–a–t</span> blend, and the footer mark.
+        </p>
+        <div className="grid gap-8">
+          <PhonicsAccent text="c a t" start={5} className="text-display" />
+          <PhonicsAccent text="Phonics" className="text-head" />
+          <p className="text-head font-display font-extrabold">
+            <PhonicsAccent text="Phonics" variant="letters" />
+          </p>
+        </div>
+      </Block>
+
+      <Block id="buttons" title="Buttons">
+        <div className="flex flex-wrap items-center gap-4">
+          <WhatsAppLink message={messages.general} variant="primary" />
+          <CallLink variant="primary" />
+          <WhatsAppLink message={messages.general} variant="secondary">
+            WhatsApp this branch
+          </WhatsAppLink>
+          <CallLink variant="secondary" />
+          <ButtonLink href="/styleguide#buttons">See all programs</ButtonLink>
+          <WhatsAppLink message={messages.general} variant="inline">
+            Ask on WhatsApp
+          </WhatsAppLink>
+        </div>
+        <div className="on-dark mt-8 flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-ink p-8">
+          <WhatsAppLink message={messages.general} variant="primary" />
+          <CallLink variant="secondary" />
+        </div>
+        <div className="on-dark mt-3 flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-red p-8">
+          <WhatsAppLink message={messages.general} variant="primary" />
+          <CallLink variant="secondary" />
+        </div>
+      </Block>
+
+      <Block id="branches" title="Branches">
+        <BranchList headingLevel={3} />
+        <h3 className="mt-12 mb-4 text-lead">With tap-to-load map (contact page)</h3>
+        <BranchList headingLevel={3} withMap />
+      </Block>
+
+      <Block id="images" title="Image slots">
+        <p className="mb-8 max-w-[60ch]">Missing photos show this placeholder in development and nothing at all in production.</p>
+        <div className="grid gap-4 sm:grid-cols-[1fr_1.5fr]">
+          <ImageSlot id="H1" sizes="(min-width: 640px) 40vw, 100vw" className="rounded-[var(--radius-panel)]" />
+          <ImageSlot id="H7" sizes="(min-width: 640px) 60vw, 100vw" className="rounded-[var(--radius-panel)]" />
+        </div>
+      </Block>
+
+      <CtaBand
+        id="cta-demo"
+        title="Ask about a batch near you"
+        text="For admissions, batch timings, course details, teacher training and school workshops, please contact us."
+        message={messages.general}
+      />
+
+      <Block id="sticky" title="Sticky contact bar">
+        <p className="max-w-[60ch]">Phones only: fixed to the bottom of every page (visible below at 375px). Hidden from 768px up.</p>
+      </Block>
+      <StickyContactBar />
+    </main>
+  );
+}
