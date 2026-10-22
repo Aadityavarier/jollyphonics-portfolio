@@ -19,7 +19,7 @@ const SOCIAL = [
 ] as const;
 
 /** Keep each "•" on the line of the word before it, so a tagline never strands a bullet. */
-const keepBullets = (s: string) => s.replace(/ • /g, " • ");
+const keepBullets = (s: string) => s.replace(/ • /g, "\u00a0• ");
 
 /** Footer: full area-first branch names (not cards), links, contact, trademark line. */
 export function SiteFooter() {
