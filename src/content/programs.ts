@@ -8,6 +8,14 @@ export const programs = {
     whatItIs:
       "A systematic synthetic phonics approach that teaches the sounds of English so children can read and spell — understanding sound–letter relationships instead of memorising words.",
     learningPath: ["Hear", "Recognise", "Blend", "Read", "Spell", "Write"],
+    learningPathDetail: [
+      "Tuning the ear to all 42 letter sounds",
+      "Matching each sound to its letter",
+      "Blending sounds into words, orally and in print",
+      "Reading simple words, tricky words and digraphs",
+      "Segmenting and spelling with confidence",
+      "Writing and dictation to lock it in",
+    ],
     covers: [
       "42 letter sounds",
       "Letter-sound recognition",

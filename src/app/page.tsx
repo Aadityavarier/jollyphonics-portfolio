@@ -32,7 +32,11 @@ export default function HomePage() {
     <>
       <HomeHero />
       <WhyPhonics />
-      <LearningPathScene title={home.learningPath.title} steps={programs.phonics.learningPath} />
+      <LearningPathScene
+        title={home.learningPath.title}
+        steps={programs.phonics.learningPath}
+        detail={programs.phonics.learningPathDetail}
+      />
       <WhoIsItFor />
       <HomeBranches />
       <FounderIntro />

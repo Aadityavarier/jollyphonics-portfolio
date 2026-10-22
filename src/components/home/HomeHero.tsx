@@ -30,8 +30,8 @@ export function HomeHero() {
 
   return (
     <section id="hero" aria-labelledby="hero-title" className="bg-paper">
-      <div className="mx-auto grid max-w-[var(--content-max)] gap-5 px-[var(--gutter)] pt-4 pb-[var(--section-gap)] md:gap-x-16 md:gap-y-10 md:pt-10 lg:grid-cols-[1.15fr_1fr]">
-        <h1 id="hero-title" className="type-display text-ink lg:col-span-2 lg:max-w-[16ch]">
+      <div className="mx-auto grid max-w-[var(--content-max)] gap-5 px-[var(--gutter)] pt-4 pb-[var(--section-gap)] md:gap-x-16 md:gap-y-8 md:pt-8 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:pb-16">
+        <h1 id="hero-title" className="type-display text-ink lg:col-start-1 lg:row-start-1 lg:max-w-[16ch]">
           {words.map((w, i) => (
             <span key={i}>
               <span className="enter-word" style={{ "--w": i } as CSSProperties}>
@@ -41,7 +41,7 @@ export function HomeHero() {
             </span>
           ))}
         </h1>
-        <div className="grid content-start gap-5 md:gap-7">
+        <div className="grid content-start gap-5 md:gap-7 lg:col-start-1 lg:row-start-2">
           <p className="enter max-w-[34ch] text-lead" style={at(AT.subline)}>
             {home.hero.subline}
           </p>
@@ -79,12 +79,12 @@ export function HomeHero() {
           </p>
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:block">
           {portrait ? (
             <ImageSlot id="H1" sizes="(min-width: 1024px) 45vw, 100vw" preload className="rounded-[var(--radius-panel)]" />
           ) : (
             <div
-              className="enter relative isolate grid h-full min-h-[24rem] place-items-center overflow-hidden rounded-[var(--radius-panel)] p-10"
+              className="enter relative isolate grid h-full min-h-[18rem] place-items-center overflow-hidden rounded-[var(--radius-panel)] p-10"
               style={at(AT.panel)}
             >
               <span aria-hidden="true" className="grain absolute inset-0 -z-10 bg-red" />

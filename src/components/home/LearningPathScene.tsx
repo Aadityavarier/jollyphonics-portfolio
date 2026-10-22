@@ -9,6 +9,7 @@ import { prefersReducedMotion } from "@/components/motion/tokens";
 interface Props {
   title: string;
   steps: readonly string[];
+  detail?: readonly string[];
 }
 
 /**
@@ -18,7 +19,7 @@ interface Props {
  * line draws down beside the list. GSAP loads only when the section is a screen away, and never under
  * reduced motion. Without it, the list below is the complete content (all six steps, in order).
  */
-export function LearningPathScene({ title, steps }: Props) {
+export function LearningPathScene({ title, steps, detail }: Props) {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -45,8 +46,11 @@ export function LearningPathScene({ title, steps }: Props) {
 
         gsap.set(cards, { opacity: 0.35, scale: 0.92 });
         gsap.set(cards[0], { opacity: 1, scale: 1, y: -14 });
+        const details = gsap.utils.toArray<HTMLElement>(".path-detail", el);
         gsap.set(words, { yPercent: 100, opacity: 0 });
         gsap.set(words[0], { yPercent: 0, opacity: 1 });
+        gsap.set(details, { opacity: 0 });
+        gsap.set(details[0], { opacity: 1 });
         gsap.set(q(".path-progress"), { scaleX: 0 });
 
         const tl = gsap.timeline({
@@ -75,6 +79,8 @@ export function LearningPathScene({ title, steps }: Props) {
             // Out, then in: the two big words never overlap mid-scrub.
             .to(words[i - 1], { yPercent: -100, opacity: 0, duration: 0.45, ease: "power2.in" }, t)
             .to(words[i], { yPercent: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, t + 0.55)
+            .to(details[i - 1], { opacity: 0, duration: 0.3 }, t)
+            .to(details[i], { opacity: 1, duration: 0.4 }, t + 0.55)
             .to(q(".path-progress"), { scaleX: i / last, ease: "none" }, t)
             .addLabel(`s${i}`);
         }
@@ -110,7 +116,7 @@ export function LearningPathScene({ title, steps }: Props) {
   return (
     <section ref={root} id="learning-path" aria-labelledby="learning-path-title" className="bg-surface">
       <div className="path-pin lg:flex lg:min-h-svh lg:items-center">
-        <div className="mx-auto grid w-full max-w-[var(--content-max)] gap-10 px-[var(--gutter)] py-[var(--section-gap)] lg:gap-14 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[var(--content-max)] gap-6 px-[var(--gutter)] py-[var(--section-gap)] lg:gap-8 lg:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeading id="learning-path-title">{title}</SectionHeading>
             <p aria-hidden="true" className="path-count path-stage font-display text-lead font-bold text-muted tabular-nums">
@@ -118,12 +124,23 @@ export function LearningPathScene({ title, steps }: Props) {
             </p>
           </div>
 
-          <div aria-hidden="true" className="path-stage overflow-clip">
-            {steps.map((s) => (
-              <span key={s} className="path-word col-start-1 row-start-1 font-display text-[clamp(4rem,9vw,9rem)] leading-[1.05] font-extrabold tracking-[-0.02em]">
-                {s}
-              </span>
-            ))}
+          <div className="grid gap-2">
+            <div aria-hidden="true" className="path-stage overflow-clip">
+              {steps.map((s) => (
+                <span key={s} className="path-word col-start-1 row-start-1 font-display text-[clamp(3.25rem,7vw,6.5rem)] leading-[1.05] font-extrabold tracking-[-0.02em]">
+                  {s}
+                </span>
+              ))}
+            </div>
+            {detail && (
+              <div className="path-stage overflow-clip">
+                {detail.map((d, i) => (
+                  <p key={d} className="path-detail col-start-1 row-start-1 max-w-[36ch] text-lead text-muted" style={{ opacity: i === 0 ? 1 : 0 }}>
+                    {d}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="relative">

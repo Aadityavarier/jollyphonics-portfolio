@@ -41,7 +41,7 @@
   --text-lead--line-height: 1.35;
   --text-head: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
   --text-head--line-height: 1;
-  --text-display: clamp(3rem, 1.6rem + 6.4vw, 7.5rem);
+  --text-display: clamp(3rem, 1.6rem + 6.4vw, 5rem);
   --text-display--line-height: 0.95;
 
   /* One large radius for panels and cards; buttons are fully round. */
@@ -51,7 +51,7 @@
 
 :root {
   --gutter: clamp(1.25rem, 3vw, 2rem);
-  --section-gap: clamp(4.5rem, 10vw, 10rem);
+  --section-gap: clamp(4rem, 8vw, 7rem);
   --content-max: 80rem;
   --sticky-bar-h: 4.5rem;
   --focus: var(--color-ink);

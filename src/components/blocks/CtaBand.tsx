@@ -23,7 +23,7 @@ interface Props {
 export function CtaBand({ title, text, message, tone = "red", id = "cta", decor }: Props) {
   return (
     <Panel id={id} tone={tone} decor={decor}>
-      <div className="mx-auto grid max-w-[var(--content-max)] gap-10 px-[var(--gutter)] py-[var(--section-gap)] md:min-h-[60svh] md:content-between">
+      <div className="mx-auto grid max-w-[var(--content-max)] gap-10 px-[var(--gutter)] py-[var(--section-gap)]">
         <SectionHeading id={`${id}-title`} className="max-w-[16ch] text-paper">
           {title}
         </SectionHeading>
