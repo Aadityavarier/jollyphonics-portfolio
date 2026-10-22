@@ -19,12 +19,12 @@ Every page section exists to answer one of these, or to show credibility, and th
 **Decisions (from the conversation)**
 - **Branches.** All four branches are equal on the site. Each is named area first (how parents in Ambernath recognise locations), with a secondary line under the name:
 
-  | # | Name (headline) | Secondary line |
-  |---|---|---|
-  | 1 | Ambernath East — Om Dubey Dham | above Shobha Hospital |
-  | 2 | Ambernath West — Chinchpada | Navare Residency, next to Y-Cafe |
-  | 3 | Ambernath East — Vadavali | at Little Champs Playschool, Shivaji Nagar |
-  | 4 | Ambernath East — Nisarg Green | at Flying Bird Preschool, Phase 2E |
+  | # | Full name (footer, form, WhatsApp) | Card title inside East/West group | Secondary line |
+  |---|---|---|---|
+  | 1 | Ambernath East — Om Dubey Dham | Om Dubey Dham | — |
+  | 2 | Ambernath West — Chinchpada | Chinchpada | — |
+  | 3 | Ambernath East — Vadavali | Vadavali | at Little Champs Playschool |
+  | 4 | Ambernath East — Nisarg Green | Nisarg Green | at Flying Bird Preschool |
 
   Every branch card has the same layout and weight wherever it appears (Home, `/contact`, `/coaching`, footer): name, secondary line, full address, a "Get directions" Google Maps link, and a WhatsApp link that names the branch in the message. On `/contact`, each card also has a tap-to-load map. Cards are **grouped by side of town**: Ambernath East (1, 3, 4), then Ambernath West (2), so a parent can scan all four at a glance on a phone. Branches 3 and 4 are hosted at separate businesses; that difference exists only in structured data (C2).
 - **Photos.** None exist yet beyond the low-resolution logo. Photos are coming: class photos, trainer with students, certificates and candid moments. Until each one arrives, its slot (§4) shows a labelled placeholder.

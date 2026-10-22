@@ -28,7 +28,7 @@ export function PhonicsAccent({ text, variant = "tiles", start = 0, className = 
     return variant === "tiles" ? (
       <span
         key={k}
-        className="inline-grid size-[1.35em] place-items-center rounded-[0.24em] font-display font-extrabold leading-none"
+        className="inline-grid size-[1.35em] place-items-center rounded-[0.24em] font-display font-bold leading-none"
         style={{ background: tile.bg, color: tile.fg }}
       >
         <span className="translate-y-[0.06em]">{ch}</span>

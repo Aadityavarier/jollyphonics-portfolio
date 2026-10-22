@@ -77,7 +77,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 700; /* 800 is reserved for display (hero) type: .type-display */
     letter-spacing: -0.015em;
     text-wrap: balance;
   }
@@ -95,6 +95,16 @@
 
   .on-dark {
     --focus: #ffffff;
+  }
+}
+
+@layer utilities {
+  .type-display {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -140,6 +150,23 @@
   }
   .cta-secondary:hover {
     background: #dcebe5;
+  }
+  /* On red / teal panels: WhatsApp turns white (green-on-red/teal is too weak), Call turns ink. */
+  .on-dark .cta-whatsapp.cta-primary {
+    background: var(--color-paper);
+  }
+  .on-dark .cta-whatsapp.cta-primary svg {
+    color: #128c2b;
+  }
+  .on-dark .cta-whatsapp.cta-primary:hover {
+    background: var(--color-surface);
+  }
+  .on-dark .cta-call.cta-secondary {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .on-dark .cta-call.cta-secondary:hover {
+    background: #26326a;
   }
   .on-dark .cta-secondary {
     background: var(--color-paper);
@@ -212,6 +239,14 @@
     min-height: 2.75rem;
     padding-inline: 1rem;
     font-size: 1rem;
+  }
+  /* Phones: the WhatsApp action is a 44px icon button next to the directions icon. */
+  @media (width < 40rem) {
+    .branch-card .branch-whatsapp {
+      width: 2.75rem;
+      padding: 0;
+      gap: 0;
+    }
   }
   .branch-card .cta-secondary:hover {
     background: #ffffff;

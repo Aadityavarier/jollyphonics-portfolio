@@ -29,7 +29,7 @@
 - **Tagline:** Teach • Guide • Transform
 - **Sub-tagline:** Building Strong Foundations. Creating Confident Readers. Empowering Educators.
 - **Secondary line:** Follow • Learn • Grow With Us
-- **Logo colours (from current logo):** bold red wordmark "TR. REVATHI"; "Phonics" in multicolour letters (orange, blue, green, red, purple, cyan, blue) on white with a yellow-green rounded border.
+- **Logo colours (from current logo):** bold red wordmark "TR. REVATHI"; "Phonics" in multicolour letters (orange, blue, green, red, purple, cyan, blue) on white with a teal (#189880) rounded border.
 - **Programs strip:** Jolly Phonics | Jolly Grammar | English | Coaching Classes | Teacher Training | ECCEd | Montessori | Handwriting | Reading & Spoken English
 
 ### Key numbers (use exactly)
@@ -48,19 +48,17 @@
 - **Social:** Instagram / Facebook / YouTube — all named "Tr. Revathi Phonics & Coaching Classes" — URLs TODO
 
 ### Branches
-Visitor-facing names are area first (how parents in Ambernath recognise locations). The secondary line sits under the name; it is not the headline. All four are presented identically on the site.
+Visitor-facing names are area first (how parents in Ambernath recognise locations). Inside an "Ambernath East / West" group the card title is the locality alone; the full area-first name is used in the footer, the enquiry form and WhatsApp messages. Branches 3–4 carry a secondary line naming the host preschool. All four are presented identically on the site.
 
 1. **Ambernath East — Om Dubey Dham**
-   Secondary line: above Shobha Hospital
    302, Om Dubey Dham, Above Shobha Hospital, Ambernath East
 2. **Ambernath West — Chinchpada**
-   Secondary line: Navare Residency, next to Y-Cafe
    Ground floor, Navare Residency and Library, Next to Y-Cafe, Near Fire Brigade Office, Chinchpada, Ambernath West
 3. **Ambernath East — Vadavali**
-   Secondary line: at Little Champs Playschool, Shivaji Nagar
+   Secondary line: at Little Champs Playschool
    Shop No. 02, New Dhavalgiri Apartment, Shivaji Nagar, Vadavali Section, Ambernath East
 4. **Ambernath East — Nisarg Green**
-   Secondary line: at Flying Bird Preschool, Phase 2E
+   Secondary line: at Flying Bird Preschool
    Shop No. 9 & 10, Nisarg Green, Phase 2E, Sunflower Building No. 11, Ground Floor, Ambernath East
 
 Branches 1 & 2 are Tr. Revathi Phonics' own premises. Branches 3 & 4 are Tr. Revathi Phonics branches hosted at separate businesses (Little Champs Playschool, Flying Bird Preschool).

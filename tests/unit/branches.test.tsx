@@ -59,6 +59,37 @@ describe("BranchList parity", () => {
   });
 });
 
+describe("BranchList card text inside East/West groups", () => {
+  const partText = (part: string) =>
+    screen.getAllByTestId("branch-card").map((c) => c.querySelector(`[data-part="${part}"]`)!.textContent);
+
+  it("titles each card with its locality only", () => {
+    render(<BranchList />);
+    expect(partText("name")).toEqual(["Om Dubey Dham", "Vadavali", "Nisarg Green", "Chinchpada"]);
+  });
+
+  it("shows a host-preschool line for branches 3 and 4 only, and no landmark line", () => {
+    render(<BranchList />);
+    expect(partText("secondary")).toEqual(["", "at Little Champs Playschool", "at Flying Bird Preschool", ""]);
+  });
+
+  it("keeps action labels in the accessibility tree", () => {
+    render(<BranchList />);
+    const card = screen.getAllByTestId("branch-card")[1];
+    expect(within(card).getByRole("link", { name: /get directions/i })).toBeInTheDocument();
+    expect(within(card).getByRole("link", { name: /whatsapp/i })).toBeInTheDocument();
+  });
+});
+
+describe("standalone BranchCard", () => {
+  it("uses the full area-first name", () => {
+    render(<BranchCard branch={byId("chinchpada")} />);
+    expect(screen.getByTestId("branch-card").querySelector('[data-part="name"]')!.textContent).toBe(
+      "Ambernath West — Chinchpada",
+    );
+  });
+});
+
 describe("branch photos are all-or-nothing", () => {
   afterEach(() => {
     vi.resetModules();

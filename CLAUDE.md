@@ -28,7 +28,7 @@ Marketing website for **Tr. Revathi Phonics & Coaching Classes**, a phonics, Eng
 
 ## Design direction
 - Bright, warm and playful, but credible. It should feel like an expert educator's institute, not a toy store.
-- Derive the palette from the logo: bold red, plus the multicolour "Phonics" letters (orange, blue, green, purple, cyan) on white with a yellow-green accent. Use the multicolour treatment sparingly as an accent; base the UI on a calm, readable foundation.
+- Derive the palette from the logo: bold red, plus the multicolour "Phonics" letters (orange, blue, green, purple, cyan) on white with a teal (#189880) rounded frame. Use the multicolour treatment sparingly as an accent; base the UI on a calm, readable foundation.
 - Rounded, friendly display font for headings, highly readable body font.
 - Mobile-first: most parents arrive on phones. A sticky WhatsApp/Call bar on mobile.
 - No generic AI-template look: no gradient blobs, no glassmorphism cards, no emoji as icons.

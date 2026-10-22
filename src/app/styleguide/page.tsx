@@ -29,10 +29,10 @@ function contrast(a: string, b: string) {
 const COLOURS = [
   { name: "paper", hex: "#ffffff", text: "#16204a", role: "Page ground" },
   { name: "surface", hex: "#eef5f2", text: "#16204a", role: "Tone step: cards, tiles" },
-  { name: "ink", hex: "#16204a", text: "#ffffff", role: "Text, dark fields" },
+  { name: "ink", hex: "#16204a", text: "#ffffff", role: "Text; at most one band per page" },
   { name: "muted", hex: "#4a5170", text: "#ffffff", role: "Secondary text" },
-  { name: "red", hex: "#e3001b", text: "#ffffff", role: "Brand field, display type" },
-  { name: "teal", hex: "#0e6e5d", text: "#ffffff", role: "Second field (logo frame)" },
+  { name: "red", hex: "#e3001b", text: "#ffffff", role: "Large flat panels, CTA bands" },
+  { name: "teal", hex: "#0e6e5d", text: "#ffffff", role: "Large flat panels, CTA bands" },
   { name: "action", hex: "#1db33a", text: "#16204a", role: "WhatsApp only" },
   { name: "calm", hex: "#e9eef5", text: "#2f3a5c", role: "ARPAN section" },
 ];
@@ -46,16 +46,16 @@ const LETTERS = [
   ["s", "#1848a0"],
 ];
 const TYPE = [
-  { token: "display", sample: "Confident readers", note: "Baloo 2 800 · 48–120px · leading 0.95" },
-  { token: "head", sample: "Is it right for my child?", note: "Baloo 2 800 · 36–72px · leading 1" },
-  { token: "lead", sample: "Ambernath East — Vadavali", note: "Baloo 2 800 or Mukta · 20–26px" },
+  { token: "display", sample: "Confident readers", note: "Baloo 2 800 · 48–120px · hero only" },
+  { token: "head", sample: "Is it right for my child?", note: "Baloo 2 700 · 36–72px · section headings" },
+  { token: "lead", sample: "Vadavali", note: "Baloo 2 700 (card titles) or Mukta · 20–26px" },
   { token: "body", sample: "Knowing letter names is different from knowing the sounds letters make.", note: "Mukta 400 · 17–19px · leading 1.55" },
   { token: "small", sample: "Jolly Phonics and Jolly Grammar are trademarks of Jolly Learning Ltd.", note: "Mukta 400 · 14px" },
 ];
 const TYPE_CLASS: Record<string, string> = {
-  display: "text-display font-display font-extrabold",
-  head: "text-head font-display font-extrabold",
-  lead: "text-lead",
+  display: "type-display",
+  head: "text-head font-display font-bold",
+  lead: "text-lead font-display font-bold",
   body: "text-body",
   small: "text-small",
 };
@@ -77,7 +77,7 @@ export default function StyleguidePage() {
     <main className="pb-[var(--sticky-bar-h)] md:pb-0">
       <header className="mx-auto max-w-[var(--content-max)] px-[var(--gutter)] pt-10">
         <Logo className="h-12 w-auto" preload />
-        <h1 className="mt-10 text-display">Styleguide</h1>
+        <h1 className="type-display mt-10">Styleguide</h1>
         <p className="mt-4 max-w-[52ch] text-lead">
           Tokens and shared components for the Tr. Revathi Phonics site. Not indexed, not in the navigation.
         </p>
@@ -88,7 +88,7 @@ export default function StyleguidePage() {
           {COLOURS.map((c) => (
             <li key={c.name} className="overflow-hidden rounded-[var(--radius-panel)] bg-surface">
               <div className="grid aspect-[4/3] content-end p-4" style={{ background: c.hex, color: c.text }}>
-                <span className="font-display text-lead font-extrabold">Aa</span>
+                <span className="font-display text-lead font-bold">Aa</span>
               </div>
               <div className="p-4 text-small">
                 <p className="font-bold">{c.name}</p>
@@ -105,7 +105,7 @@ export default function StyleguidePage() {
         <ul className="flex flex-wrap gap-3">
           {LETTERS.map(([l, hex]) => (
             <li key={l} className="text-small">
-              <span className="mb-2 grid size-16 place-items-center rounded-2xl font-display text-head font-extrabold text-paper" style={{ background: hex }}>
+              <span className="mb-2 grid size-16 place-items-center rounded-2xl font-display text-head font-bold text-paper" style={{ background: hex }}>
                 {l}
               </span>
               {hex}
@@ -132,6 +132,31 @@ export default function StyleguidePage() {
             </li>
           ))}
         </ul>
+      </Block>
+
+      <Block id="balance" title="Colour balance">
+        <p className="mb-8 max-w-[60ch]">
+          Red and teal carry the large flat panels and the closing bands. Ink is for text, and for at most one band
+          on a page. The letter colours appear only as sound tiles.
+        </p>
+        <div className="grid gap-3 md:grid-cols-[2fr_1fr]">
+          <div className="on-dark grid min-h-64 content-end rounded-[var(--radius-panel)] bg-red p-8 text-paper">
+            <p className="text-head font-display font-bold">Red panel</p>
+            <p>Main brand field: statements, the closing band.</p>
+          </div>
+          <div className="on-dark grid min-h-64 content-end rounded-[var(--radius-panel)] bg-teal p-8 text-paper">
+            <p className="text-head font-display font-bold">Teal</p>
+            <p>Second field, alternating with red.</p>
+          </div>
+          <div className="grid min-h-40 content-end rounded-[var(--radius-panel)] bg-surface p-8">
+            <p className="text-lead font-display font-bold">Surface</p>
+            <p>Cards and tiles on paper.</p>
+          </div>
+          <div className="on-dark grid min-h-40 content-end rounded-[var(--radius-panel)] bg-ink p-8 text-paper">
+            <p className="text-lead font-display font-bold">Ink band</p>
+            <p>Once per page at most.</p>
+          </div>
+        </div>
       </Block>
 
       <Block id="space" title="Spacing and radius">
@@ -176,7 +201,7 @@ export default function StyleguidePage() {
         <div className="grid gap-8">
           <PhonicsAccent text="c a t" start={5} className="text-display" />
           <PhonicsAccent text="Phonics" className="text-head" />
-          <p className="text-head font-display font-extrabold">
+          <p className="text-head font-display font-bold">
             <PhonicsAccent text="Phonics" variant="letters" />
           </p>
         </div>
@@ -195,11 +220,12 @@ export default function StyleguidePage() {
             Ask on WhatsApp
           </WhatsAppLink>
         </div>
-        <div className="on-dark mt-8 flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-ink p-8">
+        <p className="mt-8 mb-3 text-small text-muted">On red and teal panels, WhatsApp turns white and Call turns ink.</p>
+        <div className="on-dark flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-red p-8">
           <WhatsAppLink message={messages.general} variant="primary" />
           <CallLink variant="secondary" />
         </div>
-        <div className="on-dark mt-3 flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-red p-8">
+        <div className="on-dark mt-3 flex flex-wrap items-center gap-4 rounded-[var(--radius-panel)] bg-teal p-8">
           <WhatsAppLink message={messages.general} variant="primary" />
           <CallLink variant="secondary" />
         </div>
@@ -219,6 +245,13 @@ export default function StyleguidePage() {
         </div>
       </Block>
 
+      <CtaBand
+        id="cta-demo-teal"
+        tone="teal"
+        title="Training for teachers who want to teach phonics"
+        text="Phonics teacher training, ECCEd and Montessori teacher training in Ambernath."
+        message={messages.teacherTraining}
+      />
       <CtaBand
         id="cta-demo"
         title="Ask about a batch near you"

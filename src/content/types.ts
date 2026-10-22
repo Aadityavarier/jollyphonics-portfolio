@@ -10,8 +10,10 @@ export interface Branch {
   side: Side;
   /** Area-first headline, e.g. "Ambernath East — Vadavali". */
   name: string;
-  /** Secondary line under the name. */
-  secondary: string;
+  /** Locality alone, used as the card title inside an East/West group. */
+  locality: string;
+  /** Host-preschool line, branches 3–4 only. */
+  secondary?: string;
   /** Full address, verbatim from content.md. */
   address: string;
   /** Structured-data type only (C2). Never used for visual presentation. */
