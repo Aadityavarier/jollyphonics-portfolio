@@ -38,12 +38,12 @@ interface HeadingProps {
   children: ReactNode;
 }
 
-/** Section heading: Baloo 2 700 at the head step. */
+/** Section heading: Baloo 2 700 at the head step. Rises out of its own box as it scrolls in (motion.css). */
 export function SectionHeading({ id, level = 2, className = "", children }: HeadingProps) {
   const H = `h${level}` as const;
   return (
-    <H id={id} className={`max-w-[20ch] text-head ${className}`.trim()}>
-      {children}
+    <H id={id} data-reveal="mask" className={`max-w-[20ch] text-head ${className}`.trim()}>
+      <span className="reveal-line">{children}</span>
     </H>
   );
 }

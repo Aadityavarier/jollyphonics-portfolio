@@ -2,7 +2,7 @@
  * The logo's "Phonics" letter colours, used as a motif: letters on sound tiles, like phonics flash cards.
  * Colours cycle in logo order (P h o n i c s); each tile's letter colour keeps large-text contrast.
  */
-const TILES = [
+export const PHONICS_TILES = [
   { bg: "var(--color-letter-p)", fg: "#ffffff" },
   { bg: "var(--color-letter-h)", fg: "var(--color-ink)" },
   { bg: "var(--color-letter-o)", fg: "var(--color-ink)" },
@@ -24,7 +24,7 @@ export function PhonicsAccent({ text, variant = "tiles", start = 0, className = 
   let i = start;
   const chars = Array.from(text).map((ch, k) => {
     if (ch.trim() === "") return <span key={k} className="inline-block w-[0.3em]" />;
-    const tile = TILES[i++ % TILES.length];
+    const tile = PHONICS_TILES[i++ % PHONICS_TILES.length];
     return variant === "tiles" ? (
       <span
         key={k}

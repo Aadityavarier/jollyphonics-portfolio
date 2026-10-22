@@ -25,7 +25,7 @@ export function StickyContactBar() {
   return (
     <nav
       aria-label="Contact"
-      className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.4fr_1fr] gap-2 bg-paper px-3 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_rgba(22,32,74,0.14)] transition-transform duration-300 ease-out motion-reduce:transition-none md:hidden ${heroCtaVisible ? "translate-y-full" : ""}`}
+      className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.4fr_1fr] gap-2 bg-paper px-3 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_rgba(22,32,74,0.14)] transition-transform ease-[var(--ease-out)] motion-reduce:transition-none md:hidden ${heroCtaVisible ? "translate-y-full duration-[160ms]" : "duration-[320ms]"}`}
       inert={heroCtaVisible || undefined}
     >
       <WhatsAppLink message={messages.general} variant="primary" className="w-full" />

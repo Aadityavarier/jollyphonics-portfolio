@@ -10,14 +10,18 @@ import { Logo } from "./Logo";
 import { NavLinks } from "./NavLinks";
 import { MobileNav } from "./MobileNav";
 
-/** Plain bar: logo, links, one action. Gallery joins the nav once it has photos (PLAN §5). */
+/**
+ * Sticky bar: logo, links, one action. Fixed height; once the page scrolls (MotionRoot sets
+ * [data-scrolled]) it gains a paper field + shadow and the logo shrinks, without moving the layout.
+ * Gallery joins the nav once it has photos (PLAN §5).
+ */
 export function SiteHeader() {
   const items = nav.filter((i) => i.key !== "gallery" || galleryHasPhotos());
 
   return (
-    <header className="relative z-30 bg-paper">
+    <header className="site-header sticky top-0 z-30 isolate">
       <div className="mx-auto flex max-w-[var(--content-max)] items-center justify-between gap-6 px-[var(--gutter)] py-3 lg:py-4">
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="header-logo shrink-0">
           <Logo className="h-11 w-auto lg:h-12" preload />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">

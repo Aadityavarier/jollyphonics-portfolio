@@ -22,7 +22,7 @@ export function BranchMap({ name, src }: Props) {
           className="aspect-[4/3] w-full rounded-[inherit] border-0"
         />
       ) : (
-        <button type="button" onClick={() => setShown(true)} className="branch-map-button cta cta-inline">
+        <button type="button" onClick={() => setShown(true)} className="branch-map-button cta cta-inline underline decoration-2 underline-offset-4">
           Show map
         </button>
       )}

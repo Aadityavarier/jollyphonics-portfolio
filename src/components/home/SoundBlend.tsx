@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { prefersReducedMotion } from "@/components/motion/tokens";
 
 const TILES = [
   { bg: "var(--color-letter-c)", fg: "var(--color-ink)" },
@@ -19,15 +20,38 @@ interface Props {
  */
 export function SoundBlend({ sounds, word }: Props) {
   const [blended, setBlended] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const touched = useRef(false);
   const spelled = sounds.join(" – ");
 
+  // Plays the blend once by itself the first time the card is well in view (never under reduced
+  // motion, and never after the visitor has used the button themselves).
+  useEffect(() => {
+    const el = root.current;
+    if (!el || prefersReducedMotion()) return;
+    let timer = 0;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        timer = window.setTimeout(() => !touched.current && setBlended(true), 450);
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <div className="grid gap-6">
+    <div ref={root} className="grid gap-6">
       <div className="flex items-center gap-[0.18em] text-[clamp(3.5rem,2.4rem+5vw,6rem)]" aria-hidden="true">
         {sounds.map((s, i) => (
           <span
             key={s}
-            className="inline-grid size-[1.2em] place-items-center rounded-[0.22em] font-display leading-none font-bold transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none"
+            className="inline-grid size-[1.2em] place-items-center rounded-[0.22em] font-display leading-none font-bold transition-transform duration-500 ease-[var(--ease-in-out)] motion-reduce:transition-none"
             style={{
               background: TILES[i % TILES.length].bg,
               color: TILES[i % TILES.length].fg,
@@ -43,7 +67,10 @@ export function SoundBlend({ sounds, word }: Props) {
       </p>
       <button
         type="button"
-        onClick={() => setBlended((b) => !b)}
+        onClick={() => {
+          touched.current = true;
+          setBlended((b) => !b);
+        }}
         aria-pressed={blended}
         className="cta cta-call cta-primary justify-self-start"
       >

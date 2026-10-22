@@ -5,6 +5,7 @@ import { programs } from "@/content/programs";
 import { Section, SectionHeading } from "@/components/layout/Section";
 import { ProgramCard } from "@/components/blocks/ProgramCard";
 import { Todo } from "@/components/blocks/Todo";
+import { Stagger } from "@/components/motion/Reveal";
 
 const ageAnswer = faq[0];
 
@@ -55,13 +56,13 @@ export function WhoIsItFor() {
             {ageAnswer.todo && <Todo value={ageAnswer.todo} />}
           </div>
         </div>
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger as="ul" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {LEARNERS.map((l) => (
             <li key={l.title}>
               <ProgramCard {...l} />
             </li>
           ))}
-        </ul>
+        </Stagger>
       </div>
     </Section>
   );

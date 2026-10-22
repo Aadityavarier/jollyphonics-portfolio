@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./motion.css";
 
 /*
  * Tr. Revathi Phonics — design tokens.
@@ -181,9 +182,6 @@
     font-family: var(--font-body);
     font-weight: 700;
     font-size: inherit;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.2em;
   }
   .cta-inline:active {
     transform: none;

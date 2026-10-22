@@ -25,7 +25,7 @@ export function WhatsAppLink({ message, variant = "primary", className = "", chi
       target="_blank"
       rel="noopener"
       data-variant={variant}
-      className={`cta cta-whatsapp cta-${variant} ${className}`.trim()}
+      className={`cta cta-whatsapp cta-${variant} ${variant === "inline" ? "link-u" : ""} ${className}`.replace(/\s+/g, " ").trim()}
     >
       {variant !== "inline" && <WhatsAppIcon />}
       <span>{children}</span>

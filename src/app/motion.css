@@ -1,0 +1,339 @@
+/*
+ * Motion layer. Tokens mirror src/components/motion/tokens.ts.
+ *
+ * Rules:
+ * - Without JavaScript, and before hydration, everything is visible: hidden "before" states only apply
+ *   once MotionRoot has set html[data-motion] and only to elements it has not marked [data-shown].
+ * - Every moving rule sits inside (prefers-reduced-motion: no-preference); reduced motion gets the
+ *   finished page with no movement.
+ * - transform and opacity only; the FAQ height (::details-content) is the single agreed exception.
+ */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-press: 140ms;
+  --dur-ui: 220ms;
+  --dur-reveal: 640ms;
+  --stagger: 60ms;
+}
+
+/* ---------- Scroll reveals (Reveal, Stagger, SectionHeading) ---------- */
+
+/* Heading mask: the line rises out of its own box. The padding/negative margin pair widens the clip
+   so Baloo's ascenders and descenders are never cut at rest, without changing layout. */
+[data-reveal="mask"] {
+  overflow: clip;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+[data-reveal="mask"] > .reveal-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Transitions live on the shown state only: entering the hidden state (when MotionRoot arms the page)
+     is instant and costs one style pass, and only the reveal itself animates. */
+  [data-reveal="rise"][data-shown],
+  [data-reveal="fade"][data-shown],
+  [data-reveal="mask"][data-shown] > .reveal-line,
+  [data-reveal="panel"][data-shown],
+  [data-stagger][data-shown] > * {
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+  }
+  [data-reveal="panel"][data-shown] {
+    transition-duration: 900ms;
+  }
+  [data-stagger][data-shown] > * {
+    transition-delay: calc(var(--i, 0) * var(--stagger));
+  }
+  /* Index in CSS (not set from JS) so nothing touches server HTML before it hydrates. */
+  [data-stagger] > :nth-child(2) {
+    --i: 1;
+  }
+  [data-stagger] > :nth-child(3) {
+    --i: 2;
+  }
+  [data-stagger] > :nth-child(4) {
+    --i: 3;
+  }
+  [data-stagger] > :nth-child(5) {
+    --i: 4;
+  }
+  [data-stagger] > :nth-child(6) {
+    --i: 5;
+  }
+  [data-stagger] > :nth-child(7) {
+    --i: 6;
+  }
+  [data-stagger] > :nth-child(8) {
+    --i: 7;
+  }
+  [data-stagger] > :nth-child(9) {
+    --i: 8;
+  }
+  [data-stagger] > :nth-child(10) {
+    --i: 9;
+  }
+  [data-stagger] > :nth-child(11) {
+    --i: 10;
+  }
+  [data-stagger] > :nth-child(12) {
+    --i: 11;
+  }
+
+  html[data-motion] [data-reveal="rise"]:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  html[data-motion] [data-reveal="fade"]:not([data-shown]) {
+    opacity: 0;
+  }
+  html[data-motion] [data-reveal="mask"]:not([data-shown]) > .reveal-line {
+    transform: translateY(105%);
+  }
+  /* Colour panels open from a slightly inset field to full bleed (transform only, always opaque).
+     Tablet and up only: on a phone the inset is a few pixels, and promoting a full-height grained layer
+     cost a ~100ms raster frame mid-scroll at 4x CPU. */
+  @media (min-width: 768px) {
+    html[data-motion] [data-reveal="panel"]:not([data-shown]) {
+      transform: scale(0.94);
+    }
+  }
+  html[data-motion] [data-stagger]:not([data-shown]) > * {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  html[data-motion] [data-stagger="side"]:not([data-shown]) > * {
+    transform: translateX(-1.5rem);
+  }
+}
+
+/* ---------- Page-load entrance (hero). Pure CSS so it starts at first paint, not at hydration. ---------- */
+
+.enter-word {
+  display: inline-block;
+  overflow: clip;
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+  vertical-align: top;
+}
+.enter-word > span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Words start part-way up their mask, never fully hidden: the h1 is the LCP element, and text that is
+     painted on the first frame keeps LCP at first paint instead of after the reveal. */
+  .enter-word > span {
+    animation: word-rise var(--dur-reveal) var(--ease-out) both;
+    animation-delay: calc(var(--w, 0) * var(--stagger));
+  }
+  .enter {
+    animation: fade-up var(--dur-reveal) var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .enter-digit > span {
+    animation: rise-in 520ms var(--ease-out) both;
+    animation-delay: calc(var(--d, 0ms) + var(--w, 0) * 70ms);
+  }
+}
+.enter-digit {
+  display: inline-block;
+  overflow: clip;
+}
+.enter-digit > span {
+  display: inline-block;
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(40%);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+/* ---------- Sound tiles (hero) ----------
+   Two elements per tile, using individual transform properties so nothing fights:
+   .tile        transform (pointer lean, JS spring) + translate/scale (tap hop, WAAPI)
+   .tile-face   rotate (static tilt) + translate (bob)
+   Keyframes hold constants only: a var() inside keyframes makes Chrome re-resolve style every frame. */
+
+.tile {
+  display: inline-grid;
+}
+.tile-face {
+  display: inline-grid;
+  rotate: var(--r, 0deg);
+}
+/* A few bobs after the entrance, then rest: under 5s of auto-motion per tile (WCAG 2.2.2), and no
+   endless per-frame main-thread work. Starts and ends at rest, so nothing jumps. */
+@media (prefers-reduced-motion: no-preference) {
+  .tile-face {
+    animation: bob var(--bob, 1.5s) ease-in-out var(--bob-delay, 1s) 3;
+  }
+}
+@keyframes bob {
+  50% {
+    translate: 0 -0.09em;
+  }
+}
+
+/* ---------- Parallax: decorative only, desktop only, scroll-driven on the compositor. ---------- */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    [data-parallax] {
+      animation: parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+@keyframes parallax {
+  from {
+    transform: translateY(calc(var(--speed, 0.15) * -10rem)) rotate(var(--r, 0deg));
+  }
+  to {
+    transform: translateY(calc(var(--speed, 0.15) * 10rem)) rotate(var(--r, 0deg));
+  }
+}
+
+/* ---------- Texture: fine grain on the big colour fields so they are not flat fills.
+   Apply .grain to a dedicated absolutely-positioned background layer (see Panel), never to content. ---------- */
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.1 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.22;
+}
+
+/* ---------- Micro-interactions ---------- */
+
+/* Cards lift under a mouse; touch keeps them still. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition: transform var(--dur-ui) var(--ease-out);
+  }
+  .lift:hover {
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* Links: the underline is always there (touch affordance); under a mouse it redraws left to right. */
+.link-u {
+  position: relative;
+  font-weight: 700;
+  text-decoration: none;
+}
+.link-u::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.15em;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: left;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .link-u:hover::after {
+    animation: underline-redraw 520ms var(--ease-in-out);
+  }
+}
+@keyframes underline-redraw {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  45% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  46% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.magnetic {
+  display: inline-flex;
+}
+
+/* ---------- Header: fixed height; on scroll it gains a paper field + shadow and the logo shrinks. ---------- */
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-paper);
+  box-shadow: 0 6px 24px rgba(22, 32, 74, 0.1);
+  opacity: 0;
+  transition: opacity var(--dur-ui) var(--ease-out);
+}
+.site-header[data-scrolled]::before {
+  opacity: 1;
+}
+.site-header .header-logo {
+  transform-origin: left center;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+.site-header[data-scrolled] .header-logo {
+  transform: scale(0.86);
+}
+
+/* ---------- FAQ: the agreed height exception (native ::details-content, one element, 220ms). ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .faq {
+    interpolate-size: allow-keywords;
+  }
+  .faq::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size var(--dur-ui) var(--ease-out),
+      content-visibility var(--dur-ui) allow-discrete;
+  }
+  .faq[open]::details-content {
+    block-size: auto;
+  }
+  .faq[open] .faq-answer {
+    animation: faq-in var(--dur-ui) var(--ease-out) both;
+  }
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ---------- Learning path (GSAP-enhanced; these are the no-JS / reduced-motion styles). ---------- */
+
+.path-stage {
+  display: none;
+}
+[data-enhanced] .path-stage {
+  display: grid;
+}

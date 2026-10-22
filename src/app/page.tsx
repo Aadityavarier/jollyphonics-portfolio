@@ -7,6 +7,9 @@ import { FaqAccordion } from "@/components/blocks/FaqAccordion";
 import { CtaBand } from "@/components/blocks/CtaBand";
 import { HomeHero } from "@/components/home/HomeHero";
 import { WhyPhonics } from "@/components/home/WhyPhonics";
+import { LearningPathScene } from "@/components/home/LearningPathScene";
+import { home } from "@/content/home";
+import { programs } from "@/content/programs";
 import { WhoIsItFor } from "@/components/home/WhoIsItFor";
 import { HomeBranches } from "@/components/home/HomeBranches";
 import { FounderIntro } from "@/components/home/FounderIntro";
@@ -29,6 +32,7 @@ export default function HomePage() {
     <>
       <HomeHero />
       <WhyPhonics />
+      <LearningPathScene title={home.learningPath.title} steps={programs.phonics.learningPath} />
       <WhoIsItFor />
       <HomeBranches />
       <FounderIntro />
@@ -48,6 +52,7 @@ export default function HomePage() {
         text={contact.line}
         message={messages.general}
         tone="red"
+        decor="edge"
       />
     </>
   );

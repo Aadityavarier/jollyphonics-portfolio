@@ -7,6 +7,7 @@ import { seo } from "@/content/seo";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { StickyContactBar } from "@/components/layout/StickyContactBar";
+import { MotionRoot } from "@/components/motion/MotionRoot";
 
 // Both from Ek Type (Mumbai): rounded display + highly readable text face, each with Devanagari support.
 const baloo = Baloo_2({
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <StickyContactBar />
+        <MotionRoot />
       </body>
     </html>
   );

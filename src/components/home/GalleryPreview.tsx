@@ -18,7 +18,7 @@ export function GalleryPreview() {
             </li>
           ))}
         </ul>
-        <Link href="/gallery" className="font-bold underline decoration-2 underline-offset-4">
+        <Link href="/gallery" className="link-u">
           See the gallery
         </Link>
       </div>
