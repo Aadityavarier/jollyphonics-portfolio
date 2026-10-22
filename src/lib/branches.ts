@@ -1,4 +1,10 @@
 import type { Branch, Side } from "@/content/types";
+import { branchPhotoSlot, imageSlots } from "@/content/images";
+
+/** Branch photos show only when all four exist, so the four cards stay identical. */
+export function branchPhotosReady(): boolean {
+  return Object.values(branchPhotoSlot).every((id) => Boolean(imageSlots[id].photo));
+}
 
 export type SideLabel = "Ambernath East" | "Ambernath West";
 

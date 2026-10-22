@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { branches } from "@/content/branches";
 import { directionsUrl, groupBranchesBySide, mapEmbedUrl } from "@/lib/branches";
@@ -56,6 +56,43 @@ describe("BranchList parity", () => {
     render(<BranchList headingLevel={2} />);
     expect(screen.getByRole("heading", { level: 2, name: "Ambernath East" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Ambernath West" })).toBeInTheDocument();
+  });
+});
+
+describe("branch photos are all-or-nothing", () => {
+  afterEach(() => {
+    vi.resetModules();
+    vi.doUnmock("@/content/images");
+    vi.unstubAllEnvs();
+  });
+
+  async function renderWithPhotos(ids: string[]) {
+    vi.stubEnv("NODE_ENV", "development");
+    const real = await vi.importActual<typeof import("@/content/images")>("@/content/images");
+    const slots = { ...real.imageSlots };
+    for (const id of ids) {
+      const key = id as keyof typeof slots;
+      slots[key] = { ...slots[key], photo: { src: `/images/contact/${id}.jpg`, alt: `Entrance ${id}` } };
+    }
+    vi.doMock("@/content/images", () => ({ ...real, imageSlots: slots }));
+    const { BranchList: List } = await import("@/components/contact/BranchList");
+    render(<List />);
+    return screen.getAllByTestId("branch-card");
+  }
+
+  it("shows no photo or placeholder on any card when only some branch photos exist", async () => {
+    const cards = await renderWithPhotos(["B1", "B2", "B3"]);
+    for (const card of cards) {
+      expect(card.querySelector("img")).toBeNull();
+      expect(card.querySelector("[data-placeholder]")).toBeNull();
+    }
+  });
+
+  it("shows a photo on every card once all four exist, keeping cards identical", async () => {
+    const cards = await renderWithPhotos(["B1", "B2", "B3", "B4"]);
+    for (const card of cards) expect(card.querySelectorAll("img")).toHaveLength(1);
+    const [first, ...rest] = cards.map(cardShape);
+    for (const shape of rest) expect(shape).toEqual(first);
   });
 });
 

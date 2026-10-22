@@ -1,6 +1,8 @@
 import type { Branch } from "@/content/types";
 import { branchMessage } from "@/lib/contact";
-import { directionsUrl, mapEmbedUrl } from "@/lib/branches";
+import { branchPhotosReady, directionsUrl, mapEmbedUrl } from "@/lib/branches";
+import { branchPhotoSlot } from "@/content/images";
+import { ImageSlot } from "@/components/blocks/ImageSlot";
 import { WhatsAppLink } from "./WhatsAppLink";
 import { BranchMap } from "./BranchMap";
 
@@ -16,6 +18,11 @@ export function BranchCard({ branch, withMap = false, headingLevel = 3 }: Props)
 
   return (
     <article data-testid="branch-card" className="branch-card">
+      {branchPhotosReady() && (
+        <div data-part="photo" className="branch-card-photo">
+          <ImageSlot id={branchPhotoSlot[branch.id]} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+        </div>
+      )}
       <Heading data-part="name" className="branch-card-name">
         {branch.name}
       </Heading>
