@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Logo } from "@/components/layout/Logo";
-import { StickyContactBar } from "@/components/layout/StickyContactBar";
 import { PhonicsAccent } from "@/components/blocks/PhonicsAccent";
 import { CtaBand } from "@/components/blocks/CtaBand";
 import { ImageSlot } from "@/components/blocks/ImageSlot";
@@ -74,9 +72,8 @@ function Block({ id, title, children }: { id: string; title: string; children: R
 
 export default function StyleguidePage() {
   return (
-    <main className="pb-[var(--sticky-bar-h)] md:pb-0">
+    <>
       <header className="mx-auto max-w-[var(--content-max)] px-[var(--gutter)] pt-10">
-        <Logo className="h-12 w-auto" preload />
         <h1 className="type-display mt-10">Styleguide</h1>
         <p className="mt-4 max-w-[52ch] text-lead">
           Tokens and shared components for the Tr. Revathi Phonics site. Not indexed, not in the navigation.
@@ -262,7 +259,6 @@ export default function StyleguidePage() {
       <Block id="sticky" title="Sticky contact bar">
         <p className="max-w-[60ch]">Phones only: fixed to the bottom of every page (visible below at 375px). Hidden from 768px up.</p>
       </Block>
-      <StickyContactBar />
-    </main>
+    </>
   );
 }
