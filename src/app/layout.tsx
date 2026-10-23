@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${baloo.variable} ${mukta.variable}`}>
+    <html lang="en" className={`${baloo.variable} ${mukta.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col pb-[calc(var(--sticky-bar-h)+env(safe-area-inset-bottom))] md:pb-0">
         <a
           href="#main"

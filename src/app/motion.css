@@ -2,8 +2,9 @@
  * Motion layer. Tokens mirror src/components/motion/tokens.ts.
  *
  * Rules:
- * - Without JavaScript, and before hydration, everything is visible: hidden "before" states only apply
- *   once MotionRoot has set html[data-motion] and only to elements it has not marked [data-shown].
+ * - Without JavaScript, and before hydration, everything is visible: a node is hidden only after it has
+ *   hydrated, found itself below the fold and set [data-armed] on itself (reveal-engine.ts). [data-shown]
+ *   reveals it; [data-done] (1.5s after) and print force the finished state.
  * - Every moving rule sits inside (prefers-reduced-motion: no-preference); reduced motion gets the
  *   finished page with no movement.
  * - transform and opacity only; the FAQ height (::details-content) is the single agreed exception.
@@ -83,30 +84,48 @@
     --i: 11;
   }
 
-  html[data-motion] [data-reveal="rise"]:not([data-shown]) {
+  [data-armed][data-reveal="rise"]:not([data-shown]) {
     opacity: 0;
     transform: translateY(1.25rem);
   }
-  html[data-motion] [data-reveal="fade"]:not([data-shown]) {
+  [data-armed][data-reveal="fade"]:not([data-shown]) {
     opacity: 0;
   }
-  html[data-motion] [data-reveal="mask"]:not([data-shown]) > .reveal-line {
+  [data-armed][data-reveal="mask"]:not([data-shown]) > .reveal-line {
     transform: translateY(105%);
   }
   /* Colour panels open from a slightly inset field to full bleed (transform only, always opaque).
      Tablet and up only: on a phone the inset is a few pixels, and promoting a full-height grained layer
      cost a ~100ms raster frame mid-scroll at 4x CPU. */
   @media (min-width: 768px) {
-    html[data-motion] [data-reveal="panel"]:not([data-shown]) {
+    [data-armed][data-reveal="panel"]:not([data-shown]) {
       transform: scale(0.94);
     }
   }
-  html[data-motion] [data-stagger]:not([data-shown]) > * {
+  [data-armed][data-stagger]:not([data-shown]) > * {
     opacity: 0;
     transform: translateY(1rem);
   }
-  html[data-motion] [data-stagger="side"]:not([data-shown]) > * {
+  [data-armed][data-stagger="side"]:not([data-shown]) > * {
     transform: translateX(-1.5rem);
+  }
+}
+
+/* Failsafes: never leave a reveal node hidden or mid-transition. */
+[data-reveal][data-done],
+[data-reveal][data-done] > .reveal-line,
+[data-stagger][data-done] > * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+@media print {
+  [data-reveal],
+  [data-reveal] > .reveal-line,
+  [data-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 

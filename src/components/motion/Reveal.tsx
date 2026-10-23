@@ -1,4 +1,5 @@
 import type { ElementType, ReactNode } from "react";
+import { RevealTarget } from "./RevealTarget";
 
 export type RevealVariant = "rise" | "fade" | "mask" | "panel";
 
@@ -11,14 +12,15 @@ interface RevealProps {
 }
 
 /**
- * Reveals once on scroll (MotionRoot observes it). Server component: it only writes data attributes.
- * "mask" expects a single line wrapper; use SectionHeading or <MaskText> for headings.
+ * Reveals once on scroll. Server markup is complete and visible; the hidden state is applied by the
+ * hydrated leaf (RevealTarget) only when the node is below the fold.
+ * "mask" expects a single line wrapper; use SectionHeading for headings.
  */
-export function Reveal({ as: Tag = "div", variant = "rise", className, id, children }: RevealProps) {
+export function Reveal({ as, variant = "rise", className, id, children }: RevealProps) {
   return (
-    <Tag data-reveal={variant} className={className} id={id}>
+    <RevealTarget as={as} attr="data-reveal" value={variant} className={className} id={id}>
       {variant === "mask" ? <span className="reveal-line">{children}</span> : children}
-    </Tag>
+    </RevealTarget>
   );
 }
 
@@ -31,10 +33,10 @@ interface StaggerProps {
 }
 
 /** Direct children enter one after another, 60ms apart (--stagger). */
-export function Stagger({ as: Tag = "div", direction = "rise", className, children }: StaggerProps) {
+export function Stagger({ as, direction = "rise", className, children }: StaggerProps) {
   return (
-    <Tag data-stagger={direction === "side" ? "side" : ""} className={className}>
+    <RevealTarget as={as} attr="data-stagger" value={direction === "side" ? "side" : ""} className={className}>
       {children}
-    </Tag>
+    </RevealTarget>
   );
 }

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { RevealTarget } from "@/components/motion/RevealTarget";
 import { DecorTiles, type DecorLayout } from "@/components/blocks/DecorTiles";
 
 export type PanelTone = "red" | "teal" | "ink";
@@ -26,7 +27,7 @@ interface Props {
 export function Panel({ id, tone, labelledBy, decor, className = "", children }: Props) {
   return (
     <section id={id} aria-labelledby={labelledBy ?? `${id}-title`} className={`on-dark relative isolate overflow-clip text-paper ${className}`.trim()}>
-      <span aria-hidden="true" data-reveal="panel" className={`grain absolute inset-0 -z-10 ${TONE[tone]}`} />
+      <RevealTarget as="span" attr="data-reveal" value="panel" aria-hidden className={`grain absolute inset-0 -z-10 ${TONE[tone]}`} />
       {decor && <DecorTiles layout={decor} />}
       {children}
     </section>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { RevealTarget } from "@/components/motion/RevealTarget";
 
 export type SectionTone = "paper" | "surface" | "red" | "teal" | "ink";
 
@@ -40,10 +41,9 @@ interface HeadingProps {
 
 /** Section heading: Baloo 2 700 at the head step. Rises out of its own box as it scrolls in (motion.css). */
 export function SectionHeading({ id, level = 2, className = "", children }: HeadingProps) {
-  const H = `h${level}` as const;
   return (
-    <H id={id} data-reveal="mask" className={`max-w-[20ch] text-head ${className}`.trim()}>
+    <RevealTarget as={`h${level}`} attr="data-reveal" value="mask" id={id} className={`max-w-[20ch] text-head ${className}`.trim()}>
       <span className="reveal-line">{children}</span>
-    </H>
+    </RevealTarget>
   );
 }
