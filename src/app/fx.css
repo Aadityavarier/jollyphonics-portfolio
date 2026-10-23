@@ -1049,12 +1049,15 @@
   scroll-snap-type: x proximity;
   scrollbar-width: none;
 }
+/* Each card hugs its text: colour bar, then the words, no empty band. */
+.frames {
+  align-items: flex-start;
+}
 .frame {
   display: grid;
   flex: 0 0 min(14rem, 62vw);
-  align-content: space-between;
-  gap: 2.25rem;
-  min-height: 9.5rem;
+  align-content: start;
+  gap: 0.75rem;
   padding: 1rem;
   border-radius: 1rem;
   background: var(--color-paper);
@@ -1070,6 +1073,7 @@
 @media (min-width: 1024px) {
   .frames {
     flex-wrap: wrap;
+    align-items: stretch;
     overflow: visible;
   }
   .frame {
