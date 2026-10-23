@@ -18,6 +18,7 @@ export default function TeacherTrainingPage() {
       <PageHero
         title="Teacher Training"
         fx="wipe"
+        art="teach"
         intro="Training for teachers and aspiring teachers."
         trail={[{ name: "Home", path: "/" }, { name: "Teacher Training", path: "/teacher-training" }]}
       >

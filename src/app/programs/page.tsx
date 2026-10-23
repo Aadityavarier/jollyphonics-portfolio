@@ -41,6 +41,7 @@ export default function ProgramsPage() {
       <TileProgress />
       <PageHero
         title="Programs"
+        art="read"
         fx="soundout"
         intro="Jolly Phonics, Jolly Grammar, English, handwriting and seasonal special classes."
         trail={[{ name: "Home", path: "/" }, { name: "Programs", path: "/programs" }]}

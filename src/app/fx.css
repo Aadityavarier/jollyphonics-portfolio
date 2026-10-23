@@ -1472,3 +1472,64 @@ body:has(.enq :focus-within) .sticky-bar {
     transform: translateY(-1.4em) scale(0.8);
   }
 }
+
+/* ============ PageHero tile art (pages with no photo yet) ============ */
+.hero-art {
+  position: relative;
+  isolation: isolate;
+  align-self: stretch;
+  place-items: center;
+  min-height: 15rem;
+  overflow: clip;
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}
+.hero-art-ghost {
+  position: absolute;
+  z-index: -1;
+  border-radius: 1.5rem;
+  opacity: 0.16;
+}
+.hero-art-ghost-a {
+  top: -2rem;
+  right: -1.5rem;
+  width: 9rem;
+  height: 9rem;
+  rotate: 14deg;
+  background: var(--color-letter-p);
+}
+.hero-art-ghost-b {
+  bottom: -2.5rem;
+  left: -1rem;
+  width: 7rem;
+  height: 7rem;
+  rotate: -10deg;
+  background: var(--color-letter-c);
+}
+.hero-art-word {
+  display: flex;
+  gap: 0.18em;
+  font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+}
+.hero-art-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 1.2em;
+  aspect-ratio: 1;
+  border-radius: 0.22em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  rotate: var(--r);
+  translate: 0 var(--lift);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art-tile {
+    animation: art-drop 560ms var(--ease-spring) calc(var(--i) * 60ms + 150ms) backwards;
+  }
+}
+@keyframes art-drop {
+  from {
+    transform: translateY(-0.6em) rotate(-14deg);
+  }
+}

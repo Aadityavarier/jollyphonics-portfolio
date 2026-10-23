@@ -22,6 +22,7 @@ export default function ContactPage() {
       <PageHero
         title={contact.status}
         fx="lightup"
+        art="ask"
         intro={contact.line}
         trail={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]}
       >

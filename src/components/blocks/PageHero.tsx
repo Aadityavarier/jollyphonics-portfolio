@@ -3,19 +3,22 @@ import type { SlotId } from "@/content/images";
 import { Breadcrumbs, type Crumb } from "@/components/layout/Breadcrumbs";
 import { FxHeading, type Fx } from "@/components/motion/FxHeading";
 import { ImageSlot } from "./ImageSlot";
+import { HeroTileArt } from "./HeroTileArt";
 
 interface Props {
   title: string;
   intro?: string;
   trail: Crumb[];
   slot?: SlotId;
+  /** A word shown as sound tiles in the right column when there is no photo slot (a photo always wins). */
+  art?: string;
   /** The page's heading treatment, played at first paint on the h1. */
   fx?: Fx;
   children?: ReactNode;
 }
 
 /** Inner-page hero: breadcrumbs, the page's one h1, a short intro, optional photo slot and actions. */
-export function PageHero({ title, intro, trail, slot, fx, children }: Props) {
+export function PageHero({ title, intro, trail, slot, art, fx, children }: Props) {
   return (
     <div className="mx-auto grid max-w-[var(--content-max)] gap-10 px-[var(--gutter)] pt-6 pb-[var(--section-gap)] md:grid-cols-[1.2fr_1fr] md:items-end">
       <div className="grid content-start gap-6">
@@ -30,6 +33,7 @@ export function PageHero({ title, intro, trail, slot, fx, children }: Props) {
         {intro && <p className="max-w-[44ch] text-lead">{intro}</p>}
         {children}
       </div>
+      {!slot && art && <HeroTileArt word={art} />}
       {slot && <ImageSlot id={slot} sizes="(min-width: 768px) 45vw, 100vw" preload className="rounded-[var(--radius-panel)]" />}
     </div>
   );
