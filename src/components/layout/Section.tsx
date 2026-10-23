@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { RevealTarget } from "@/components/motion/RevealTarget";
+import { FxHeading, type Fx } from "@/components/motion/FxHeading";
 
 export type SectionTone = "paper" | "surface" | "red" | "teal" | "ink";
 
@@ -36,11 +37,20 @@ interface HeadingProps {
   id: string;
   level?: 2 | 3;
   className?: string;
+  /** A page's heading treatment (see FxHeading). Omit for the default mask rise. Needs plain-text children. */
+  fx?: Fx;
   children: ReactNode;
 }
 
 /** Section heading: Baloo 2 700 at the head step. Rises out of its own box as it scrolls in (motion.css). */
-export function SectionHeading({ id, level = 2, className = "", children }: HeadingProps) {
+export function SectionHeading({ id, level = 2, className = "", fx, children }: HeadingProps) {
+  if (fx && typeof children === "string") {
+    return (
+      <FxHeading as={`h${level}` as "h2" | "h3"} fx={fx} id={id} className={`max-w-[20ch] text-head ${className}`.trim()}>
+        {children}
+      </FxHeading>
+    );
+  }
   return (
     <RevealTarget as={`h${level}`} attr="data-reveal" value="mask" id={id} className={`max-w-[20ch] text-head ${className}`.trim()}>
       <span className="reveal-line">{children}</span>

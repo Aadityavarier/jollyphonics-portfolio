@@ -8,6 +8,7 @@ const WATCHDOG_MS = 1500;
 const LIMIT = 0.9;
 
 const pending = new Set<Element>();
+const callbacks = new WeakMap<Element, () => void>();
 let io: IntersectionObserver | null = null;
 let listening = false;
 let raf = 0;
@@ -21,6 +22,7 @@ function show(el: Element) {
   io?.unobserve(el);
   el.setAttribute("data-shown", "");
   window.setTimeout(() => el.setAttribute("data-done", ""), WATCHDOG_MS);
+  callbacks.get(el)?.();
   if (pending.size === 0) stopListening();
 }
 
@@ -64,14 +66,23 @@ function stopListening() {
   raf = 0;
 }
 
+interface ArmOptions {
+  /** false: observe and mark data-shown without ever hiding the node (data-armed is not set). */
+  hide?: boolean;
+  /** Runs when the node is shown, including at once when it is already in view or reduced motion is on. */
+  onShow?: () => void;
+}
+
 /** Arms `el`; returns a cleanup. In view, above the fold, or reduced motion: shown at once, never hidden. */
-export function armReveal(el: Element): () => void {
+export function armReveal(el: Element, { hide = true, onShow }: ArmOptions = {}): () => void {
   if (el.hasAttribute("data-shown")) return () => {};
   if (reducedMotion() || el.getBoundingClientRect().top < window.innerHeight * LIMIT) {
     el.setAttribute("data-shown", "");
+    onShow?.();
     return () => {};
   }
-  el.setAttribute("data-armed", "");
+  if (hide) el.setAttribute("data-armed", "");
+  if (onShow) callbacks.set(el, onShow);
   pending.add(el);
   io ??= new IntersectionObserver(
     (entries) => {

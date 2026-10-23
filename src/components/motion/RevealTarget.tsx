@@ -11,6 +11,7 @@ interface Props {
   className?: string;
   id?: string;
   "aria-hidden"?: true;
+  "data-load"?: string;
   children?: ReactNode;
 }
 

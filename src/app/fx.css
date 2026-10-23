@@ -1,0 +1,407 @@
+/*
+ * Phonics motion toolkit: heading treatments and demo primitives.
+ * Same contract as motion.css: server HTML is final and visible; a node hides only after it has hydrated,
+ * sat below the fold and set [data-armed] on itself; [data-shown] plays the entrance; [data-done] (1.5s)
+ * and print force the end state. [data-load] plays at first paint (above-the-fold headings) and starts
+ * visible (--o0) so the h1 text is never absent from the LCP frame. transform/opacity/clip-path/stroke only.
+ */
+
+.fx-wrap {
+  display: block;
+  position: relative;
+}
+.fx-w {
+  display: inline-block;
+  white-space: nowrap;
+}
+.fx-p {
+  display: inline-block;
+  position: relative;
+}
+.fx-line {
+  position: absolute;
+  left: 0;
+  bottom: -0.18em;
+  width: min(100%, 9em);
+  height: 0.22em;
+  overflow: visible;
+  fill: none;
+  stroke: var(--color-red);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  vector-effect: non-scaling-stroke;
+}
+.on-dark .fx-line {
+  stroke: var(--color-paper);
+}
+.fx-line path {
+  vector-effect: non-scaling-stroke;
+  stroke-width: 4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+[data-reveal^="fx-"] .fx-text {
+  padding-bottom: 0.18em;
+  display: inline-block;
+}
+.fx-line {
+  stroke: none;
+}
+.fx-line path {
+  stroke: var(--color-red);
+}
+.on-dark .fx-line path {
+  stroke: var(--color-paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ----- hidden "before" states (below the fold, armed) ----- */
+  [data-armed][data-reveal="fx-stroke"]:not([data-shown]) .fx-line path {
+    stroke-dashoffset: 1;
+  }
+  [data-armed][data-reveal="fx-soundout"]:not([data-shown]) .fx-p,
+  [data-armed][data-reveal="fx-wordslide"]:not([data-shown]) .fx-p {
+    opacity: 0;
+  }
+  [data-armed][data-reveal="fx-tileflip"]:not([data-shown]) .fx-p {
+    opacity: 0;
+  }
+  [data-armed][data-reveal="fx-wipe"]:not([data-shown]) .fx-p {
+    clip-path: inset(-12% 100% -12% -2%);
+  }
+
+  /* ----- stroke-drawn underline ----- */
+  [data-reveal="fx-stroke"][data-shown][data-armed] .fx-line path,
+  [data-reveal="fx-stroke"][data-load] .fx-line path {
+    animation: fx-draw 900ms var(--ease-in-out) 150ms both;
+  }
+
+  /* ----- sounding out: letters appear apart, one by one, then snap together ----- */
+  [data-reveal="fx-soundout"][data-shown][data-armed] .fx-p,
+  [data-reveal="fx-soundout"][data-load] .fx-p {
+    animation:
+      fx-appear 220ms var(--ease-out) both,
+      fx-snap 460ms var(--ease-out) both;
+    animation-delay: calc(var(--i) * var(--step)), calc(var(--n) * var(--step) + 120ms);
+  }
+
+  /* ----- tile flip: coloured tiles flip over to reveal each letter ----- */
+  [data-reveal="fx-tileflip"] .fx-p::after {
+    content: "";
+    position: absolute;
+    inset: 0.12em -0.02em 0.02em;
+    border-radius: 0.14em;
+    background: var(--tc);
+    opacity: 0;
+    pointer-events: none;
+  }
+  [data-reveal="fx-tileflip"][data-shown][data-armed] .fx-p,
+  [data-reveal="fx-tileflip"][data-load] .fx-p {
+    animation: fx-flip 520ms var(--ease-out) both;
+    animation-delay: calc(var(--i) * var(--step));
+  }
+  [data-reveal="fx-tileflip"][data-shown][data-armed] .fx-p::after,
+  [data-reveal="fx-tileflip"][data-load] .fx-p::after {
+    animation: fx-tile-cover 520ms linear both;
+    animation-delay: calc(var(--i) * var(--step));
+  }
+
+  /* ----- wipe: one calm clip-path sweep, left to right ----- */
+  [data-reveal="fx-wipe"][data-shown][data-armed] .fx-p,
+  [data-reveal="fx-wipe"][data-load] .fx-p {
+    animation: fx-wipe 760ms var(--ease-in-out) 60ms both;
+  }
+
+  /* ----- word slide: words glide in from the left ----- */
+  [data-reveal="fx-wordslide"][data-shown][data-armed] .fx-p,
+  [data-reveal="fx-wordslide"][data-load] .fx-p {
+    animation: fx-slide 600ms var(--ease-out) both;
+    animation-delay: calc(var(--i) * var(--step));
+  }
+
+  /* ----- light up: letters glow in their phonics colour, then settle back to ink ----- */
+  [data-reveal="fx-lightup"] .fx-p::after {
+    content: attr(data-c);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--tc);
+    opacity: 0;
+    pointer-events: none;
+  }
+  [data-reveal="fx-lightup"][data-shown][data-armed] .fx-p::after,
+  [data-reveal="fx-lightup"][data-load] .fx-p::after {
+    animation: fx-glow 900ms ease-in-out both;
+    animation-delay: calc(var(--i) * var(--step));
+  }
+  [data-reveal="fx-lightup"][data-shown][data-armed] .fx-p,
+  [data-reveal="fx-lightup"][data-load] .fx-p {
+    animation: fx-pop 420ms var(--ease-out) both;
+    animation-delay: calc(var(--i) * var(--step));
+  }
+
+  /* ----- failsafe: nothing keeps animating or hidden once [data-done] ----- */
+  [data-reveal^="fx-"][data-done] .fx-p,
+  [data-reveal^="fx-"][data-done] .fx-p::after,
+  [data-reveal^="fx-"][data-done] .fx-line path {
+    animation: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    transform: none !important;
+    translate: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  [data-reveal^="fx-"][data-done] .fx-p::after {
+    opacity: 0 !important;
+  }
+}
+@media print {
+  [data-reveal^="fx-"] .fx-p,
+  [data-reveal^="fx-"] .fx-line path {
+    animation: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+@keyframes fx-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes fx-appear {
+  from {
+    opacity: var(--o0, 0);
+  }
+}
+@keyframes fx-snap {
+  from {
+    translate: var(--sp) 0;
+  }
+}
+@keyframes fx-flip {
+  from {
+    opacity: var(--o0, 0);
+    transform: perspective(300px) rotateX(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fx-tile-cover {
+  0% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fx-wipe {
+  from {
+    clip-path: inset(-12% 100% -12% -2%);
+  }
+  to {
+    clip-path: inset(-12% -2% -12% -2%);
+  }
+}
+@keyframes fx-slide {
+  from {
+    opacity: var(--o0, 0);
+    transform: translateX(-0.9em);
+  }
+}
+@keyframes fx-glow {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fx-pop {
+  from {
+    transform: translateY(0.18em) scale(0.92);
+  }
+}
+
+[data-reveal^="fx-"][data-load] {
+  --o0: 0.25;
+}
+
+/* ============ FlipCard ============ */
+.flip-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+}
+.flip-inner {
+  display: grid;
+  gap: 0.75rem;
+}
+.flip-face {
+  display: grid;
+  align-content: center;
+  gap: 0.25rem;
+}
+.flip[data-enhanced] .flip-btn {
+  cursor: pointer;
+  perspective: 900px;
+}
+.flip[data-enhanced] .flip-inner {
+  display: grid;
+  gap: 0;
+  transform-style: preserve-3d;
+}
+.flip[data-enhanced] .flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip[data-enhanced] .flip-back {
+  transform: rotateY(180deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flip[data-enhanced] .flip-inner {
+    transition: transform 640ms var(--ease-out);
+  }
+}
+.flip[data-flipped] .flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* ============ TypeOut ============ */
+.typeout-box {
+  display: inline-grid;
+}
+.typeout-ghost,
+.typeout-live {
+  grid-area: 1 / 1;
+}
+.typeout-ghost {
+  visibility: hidden;
+}
+.typeout-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: currentColor;
+}
+@media print {
+  .typeout-live {
+    display: none;
+  }
+  .typeout-ghost {
+    visibility: visible;
+  }
+}
+
+/* ============ StrokeDraw ============ */
+.draw-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.draw-path {
+  stroke: currentColor;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.draw-guide {
+  stroke: currentColor;
+  stroke-opacity: 0.25;
+  stroke-width: 2;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed][data-reveal="draw"]:not([data-shown]) .draw-path {
+    stroke-dashoffset: 1;
+  }
+  [data-reveal="draw"][data-armed][data-shown] .draw-path {
+    transition: stroke-dashoffset var(--dur, 900ms) var(--ease-in-out);
+    transition-delay: calc(var(--i, 0) * var(--dur, 900ms) * 0.85 + 120ms);
+  }
+  [data-reveal="draw"][data-done] .draw-path {
+    transition: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* ============ LayoutTabs ============ */
+.tabs-list {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs-tab {
+  flex: none;
+  min-height: 3rem;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  opacity: 0.72;
+}
+.tabs-tab[aria-selected="true"] {
+  opacity: 1;
+}
+.tabs-ind {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 4px;
+  border-radius: 0;
+  background: var(--ind-color, var(--color-red));
+  transform-origin: left center;
+  transform: translateX(var(--ind-x, 0px)) scaleX(var(--ind-w, 0));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tabs[data-ready] .tabs-ind {
+    transition: transform 260ms var(--ease-out);
+  }
+  .tabs-panel[data-enter="r"] {
+    animation: tabs-in-r 260ms var(--ease-out) both;
+  }
+  .tabs-panel[data-enter="l"] {
+    animation: tabs-in-l 260ms var(--ease-out) both;
+  }
+}
+@keyframes tabs-in-r {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+}
+@keyframes tabs-in-l {
+  from {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
+}

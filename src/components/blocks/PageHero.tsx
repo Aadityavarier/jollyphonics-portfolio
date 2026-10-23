@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { SlotId } from "@/content/images";
 import { Breadcrumbs, type Crumb } from "@/components/layout/Breadcrumbs";
+import { FxHeading, type Fx } from "@/components/motion/FxHeading";
 import { ImageSlot } from "./ImageSlot";
 
 interface Props {
@@ -8,16 +9,24 @@ interface Props {
   intro?: string;
   trail: Crumb[];
   slot?: SlotId;
+  /** The page's heading treatment, played at first paint on the h1. */
+  fx?: Fx;
   children?: ReactNode;
 }
 
 /** Inner-page hero: breadcrumbs, the page's one h1, a short intro, optional photo slot and actions. */
-export function PageHero({ title, intro, trail, slot, children }: Props) {
+export function PageHero({ title, intro, trail, slot, fx, children }: Props) {
   return (
     <div className="mx-auto grid max-w-[var(--content-max)] gap-10 px-[var(--gutter)] pt-6 pb-[var(--section-gap)] md:grid-cols-[1.2fr_1fr] md:items-end">
       <div className="grid content-start gap-6">
         <Breadcrumbs trail={trail} />
-        <h1 className="type-display max-w-[14ch]">{title}</h1>
+        {fx ? (
+          <FxHeading as="h1" fx={fx} load className="type-display max-w-[14ch]">
+            {title}
+          </FxHeading>
+        ) : (
+          <h1 className="type-display max-w-[14ch]">{title}</h1>
+        )}
         {intro && <p className="max-w-[44ch] text-lead">{intro}</p>}
         {children}
       </div>

@@ -8,6 +8,13 @@ import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { CallLink } from "@/components/contact/CallLink";
 import { BranchList } from "@/components/contact/BranchList";
 import { messages } from "@/content/messages";
+import { FxHeading, type Fx } from "@/components/motion/FxHeading";
+import { FlipCard } from "@/components/motion/FlipCard";
+import { TypeOut } from "@/components/motion/TypeOut";
+import { StrokeDraw } from "@/components/motion/StrokeDraw";
+import { LayoutTabs } from "@/components/motion/LayoutTabs";
+
+const FX: Fx[] = ["stroke", "soundout", "tileflip", "wipe", "wordslide", "lightup"];
 
 export const metadata: Metadata = {
   title: "Styleguide | Tr. Revathi Phonics",
@@ -255,6 +262,43 @@ export default function StyleguidePage() {
         text="For admissions, batch timings, course details, teacher training and school workshops, please contact us."
         message={messages.general}
       />
+
+      <Block id="motion-toolkit" title="Motion toolkit">
+        <p className="mb-8 max-w-[60ch]">Heading treatments (one per page, never repeated between neighbours), and the demo primitives.</p>
+        <div className="grid gap-12">
+          {FX.map((fx) => (
+            <FxHeading key={fx} fx={fx} className="text-head">
+              {`Sounding ${fx}`}
+            </FxHeading>
+          ))}
+        </div>
+        <div className="mt-16 grid gap-10 sm:grid-cols-2">
+          <FlipCard
+            label="Award, 2023"
+            className="rounded-[var(--radius-panel)] bg-surface p-6"
+            front={<span className="font-display text-head font-bold text-red">2023</span>}
+            back={<span className="font-bold">Business Entrepreneur Award</span>}
+          />
+          <p className="text-lead">
+            <TypeOut text="Reading, writing, speaking, comprehension." />
+          </p>
+          <StrokeDraw
+            viewBox="0 0 200 120"
+            className="max-w-xs text-red"
+            guides={["M0 20H200", "M0 60H200", "M0 100H200"]}
+            paths={["M120 40 C 70 30, 30 60, 50 85 C 70 105, 115 85, 120 40 L 122 100"]}
+            label="The letter a being written between guide lines"
+          />
+          <LayoutTabs
+            label="Example tabs"
+            tabs={[
+              { id: "a", label: "First", panel: <p>First panel</p> },
+              { id: "b", label: "Second", panel: <p>Second panel</p> },
+              { id: "c", label: "Third", panel: <p>Third panel</p> },
+            ]}
+          />
+        </div>
+      </Block>
 
       <Block id="sticky" title="Sticky contact bar">
         <p className="max-w-[60ch]">Phones only: fixed to the bottom of every page (visible below at 375px). Hidden from 768px up.</p>
