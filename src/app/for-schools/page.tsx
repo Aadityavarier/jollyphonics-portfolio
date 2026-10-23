@@ -14,20 +14,21 @@ export default function ForSchoolsPage() {
     <>
       <PageHero
         title="For Schools"
+        fx="wordslide"
         intro={schools.intro}
         trail={[{ name: "Home", path: "/" }, { name: "For Schools", path: "/for-schools" }]}
         slot="S1"
       />
 
       <Section id="tracks" tone="surface">
-        <SectionHeading id="tracks-title">What a workshop covers</SectionHeading>
+        <SectionHeading id="tracks-title" fx="wordslide">What a workshop covers</SectionHeading>
         <div className="mt-8">
           <Tracks tracks={schools.tracks} />
         </div>
       </Section>
 
       <Section id="why" tone="paper">
-        <SectionHeading id="why-title">Why Tr. Revathi</SectionHeading>
+        <SectionHeading id="why-title" fx="wordslide">Why Tr. Revathi</SectionHeading>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {why.points.map((p) => (
             <li key={p.title} className="rounded-[var(--radius-panel)] bg-surface p-5">

@@ -1010,3 +1010,66 @@
     transform: scale(0.94);
   }
 }
+
+/* ============ For Schools ============ */
+.schools-tabs {
+  border-bottom: 2px solid rgba(22, 32, 74, 0.12);
+}
+.schools-tabs .tabs-tab {
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .schools-tabs .tabs-tab {
+    flex: none;
+    padding-inline: 1.75rem;
+  }
+}
+.frames {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0 0.5rem;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.frame {
+  display: grid;
+  flex: 0 0 min(14rem, 62vw);
+  align-content: space-between;
+  gap: 2.25rem;
+  min-height: 9.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: var(--color-paper);
+  box-shadow: 0 10px 24px -18px rgba(22, 32, 74, 0.45);
+  scroll-snap-align: start;
+}
+.frame-mark {
+  width: 2rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--c);
+}
+@media (min-width: 1024px) {
+  .frames {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+  .frame {
+    flex-basis: calc((100% - 3 * 0.75rem) / 4);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tabs-panel[data-enter] .frame {
+    animation: frame-in 460ms var(--ease-out) backwards;
+    animation-delay: calc(120ms + var(--i) * 55ms);
+  }
+}
+@keyframes frame-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
