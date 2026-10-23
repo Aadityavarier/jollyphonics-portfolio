@@ -14,10 +14,16 @@ export function MotionRoot() {
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
+    // --header-h has a CSS default; the observer only corrects it, reading the size it is handed rather than
+    // forcing a layout (a synchronous offsetHeight here, right after data-motion, was a forced reflow).
     const root = document.documentElement.style;
-    const measure = () => root.setProperty("--header-h", `${header.offsetHeight}px`);
-    measure();
-    const ro = typeof ResizeObserver === "undefined" ? undefined : new ResizeObserver(measure);
+    const ro =
+      typeof ResizeObserver === "undefined"
+        ? undefined
+        : new ResizeObserver(([entry]) => {
+            const h = Math.round(entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height);
+            if (h && root.getPropertyValue("--header-h") !== `${h}px`) root.setProperty("--header-h", `${h}px`);
+          });
     ro?.observe(header);
     let scrolled = false;
     const update = () => {

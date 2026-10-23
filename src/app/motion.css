@@ -17,6 +17,13 @@
   --dur-ui: 220ms;
   --dur-reveal: 640ms;
   --stagger: 60ms;
+  /* The header's fixed height, right on first paint; MotionRoot keeps it exact if it ever changes. */
+  --header-h: 68px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 80px;
+  }
 }
 
 /* ---------- Scroll reveals (Reveal, Stagger, SectionHeading) ---------- */
@@ -334,17 +341,29 @@
 
 /* ---------- Header: fixed height; on scroll it gains a paper field + shadow and the logo shrinks. ---------- */
 
-.site-header::before {
+/* Solid paper with a hairline shadow from the first paint (no JS needed); once scrolled, a deeper shadow
+   fades in on a second layer, so only opacity animates. */
+.site-header::before,
+.site-header::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
+  pointer-events: none;
+}
+.site-header::before {
   background: var(--color-paper);
+  box-shadow:
+    0 1px 0 rgba(22, 32, 74, 0.06),
+    0 4px 14px rgba(22, 32, 74, 0.06);
+}
+.site-header::after {
+  z-index: -2;
   box-shadow: 0 6px 24px rgba(22, 32, 74, 0.1);
   opacity: 0;
   transition: opacity var(--dur-ui) var(--ease-out);
 }
-.site-header[data-scrolled]::before {
+.site-header[data-scrolled]::after {
   opacity: 1;
 }
 .site-header .header-logo {
@@ -397,9 +416,6 @@
 
 /* ---------- Header nav: current page underline (static fallback) and the sliding indicator. ---------- */
 
-:root {
-  --header-h: 4.75rem; /* measured and overwritten by MotionRoot */
-}
 .nav-cur {
   text-decoration: underline;
   text-decoration-color: var(--color-red);

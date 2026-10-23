@@ -11,8 +11,8 @@ import { NavLinks } from "./NavLinks";
 import { MobileNav } from "./MobileNav";
 
 /**
- * Sticky bar: logo, links, one action. Fixed height; once the page scrolls (MotionRoot sets
- * [data-scrolled]) it gains a paper field + shadow and the logo shrinks, without moving the layout.
+ * Sticky bar: logo, links, one action. Fixed height and a solid paper field from the first paint; once the
+ * page scrolls (MotionRoot sets [data-scrolled]) the shadow deepens and the logo shrinks, without moving the layout.
  * Gallery joins the nav once it has photos (PLAN §5).
  */
 export function SiteHeader() {
