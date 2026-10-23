@@ -13,6 +13,11 @@ import { FlipCard } from "@/components/motion/FlipCard";
 import { TypeOut } from "@/components/motion/TypeOut";
 import { StrokeDraw } from "@/components/motion/StrokeDraw";
 import { LayoutTabs } from "@/components/motion/LayoutTabs";
+import { CountUp } from "@/components/motion/CountUp";
+import { FanPile } from "@/components/motion/FanPile";
+import { ReadAloud } from "@/components/motion/ReadAloud";
+import { TileProgress } from "@/components/motion/TileProgress";
+import { MorphDemo } from "./MorphDemo";
 
 const FX: Fx[] = ["stroke", "soundout", "tileflip", "wipe", "wordslide", "lightup"];
 
@@ -297,7 +302,21 @@ export default function StyleguidePage() {
               { id: "c", label: "Third", panel: <p>Third panel</p> },
             ]}
           />
+          <p className="font-display text-head font-bold">
+            <CountUp value="4,500+" />
+          </p>
+          <ReadAloud text="Every learner deserves the right foundation to learn with confidence." className="text-lead" />
+          <FanPile className="grid grid-cols-3 gap-3 sm:col-span-2">
+            {["M.A.", "M.Com", "D.El.Ed"].map((q) => (
+              <li key={q} className="rounded-[var(--radius-panel)] bg-surface p-4 font-display font-bold">
+                {q}
+              </li>
+            ))}
+          </FanPile>
+          <MorphDemo />
         </div>
+        <p className="mt-8 text-small text-muted">Tile progress is the row of small tiles fixed under the header; it lights up as this page scrolls.</p>
+        <TileProgress />
       </Block>
 
       <Block id="sticky" title="Sticky contact bar">
