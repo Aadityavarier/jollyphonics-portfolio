@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { NavItem } from "@/content/nav";
 import { NavLinks } from "./NavLinks";
+import { labels } from "@/content/labels";
 
 /**
  * Menu toggle + drop-down panel below the header bar. While open, the page behind does not scroll and Tab cycles
@@ -58,7 +59,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
         onClick={() => setOpen(!open)}
         className="grid h-11 min-w-11 place-items-center rounded-full bg-surface px-4 font-display text-[1.0625rem] font-bold"
       >
-        {open ? "Close" : "Menu"}
+        {open ? labels.header.close : labels.header.menu}
       </button>
       <div
         ref={panelRef}

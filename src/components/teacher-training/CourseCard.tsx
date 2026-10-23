@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { labels } from "@/content/labels";
 
 interface Props {
   /** Position in the stack (0-based): sets the sticky offset on wide screens. */
@@ -34,7 +35,7 @@ export function CourseCard({ index = 0, title, subtitle, intro, for: forWhom, to
         {intro && <p>{intro}</p>}
         {forWhom && (
           <div>
-            <h4 className="text-small font-bold text-muted uppercase">For</h4>
+            <h4 className="text-small font-bold text-muted uppercase">{labels.courseCard.for}</h4>
             <p className="mt-1">{forWhom.join(", ")}.</p>
           </div>
         )}

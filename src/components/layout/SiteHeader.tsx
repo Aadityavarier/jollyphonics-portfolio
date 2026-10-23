@@ -9,6 +9,7 @@ import { PhoneIcon } from "@/components/contact/CallLink";
 import { Logo } from "./Logo";
 import { NavLinks } from "./NavLinks";
 import { MobileNav } from "./MobileNav";
+import { labels } from "@/content/labels";
 
 /**
  * Sticky bar: logo, links, one action. Fixed height and a solid paper field from the first paint; once the
@@ -24,7 +25,7 @@ export function SiteHeader() {
         <Link href="/" className="header-logo shrink-0">
           <Logo className="h-11 w-auto lg:h-12" preload />
         </Link>
-        <nav aria-label="Main" className="hidden lg:block">
+        <nav aria-label={labels.header.mainNav} className="hidden lg:block">
           <NavLinks indicator items={items} className="flex items-center gap-7" linkClassName="font-display text-[1.0625rem] font-bold hover:text-red" />
         </nav>
         <div className="hidden lg:block">
@@ -33,7 +34,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2 lg:hidden">
           <a href={telHref()} className="grid size-11 place-items-center rounded-full bg-surface">
             <PhoneIcon />
-            <span className="sr-only">Call {contact.phoneDisplay}</span>
+            <span className="sr-only">{labels.common.call} {contact.phoneDisplay}</span>
           </a>
           <MobileNav items={items} />
         </div>

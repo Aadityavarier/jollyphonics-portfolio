@@ -15,6 +15,8 @@ import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { HelloCta } from "@/components/home/HelloCta";
 import { Showcase } from "@/components/home/Showcase";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
+import { labels } from "@/content/labels";
+import { Testimonials } from "@/components/home/Testimonials";
 
 export const metadata = pageMetadata("home");
 
@@ -41,13 +43,14 @@ export default function HomePage() {
       <Showcase />
       <HomeBranches />
       <WhyChooseUs />
+      <Testimonials />
       <GalleryPreview />
       <Section id="faq">
         <div className="mx-auto grid max-w-[48rem] gap-8">
-          <SectionHeading id="faq-title">Questions parents ask</SectionHeading>
+          <SectionHeading id="faq-title">{labels.common.questionsParentsAsk}</SectionHeading>
           <FaqAccordion items={HOME_FAQ} group="home-faq" />
           <Link href="/contact#faq" className="link-u justify-self-start">
-            More answers
+            {labels.home.faq.more}
           </Link>
         </div>
       </Section>

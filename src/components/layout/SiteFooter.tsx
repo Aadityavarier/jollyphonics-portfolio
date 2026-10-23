@@ -11,6 +11,7 @@ import { telHref } from "@/lib/contact";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { Todo } from "@/components/blocks/Todo";
 import { Logo } from "./Logo";
+import { labels } from "@/content/labels";
 
 const SOCIAL = [
   { label: "Instagram", value: contact.social.instagram },
@@ -35,8 +36,8 @@ export function SiteFooter() {
           <p className="text-muted">{keepBullets(brand.secondaryLine)}</p>
         </div>
 
-        <nav aria-label="Footer" className="grid content-start gap-3">
-          <h2 className="text-lead">Explore</h2>
+        <nav aria-label={labels.footer.nav} className="grid content-start gap-3">
+          <h2 className="text-lead">{labels.footer.explore}</h2>
           <ul className="grid gap-2">
             {links.map((l) => (
               <li key={l.href}>
@@ -49,16 +50,16 @@ export function SiteFooter() {
         </nav>
 
         <div className="grid content-start gap-3">
-          <h2 className="text-lead">Contact</h2>
+          <h2 className="text-lead">{labels.footer.contact}</h2>
           <p>{contact.status}</p>
           <p>
             <a href={telHref()} className="font-bold underline decoration-2 underline-offset-4">
-              Call {contact.phoneDisplay}
+              {labels.common.call} {contact.phoneDisplay}
             </a>
           </p>
           <p>
             <WhatsAppLink message={messages.general} variant="inline">
-              WhatsApp {contact.phoneDisplay}
+              {labels.footer.whatsapp} {contact.phoneDisplay}
             </WhatsAppLink>
           </p>
           <p className="text-muted">{contact.area}</p>
@@ -78,7 +79,7 @@ export function SiteFooter() {
         </div>
 
         <div className="grid content-start gap-3">
-          <h2 className="text-lead">Branches</h2>
+          <h2 className="text-lead">{labels.footer.branches}</h2>
           {groupBranchesBySide(branches).map((g) => (
             <ul key={g.side} className="grid gap-3">
               {g.branches.map((b) => (

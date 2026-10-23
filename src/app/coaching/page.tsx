@@ -14,10 +14,13 @@ import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { FxHeading } from "@/components/motion/FxHeading";
 import { FlipCard } from "@/components/motion/FlipCard";
 import { Staircase } from "@/components/coaching/Staircase";
+import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("coaching");
 
 const COACHING_FAQ = faqByQuestion("Do you provide academic coaching?", "Where are classes held?");
+
+const T = labels.pages.coaching;
 
 export default function CoachingPage() {
   return (
@@ -26,7 +29,7 @@ export default function CoachingPage() {
         title={coaching.title}
         fx="tileflip"
         intro={`${coaching.range}. ${coaching.focus}`}
-        trail={[{ name: "Home", path: "/" }, { name: "Coaching", path: "/coaching" }]}
+        trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.coaching, path: "/coaching" }]}
         slot="C1"
       />
 
@@ -41,7 +44,7 @@ export default function CoachingPage() {
 
       <Section id="subjects" tone="surface">
         <SectionHeading id="subjects-title" fx="tileflip">
-          Subjects
+          {T.subjects}
         </SectionHeading>
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {coaching.subjects.map((s, i) => {
@@ -73,7 +76,7 @@ export default function CoachingPage() {
 
       <Section id="approach" tone="paper">
         <SectionHeading id="approach-title" fx="tileflip">
-          Our approach
+          {T.approach}
         </SectionHeading>
         <FxHeading as="p" fx="wipe" className="mt-4 max-w-[34ch] text-lead">
           {coaching.focus}
@@ -83,7 +86,7 @@ export default function CoachingPage() {
 
       <Section id="why" tone="surface">
         <SectionHeading id="why-title" fx="tileflip">
-          Why Tr. Revathi
+          {labels.common.whyUs}
         </SectionHeading>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {why.points.slice(0, 4).map((p) => (
@@ -97,7 +100,7 @@ export default function CoachingPage() {
 
       <Section id="branches" tone="paper">
         <SectionHeading id="branches-title" fx="tileflip">
-          Branches
+          {T.branches}
         </SectionHeading>
         <div className="mt-8">
           <BranchList />
@@ -106,14 +109,14 @@ export default function CoachingPage() {
 
       <Section id="faq" tone="surface">
         <SectionHeading id="faq-title" fx="tileflip">
-          Questions parents ask
+          {labels.common.questionsParentsAsk}
         </SectionHeading>
         <div className="mt-6 max-w-[60ch]">
           <FaqAccordion items={COACHING_FAQ} group="coaching-faq" />
         </div>
       </Section>
 
-      <CtaBand title="Enquire about coaching" text="Tell us your child's class on WhatsApp." message={messages.coaching} />
+      <CtaBand title={T.cta.title} text={T.cta.text} message={messages.coaching} />
     </>
   );
 }

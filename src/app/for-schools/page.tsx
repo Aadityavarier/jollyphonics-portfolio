@@ -6,29 +6,32 @@ import { PageHero } from "@/components/blocks/PageHero";
 import { Section, SectionHeading } from "@/components/layout/Section";
 import { CtaBand } from "@/components/blocks/CtaBand";
 import { Tracks } from "@/components/schools/Tracks";
+import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("for-schools");
+
+const T = labels.pages.schools;
 
 export default function ForSchoolsPage() {
   return (
     <>
       <PageHero
-        title="For Schools"
+        title={T.title}
         fx="wordslide"
         intro={schools.intro}
-        trail={[{ name: "Home", path: "/" }, { name: "For Schools", path: "/for-schools" }]}
+        trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.schools, path: "/for-schools" }]}
         slot="S1"
       />
 
       <Section id="tracks" tone="surface">
-        <SectionHeading id="tracks-title" fx="wordslide">What a workshop covers</SectionHeading>
+        <SectionHeading id="tracks-title" fx="wordslide">{T.tracks}</SectionHeading>
         <div className="mt-8">
           <Tracks tracks={schools.tracks} />
         </div>
       </Section>
 
       <Section id="why" tone="paper">
-        <SectionHeading id="why-title" fx="wordslide">Why Tr. Revathi</SectionHeading>
+        <SectionHeading id="why-title" fx="wordslide">{labels.common.whyUs}</SectionHeading>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {why.points.map((p) => (
             <li key={p.title} className="rounded-[var(--radius-panel)] bg-surface p-5">
@@ -39,7 +42,7 @@ export default function ForSchoolsPage() {
         </ul>
       </Section>
 
-      <CtaBand title="Book a school workshop" text="Tell us about your school on WhatsApp." message={messages.schools} />
+      <CtaBand title={T.cta.title} text={T.cta.text} message={messages.schools} />
     </>
   );
 }

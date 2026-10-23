@@ -5,6 +5,7 @@ import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { SectionHeading } from "@/components/layout/Section";
 import { loadGsap, whenNear } from "@/components/motion/gsap";
 import { prefersReducedMotion } from "@/components/motion/tokens";
+import { labels } from "@/content/labels";
 
 interface Props {
   title: string;
@@ -66,7 +67,7 @@ export function LearningPathScene({ title, steps, detail }: Props) {
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const i = Math.round(self.progress * last);
-              if (i !== shown && count) count.textContent = `Step ${i + 1} of ${cards.length}`;
+              if (i !== shown && count) count.textContent = labels.home.learningPath.stepOf(i + 1, cards.length);
               shown = i;
             },
           },
@@ -120,7 +121,7 @@ export function LearningPathScene({ title, steps, detail }: Props) {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeading id="learning-path-title">{title}</SectionHeading>
             <p aria-hidden="true" className="path-count path-stage font-display text-lead font-bold text-muted tabular-nums">
-              Step 1 of {steps.length}
+              {labels.home.learningPath.stepOf(1, steps.length)}
             </p>
           </div>
 
@@ -161,7 +162,7 @@ export function LearningPathScene({ title, steps, detail }: Props) {
                       <span className="translate-y-[0.06em]">{s[0]}</span>
                     </span>
                     <span className="grid">
-                      <span className="text-small text-muted">Step {i + 1}</span>
+                      <span className="text-small text-muted">{labels.home.learningPath.step(i + 1)}</span>
                       <span className="font-display text-lead leading-tight font-bold">{s}</span>
                       {detail?.[i] && <span className="path-card-detail mt-1 text-small text-muted">{detail[i]}</span>}
                     </span>

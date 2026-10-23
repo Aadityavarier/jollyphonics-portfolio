@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { labels } from "@/content/labels";
 
 interface Props {
   name: string;
@@ -32,7 +33,7 @@ export function BranchMap({ name, src }: Props) {
         </div>
       ) : (
         <button type="button" onClick={() => setShown(true)} className="branch-map-button cta cta-inline underline decoration-2 underline-offset-4">
-          Show map
+          {labels.branches.showMap}
         </button>
       )}
     </div>

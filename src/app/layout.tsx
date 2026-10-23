@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/blocks/JsonLd";
 import { siteGraph } from "@/lib/jsonld";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { PageTransitions } from "@/components/motion/PageTransitions";
+import { labels } from "@/content/labels";
 
 // Both from Ek Type (Mumbai): rounded display + highly readable text face, each with Devanagari support.
 const baloo = Baloo_2({
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
         >
-          Skip to content
+          {labels.common.skipToContent}
         </a>
         <JsonLd data={siteGraph()} />
         <SiteHeader />

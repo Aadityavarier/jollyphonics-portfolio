@@ -5,6 +5,7 @@ import { branchPhotoSlot } from "@/content/images";
 import { ImageSlot } from "@/components/blocks/ImageSlot";
 import { WhatsAppLink } from "./WhatsAppLink";
 import { BranchMap } from "./BranchMap";
+import { labels } from "@/content/labels";
 
 interface Props {
   branch: Branch;
@@ -71,11 +72,11 @@ export function BranchCard({ branch, grouped = false, withMap = false, headingLe
             className="branch-directions inline-grid size-11 place-items-center rounded-full bg-paper sm:inline sm:size-auto sm:rounded-none sm:bg-transparent sm:font-bold sm:underline sm:decoration-2 sm:underline-offset-4"
           >
             <DirectionsIcon />
-            <span className="sr-only sm:not-sr-only">Get directions</span>
+            <span className="sr-only sm:not-sr-only">{labels.branches.getDirections}</span>
           </a>
           <span data-part="whatsapp" className="contents">
             <WhatsAppLink message={branchMessage(branch)} variant="secondary" className="branch-whatsapp whitespace-nowrap">
-              <span className="sr-only sm:not-sr-only">WhatsApp us</span>
+              <span className="sr-only sm:not-sr-only">{labels.common.whatsappUs}</span>
             </WhatsAppLink>
           </span>
         </div>

@@ -10,6 +10,7 @@ import { SectionHeading } from "@/components/layout/Section";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { JourneyTeaser } from "./JourneyTeaser";
 import { TrainerSeal } from "./TrainerSeal";
+import { labels } from "@/content/labels";
 
 /**
  * Teal panel: the trust moment. Her credential as a stamp (overlapping the portrait's corner once the photo
@@ -27,25 +28,25 @@ export function FounderIntro() {
             <TrainerSeal className={photo ? "absolute -right-6 -bottom-10 w-36 sm:w-44" : "w-44 sm:w-52"} />
           </div>
           <SectionHeading id="founder-title" className={`max-w-none ${photo ? "mt-8" : ""}`.trim()}>
-            Meet {founder.knownAs}
+            {labels.home.founder.meet} {founder.knownAs}
           </SectionHeading>
           <CredentialLine className="text-lead [&_svg]:text-paper" />
           <p className="max-w-[56ch]">{founder.bio[0]}</p>
           <Reveal as="blockquote" className="max-w-[30ch] font-display text-[clamp(1.5rem,1.2rem+1.4vw,2.25rem)] leading-tight font-bold">
-            <p>&ldquo;{founder.belief}&rdquo;</p>
+            <p>{`“${founder.belief}”`}</p>
           </Reveal>
         </div>
 
         <div className="grid content-start gap-8">
           <div className="grid gap-4">
-            <h3 className="text-lead">Her journey</h3>
+            <h3 className="text-lead">{labels.home.founder.journey}</h3>
             <JourneyTeaser />
             <Link href="/about" className="link-u justify-self-start">
-              See the full journey
+              {labels.home.founder.fullJourney}
             </Link>
           </div>
           <div className="grid gap-3">
-            <h3 className="text-lead">Awards &amp; recognition</h3>
+            <h3 className="text-lead">{labels.home.founder.awards}</h3>
             <Stagger as="ul" className="grid gap-3">
               {founder.awards.map((a) => (
                 <li key={a.name} className="grid grid-cols-[3.5rem_1fr] gap-3">
@@ -60,11 +61,11 @@ export function FounderIntro() {
             </Stagger>
           </div>
           <div className="grid gap-3">
-            <h3 className="text-lead">Qualifications</h3>
+            <h3 className="text-lead">{labels.home.founder.qualifications}</h3>
             <ChipList items={founder.qualifications.map((q) => q.title)} tone="paper" />
           </div>
           <ButtonLink href="/about" className="justify-self-start">
-            About Trainer Revathi
+            {labels.home.founder.about}
           </ButtonLink>
         </div>
       </div>

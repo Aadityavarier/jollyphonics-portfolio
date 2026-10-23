@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { galleryHasPhotos, galleryPhotos } from "@/content/gallery";
 import { Section, SectionHeading } from "@/components/layout/Section";
+import { labels } from "@/content/labels";
 
 /** Hidden until the gallery has photos (PLAN §5). */
 export function GalleryPreview() {
@@ -10,7 +11,7 @@ export function GalleryPreview() {
   return (
     <Section id="gallery-preview">
       <div className="grid gap-8">
-        <SectionHeading id="gallery-preview-title">From our classes</SectionHeading>
+        <SectionHeading id="gallery-preview-title">{labels.home.gallery.title}</SectionHeading>
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {galleryPhotos.slice(0, 6).map((p) => (
             <li key={p.src} className="relative aspect-square overflow-hidden rounded-[var(--radius-panel)]">
@@ -19,7 +20,7 @@ export function GalleryPreview() {
           ))}
         </ul>
         <Link href="/gallery" className="link-u">
-          See the gallery
+          {labels.home.gallery.link}
         </Link>
       </div>
     </Section>

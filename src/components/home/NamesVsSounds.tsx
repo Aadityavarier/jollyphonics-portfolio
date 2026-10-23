@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { useHydrated } from "@/components/motion/useHydrated";
 import { prefersReducedMotion } from "@/components/motion/tokens";
+import { labels } from "@/content/labels";
 
 interface Props {
   sounds: readonly string[];
@@ -55,7 +56,7 @@ export function NamesVsSounds({ sounds, word }: Props) {
 
   return (
     <div ref={root} data-mode={mode} className="nvs grid gap-6">
-      <div className={`nvs-toggle inline-flex justify-self-start rounded-full bg-surface p-1 ${hydrated ? "" : "invisible"}`} role="group" aria-label="Show letter names or letter sounds">
+      <div className={`nvs-toggle inline-flex justify-self-start rounded-full bg-surface p-1 ${hydrated ? "" : "invisible"}`} role="group" aria-label={labels.home.namesVsSounds.toggle}>
         {(["names", "sounds"] as const).map((m) => (
           <button
             key={m}

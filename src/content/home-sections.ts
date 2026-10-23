@@ -10,6 +10,8 @@ export const HOME_SECTIONS: { id: string; tone: SectionTone }[] = [
   { id: "showcase", tone: "ink" },
   { id: "branches", tone: "paper" },
   { id: "why-us", tone: "surface" },
+  /** Hidden until src/content/testimonials.ts has a real entry. */
+  { id: "testimonials", tone: "teal" },
   { id: "faq", tone: "paper" },
   { id: "cta", tone: "red" },
 ];

@@ -2,6 +2,7 @@ import { useId } from "react";
 import { brand } from "@/content/brand";
 import { founder } from "@/content/founder";
 import { RevealTarget } from "@/components/motion/RevealTarget";
+import { labels } from "@/content/labels";
 
 /** "INTERNATIONALLY CERTIFIED … TRAINER • CPD COLLEGE UK, LONDON •": the credential from content.md, set on a ring. */
 const RING = `${founder.credential.replace(" — ", " • ")} •`.toUpperCase();
@@ -33,7 +34,7 @@ export function TrainerSeal({ className = "" }: { className?: string }) {
           {LAST.join(" ")}
         </text>
         <text x="100" y="136" textAnchor="middle" fill="currentColor" fontFamily="var(--font-body)" fontWeight="600" fontSize="11">
-          since {brand.numbers.since}
+          {labels.home.seal.since} {brand.numbers.since}
         </text>
       </svg>
     </RevealTarget>

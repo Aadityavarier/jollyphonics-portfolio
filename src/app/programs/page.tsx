@@ -16,6 +16,8 @@ import { StrokeDraw } from "@/components/motion/StrokeDraw";
 import { TileProgress } from "@/components/motion/TileProgress";
 import { LearningPathScene } from "@/components/home/LearningPathScene";
 import { AnchorNav } from "@/components/programs/AnchorNav";
+import { labels } from "@/content/labels";
+import { coaching } from "@/content/coaching";
 
 export const metadata = pageMetadata("programs");
 
@@ -35,16 +37,18 @@ const ANCHORS = [
   { id: "special-classes", label: "Special Classes" },
 ];
 
+const T = labels.pages.programs;
+
 export default function ProgramsPage() {
   return (
     <>
       <TileProgress />
       <PageHero
-        title="Programs"
+        title={T.title}
         art="read"
         fx="soundout"
-        intro="Jolly Phonics, Jolly Grammar, English, handwriting and seasonal special classes."
-        trail={[{ name: "Home", path: "/" }, { name: "Programs", path: "/programs" }]}
+        intro={T.intro}
+        trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.programs, path: "/programs" }]}
       >
         <ChipList items={brand.programsStrip} />
       </PageHero>
@@ -58,14 +62,14 @@ export default function ProgramsPage() {
       </Section>
 
       <LearningPathScene
-        title="The learning path"
+        title={T.learningPath}
         steps={programs.phonics.learningPath}
         detail={programs.phonics.learningPathDetail}
       />
 
       <Section id="phonics-covers" tone="surface" labelledBy="phonics-covers-title">
         <h3 id="phonics-covers-title" className="text-lead">
-          What it covers
+          {T.covers}
         </h3>
         <Stagger as="ul" className="mt-5 flex flex-wrap gap-2">
           {programs.phonics.covers.map((c) => (
@@ -74,9 +78,9 @@ export default function ProgramsPage() {
             </li>
           ))}
         </Stagger>
-        <h3 className="mt-10 text-lead">Rules &amp; patterns</h3>
+        <h3 className="mt-10 text-lead">{T.rules}</h3>
         <ChipList items={programs.phonics.rules} tone="paper" className="mt-4" />
-        <h3 className="mt-10 text-lead">Who can join</h3>
+        <h3 className="mt-10 text-lead">{T.whoCanJoin}</h3>
         <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {programs.phonics.whoCanJoin.map((w) => (
             <li key={w.title} className="rounded-[var(--radius-panel)] bg-paper p-5">
@@ -138,11 +142,11 @@ export default function ProgramsPage() {
         </SectionHeading>
         <ChipList items={teachingApproach.items} tone="paper" className="mt-5" />
         <ButtonLink href="/coaching" className="mt-8 justify-self-start">
-          Coaching for Sr. KG to Std. 8
+          {T.coachingFor} {coaching.range}
         </ButtonLink>
       </Section>
 
-      <CtaBand title="Ready to start?" text="Tell us what you're looking for on WhatsApp." message={messages.phonics} />
+      <CtaBand title={T.cta.title} text={T.cta.text} message={messages.phonics} />
     </>
   );
 }

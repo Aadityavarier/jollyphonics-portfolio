@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { MorphDiv, MorphProvider } from "@/components/motion/SharedMorph";
+import { labels } from "@/content/labels";
 
 export interface BranchGroup {
   side: "east" | "west";
@@ -29,7 +30,7 @@ export function BranchExplorer({ groups }: { groups: BranchGroup[] }) {
 
   return (
     <MorphProvider>
-      <div role="group" aria-label="Show branches" className="mb-8 flex flex-wrap gap-2">
+      <div role="group" aria-label={labels.branches.toggle} className="mb-8 flex flex-wrap gap-2">
         {OPTIONS.map((o) => (
           <button key={o.id} type="button" aria-pressed={side === o.id} onClick={() => setSide(o.id)} className="enq-chip">
             <span className={side === o.id ? "!border-ink !bg-ink !text-paper" : undefined}>{o.label}</span>

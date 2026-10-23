@@ -6,6 +6,7 @@ import { Panel } from "@/components/layout/Panel";
 import { SectionHeading } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { NamesVsSounds } from "./NamesVsSounds";
+import { labels } from "@/content/labels";
 
 /** Answers the parent's first question, "what is phonics, really?", on the red panel. */
 export function WhyPhonics() {
@@ -20,10 +21,10 @@ export function WhyPhonics() {
             <p className="max-w-[48ch] text-lead">{parents.answer}</p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link href="/programs#phonics" className="link-u">
-                How Jolly Phonics is taught
+                {labels.home.whyPhonics.howTaught}
               </Link>
               <WhatsAppLink message={messages.phonicsSuitability} variant="inline">
-                Ask if it suits your child
+                {labels.home.whyPhonics.suits}
               </WhatsAppLink>
             </div>
           </Reveal>

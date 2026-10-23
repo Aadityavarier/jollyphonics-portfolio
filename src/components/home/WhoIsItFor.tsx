@@ -12,6 +12,7 @@ import { ImageSlot } from "@/components/blocks/ImageSlot";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { Todo } from "@/components/blocks/Todo";
 import { AudienceSelector } from "./AudienceSelector";
+import { labels } from "@/content/labels";
 
 const ageAnswer = faq[0];
 
@@ -81,7 +82,7 @@ function AudienceCard({ title, text, href, linkLabel, slot, message, chips }: Ca
       </div>
       <div className="grid content-center justify-items-start gap-4 border-t border-ink/10 p-6 md:border-t-0 md:border-l md:p-10">
         <WhatsAppLink message={message} variant="primary" className="w-full sm:w-auto">
-          Ask about this on WhatsApp
+          {labels.home.who.ask}
         </WhatsAppLink>
         <Link href={href} className="link-u">
           {linkLabel}
@@ -97,7 +98,7 @@ export function WhoIsItFor() {
     <Section id="who">
       <div className="grid gap-10">
         <div className="grid gap-4 md:grid-cols-[1fr_1fr] md:items-end">
-          <SectionHeading id="who-title">Is it right for my child?</SectionHeading>
+          <SectionHeading id="who-title">{labels.home.who.title}</SectionHeading>
           <div className="max-w-[46ch] text-lead">
             <p>{ageAnswer.a}</p>
             {ageAnswer.todo && <Todo value={ageAnswer.todo} />}

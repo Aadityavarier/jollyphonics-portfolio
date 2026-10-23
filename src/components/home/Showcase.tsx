@@ -13,8 +13,10 @@ import {
   StaircasePreview,
   TabsPreview,
 } from "./showcase/previews";
+import { labels } from "@/content/labels";
 
 const TT = [teacherTraining.phonics.title, teacherTraining.ecced.title, teacherTraining.montessori.title].map((t) => t.replace(" Teacher Training", ""));
+const S = labels.home.showcase;
 const TILE = "sc-tile group relative isolate grid content-between gap-4 overflow-clip rounded-[var(--radius-panel)] p-5 sm:p-6";
 
 function Label({ title, line }: { title: string; line?: string }) {
@@ -35,8 +37,8 @@ export function Showcase() {
     <Panel id="showcase" tone="ink">
       <div className="mx-auto grid max-w-[var(--content-max)] gap-10 px-[var(--gutter)] py-[var(--section-gap)]">
         <div className="grid gap-3">
-          <SectionHeading id="showcase-title">Inside the classes</SectionHeading>
-          <p className="max-w-[48ch] text-lead">A small taste of each class. Tap one to see more.</p>
+          <SectionHeading id="showcase-title">{S.title}</SectionHeading>
+          <p className="max-w-[48ch] text-lead">{S.intro}</p>
         </div>
         <div className="sc-grid">
           <PlayTile href="/programs#phonics" className={`${TILE} sc-phonics bg-red text-paper`}>
@@ -49,23 +51,23 @@ export function Showcase() {
           </PlayTile>
           <PlayTile href="/programs#english" className={`${TILE} sc-english bg-paper text-ink`}>
             <BubblePreview text={programs.english.items.slice(0, 3).map((i) => i.title).join(" · ")} />
-            <Label title="English" />
+            <Label title={S.english} />
           </PlayTile>
           <PlayTile href="/programs#handwriting" className={`${TILE} sc-handwriting bg-paper text-ink`}>
             <HandwritingPreview />
-            <Label title="Handwriting" />
+            <Label title={S.handwriting} />
           </PlayTile>
           <PlayTile href="/coaching" className={`${TILE} sc-coaching bg-surface text-ink`}>
             <StaircasePreview />
-            <Label title="Coaching" line={coaching.range} />
+            <Label title={S.coaching} line={coaching.range} />
           </PlayTile>
           <PlayTile href="/teacher-training" className={`${TILE} sc-training bg-surface text-ink`}>
             <StackPreview labels={TT} />
-            <Label title="Teacher training" />
+            <Label title={S.teacherTraining} />
           </PlayTile>
           <PlayTile href="/for-schools" className={`${TILE} sc-schools bg-paper text-ink`}>
             <TabsPreview />
-            <Label title="For schools" />
+            <Label title={S.schools} />
           </PlayTile>
         </div>
       </div>

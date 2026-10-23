@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { SlotId } from "@/content/images";
 import { ImageSlot } from "./ImageSlot";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
+import { labels } from "@/content/labels";
 
 interface Props {
   title: string;
@@ -27,7 +28,7 @@ export function ProgramCard({ title, text, href, linkLabel, slot, message, headi
           </Link>
           {message && (
             <WhatsAppLink message={message} variant="inline">
-              Ask on WhatsApp
+              {labels.common.askOnWhatsApp}
             </WhatsAppLink>
           )}
         </div>

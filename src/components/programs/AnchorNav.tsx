@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useHydrated } from "@/components/motion/useHydrated";
+import { labels } from "@/content/labels";
 
 interface Item {
   id: string;
@@ -45,7 +46,7 @@ export function AnchorNav({ items }: { items: readonly Item[] }) {
   }, [active, place]);
 
   return (
-    <nav aria-label="Programs" className="sticky top-[var(--header-h)] z-20 border-b border-ink/10 bg-paper">
+    <nav aria-label={labels.programsNav} className="sticky top-[var(--header-h)] z-20 border-b border-ink/10 bg-paper">
       <ul
         ref={ul}
         data-ready={ready ? "" : undefined}

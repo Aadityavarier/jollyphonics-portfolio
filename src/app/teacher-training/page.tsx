@@ -9,25 +9,28 @@ import { ChipList } from "@/components/blocks/ChipList";
 import { CtaBand } from "@/components/blocks/CtaBand";
 import { Reveal } from "@/components/motion/Reveal";
 import { CourseCard } from "@/components/teacher-training/CourseCard";
+import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("teacher-training");
+
+const T = labels.pages.teacherTraining;
 
 export default function TeacherTrainingPage() {
   return (
     <>
       <PageHero
-        title="Teacher Training"
+        title={T.title}
         fx="wipe"
         art="teach"
-        intro="Training for teachers and aspiring teachers."
-        trail={[{ name: "Home", path: "/" }, { name: "Teacher Training", path: "/teacher-training" }]}
+        intro={T.intro}
+        trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.teacherTraining, path: "/teacher-training" }]}
       >
         <CredentialLine />
       </PageHero>
 
       <Section id="courses" tone="surface" labelledBy="courses-title">
         <SectionHeading id="courses-title" fx="wipe">
-          Training programs
+          {T.programs}
         </SectionHeading>
         <div className="stack mt-8 grid gap-4">
           <CourseCard
@@ -65,13 +68,13 @@ export default function TeacherTrainingPage() {
       </Section>
 
       <Section id="trainer" tone="paper">
-        <SectionHeading id="trainer-title" fx="wipe">Trainer qualifications</SectionHeading>
+        <SectionHeading id="trainer-title" fx="wipe">{T.qualifications}</SectionHeading>
         <ChipList items={founder.qualifications.map((q) => `${q.title} — ${q.detail}`)} tone="surface" className="mt-5" />
       </Section>
 
       <CtaBand
-        title="Train with Trainer Revathi"
-        text="Ask about dates and fees on WhatsApp."
+        title={T.cta.title}
+        text={T.cta.text}
         message={messages.teacherTraining}
       />
     </>

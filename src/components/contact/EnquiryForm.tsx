@@ -7,8 +7,10 @@ import { buildEnquiryMessage, whatsappUrl } from "@/lib/contact";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { TypeOut } from "@/components/motion/TypeOut";
 import { WhatsAppIcon } from "./WhatsAppLink";
+import { labels } from "@/content/labels";
 
 const STEPS = 4;
+const L = labels.enquiry;
 const FIELD =
   "rounded-[0.75rem] border border-ink/15 bg-paper px-4 py-3 outline-none transition-colors duration-[var(--dur-ui)] focus-visible:border-red";
 
@@ -79,12 +81,12 @@ export function EnquiryForm() {
         <style>{".enq-js{display:none!important}"}</style>
         <form method="get" action={`https://wa.me/${contact.whatsappNumber}`} target="_blank" className="grid gap-4 rounded-[var(--radius-panel)] bg-surface p-6">
           <label htmlFor="enq-plain" className="text-small font-bold">
-            Your message
+            {L.yourMessage}
           </label>
-          <textarea id="enq-plain" name="text" rows={4} required className={`${FIELD} resize-none`} defaultValue="Hi, I'd like to know more about your classes." />
+          <textarea id="enq-plain" name="text" rows={4} required className={`${FIELD} resize-none`} defaultValue={L.defaultMessage} />
           <button type="submit" className="cta cta-whatsapp cta-primary justify-self-start">
             <WhatsAppIcon />
-            <span>Send on WhatsApp</span>
+            <span>{labels.common.sendOnWhatsApp}</span>
           </button>
         </form>
       </noscript>
@@ -94,10 +96,10 @@ export function EnquiryForm() {
           <div className="grid gap-5">
             <div className="grid gap-2">
               <label htmlFor="enq-topic" className="text-small font-bold">
-                I&rsquo;m enquiring about
+                {L.enquiringAbout}
               </label>
               <select id="enq-topic" value={a.topic} onChange={(e) => set("topic")(e.target.value)} className={FIELD}>
-                <option value="">Select one</option>
+                <option value="">{L.selectOne}</option>
                 {contact.enquireAbout.map((t) => (
                   <option key={t} value={t}>
                     {t}
@@ -107,10 +109,10 @@ export function EnquiryForm() {
             </div>
             <div className="grid gap-2">
               <label htmlFor="enq-branch" className="text-small font-bold">
-                Preferred branch
+                {L.preferredBranch}
               </label>
               <select id="enq-branch" value={a.branch} onChange={(e) => set("branch")(e.target.value)} className={FIELD}>
-                <option value="">No preference</option>
+                <option value="">{L.noPreference}</option>
                 {branches.map((b) => (
                   <option key={b.id} value={b.name}>
                     {b.name}
@@ -120,23 +122,23 @@ export function EnquiryForm() {
             </div>
             <div className="grid gap-2">
               <label htmlFor="enq-name" className="text-small font-bold">
-                Your name <span className="font-normal text-muted">(optional)</span>
+                {L.yourName} <span className="font-normal text-muted">{L.optional}</span>
               </label>
-              <input id="enq-name" type="text" autoComplete="name" value={a.name} onChange={(e) => set("name")(e.target.value)} className={FIELD} placeholder="e.g. Priya Sharma" />
+              <input id="enq-name" type="text" autoComplete="name" value={a.name} onChange={(e) => set("name")(e.target.value)} className={FIELD} placeholder={L.namePlaceholder} />
             </div>
             <div className="grid gap-2">
               <label htmlFor="enq-note" className="text-small font-bold">
-                Anything else? <span className="font-normal text-muted">(optional)</span>
+                {L.anythingElse} <span className="font-normal text-muted">{L.optional}</span>
               </label>
-              <textarea id="enq-note" rows={3} value={a.note} onChange={(e) => set("note")(e.target.value)} className={`${FIELD} resize-none`} placeholder="Child's age, class, or any question" />
+              <textarea id="enq-note" rows={3} value={a.note} onChange={(e) => set("note")(e.target.value)} className={`${FIELD} resize-none`} placeholder={L.notePlaceholder} />
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <a href={href} target="_blank" rel="noopener" className="cta cta-whatsapp cta-primary">
                 <WhatsAppIcon />
-                <span>Send on WhatsApp</span>
+                <span>{labels.common.sendOnWhatsApp}</span>
               </a>
               <button type="button" className="link-u" onClick={() => setMode("steps")}>
-                Step by step instead
+                {L.stepByStep}
               </button>
             </div>
           </div>
@@ -149,17 +151,17 @@ export function EnquiryForm() {
                 ))}
               </div>
               <button type="button" className="link-u text-small" onClick={() => setMode("all")}>
-                Show all fields
+                {L.showAllFields}
               </button>
             </div>
             <p className="sr-only" aria-live="polite">
-              {step < STEPS ? `Question ${step + 1} of ${STEPS}` : "Your message is ready"}
+              {step < STEPS ? L.questionOf(step + 1, STEPS) : L.messageReady}
             </p>
 
             <div ref={stepRef} tabIndex={-1} key={step} data-dir={dir} className="enq-step grid gap-5 outline-none">
               {step === 0 && (
                 <fieldset className="grid gap-3">
-                  <legend className="mb-3 font-display text-lead font-bold">What would you like to know about?</legend>
+                  <legend className="mb-3 font-display text-lead font-bold">{L.askTopic}</legend>
                   <div className="flex flex-wrap gap-2">
                     {contact.enquireAbout.map((t) => (
                       <Chip key={t} name="topic" value={t} checked={a.topic === t} onChange={set("topic")}>
@@ -171,7 +173,7 @@ export function EnquiryForm() {
               )}
               {step === 1 && (
                 <fieldset className="grid gap-3">
-                  <legend className="mb-3 font-display text-lead font-bold">Which branch is closest to you?</legend>
+                  <legend className="mb-3 font-display text-lead font-bold">{L.askBranch}</legend>
                   <div className="flex flex-wrap gap-2">
                     {branches.map((b) => (
                       <Chip key={b.id} name="branch" value={b.name} checked={a.branch === b.name} onChange={set("branch")}>
@@ -184,22 +186,22 @@ export function EnquiryForm() {
               {step === 2 && (
                 <div className="grid gap-3">
                   <label htmlFor="enq-name" className="font-display text-lead font-bold">
-                    What should we call you?
+                    {L.askName}
                   </label>
-                  <input id="enq-name" type="text" autoComplete="name" value={a.name} onChange={(e) => set("name")(e.target.value)} className={`${FIELD} max-w-[24rem]`} placeholder="e.g. Priya Sharma" />
+                  <input id="enq-name" type="text" autoComplete="name" value={a.name} onChange={(e) => set("name")(e.target.value)} className={`${FIELD} max-w-[24rem]`} placeholder={L.namePlaceholder} />
                 </div>
               )}
               {step === 3 && (
                 <div className="grid gap-3">
                   <label htmlFor="enq-note" className="font-display text-lead font-bold">
-                    Anything else? <span className="text-small font-normal text-muted">(optional)</span>
+                    {L.anythingElse} <span className="text-small font-normal text-muted">{L.optional}</span>
                   </label>
-                  <textarea id="enq-note" rows={3} value={a.note} onChange={(e) => set("note")(e.target.value)} className={`${FIELD} resize-none`} placeholder="Child's age, class, or any question" />
+                  <textarea id="enq-note" rows={3} value={a.note} onChange={(e) => set("note")(e.target.value)} className={`${FIELD} resize-none`} placeholder={L.notePlaceholder} />
                 </div>
               )}
               {step === STEPS && (
                 <div className="grid gap-4">
-                  <h3 className="font-display text-lead font-bold">Your message is ready</h3>
+                  <h3 className="font-display text-lead font-bold">{L.messageReady}</h3>
                   {answered.length > 0 && (
                     <ul className="enq-fly flex flex-wrap gap-2" aria-hidden="true">
                       {answered.map((v) => (
@@ -216,10 +218,10 @@ export function EnquiryForm() {
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                     <a href={href} target="_blank" rel="noopener" className="cta cta-whatsapp cta-primary">
                       <WhatsAppIcon />
-                      <span>Send on WhatsApp</span>
+                      <span>{labels.common.sendOnWhatsApp}</span>
                     </a>
                     <button type="button" className="link-u" onClick={() => go(0)}>
-                      Change my answers
+                      {L.changeAnswers}
                     </button>
                   </div>
                 </div>
@@ -229,16 +231,16 @@ export function EnquiryForm() {
             {step < STEPS && (
               <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                 <button type="submit" className="cta cta-ink">
-                  {step === STEPS - 1 ? "See my message" : "Next"}
+                  {step === STEPS - 1 ? L.seeMessage : L.next}
                 </button>
                 {step > 0 && (
                   <button type="button" className="link-u" onClick={() => go(step - 1)}>
-                    Back
+                    {L.back}
                   </button>
                 )}
                 {step > 0 && (
                   <button type="button" className="link-u text-muted" onClick={() => go(STEPS)}>
-                    Skip to my message
+                    {L.skipToMessage}
                   </button>
                 )}
               </div>

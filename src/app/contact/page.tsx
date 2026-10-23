@@ -12,8 +12,11 @@ import { EnquiryForm } from "@/components/contact/EnquiryForm";
 import { JsonLd } from "@/components/blocks/JsonLd";
 import { faqGraph } from "@/lib/jsonld";
 import { Todo } from "@/components/blocks/Todo";
+import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("contact");
+
+const T = labels.pages.contact;
 
 export default function ContactPage() {
   return (
@@ -24,7 +27,7 @@ export default function ContactPage() {
         fx="lightup"
         art="ask"
         intro={contact.line}
-        trail={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]}
+        trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.contact, path: "/contact" }]}
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <WhatsAppLink message={messages.general} variant="primary" />
@@ -34,9 +37,9 @@ export default function ContactPage() {
 
       <Section id="enquire" tone="surface">
         <SectionHeading id="enquire-title" fx="lightup">
-          Send an enquiry
+          {T.enquire}
         </SectionHeading>
-        <p className="mt-3 max-w-[60ch] text-muted">Answer a few quick questions, or skip any of them. It opens WhatsApp with your message ready. Nothing is stored on our side.</p>
+        <p className="mt-3 max-w-[60ch] text-muted">{T.enquireIntro}</p>
         <div className="mt-8 max-w-[44rem]">
           <EnquiryForm />
         </div>
@@ -44,7 +47,7 @@ export default function ContactPage() {
 
       <Section id="branches" tone="paper">
         <SectionHeading id="branches-title" fx="lightup">
-          Our branches
+          {T.branches}
         </SectionHeading>
         <p className="mt-3 max-w-[60ch] text-muted">{contact.timingsLine}</p>
         <Todo value={contact.timingsTodo} />
@@ -54,7 +57,7 @@ export default function ContactPage() {
       </Section>
 
       <Section id="faq" tone="surface">
-        <SectionHeading id="faq-title" fx="lightup">Frequently asked questions</SectionHeading>
+        <SectionHeading id="faq-title" fx="lightup">{T.faq}</SectionHeading>
         <div className="mt-6 max-w-[60ch]">
           <FaqAccordion items={faq} group="contact-faq" />
         </div>

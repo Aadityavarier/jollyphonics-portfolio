@@ -17,22 +17,25 @@ import { PathJourney } from "@/components/about/PathJourney";
 import { JsonLd } from "@/components/blocks/JsonLd";
 import { personGraph } from "@/lib/jsonld";
 import { journey } from "@/content/journey";
+import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("about");
+
+const T = labels.pages.about;
 
 export default function AboutPage() {
   return (
     <>
       <JsonLd data={personGraph()} />
       <TileProgress />
-      <PageHero title={founder.knownAs} fx="stroke" trail={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} slot="A1">
+      <PageHero title={founder.knownAs} fx="stroke" trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.about, path: "/about" }]} slot="A1">
         <CredentialLine />
         <TrustStats animated />
       </PageHero>
 
       <Section id="bio" tone="surface">
         <div className="grid gap-6 lg:max-w-[70ch]">
-          <SectionHeading id="bio-title" fx="stroke">Her story</SectionHeading>
+          <SectionHeading id="bio-title" fx="stroke">{T.story}</SectionHeading>
           {founder.bio.map((p) => (
             <p key={p} className="text-lead">
               {p}
@@ -44,12 +47,12 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <PathJourney title="Her journey" milestones={journey} />
+      <PathJourney title={T.journey} milestones={journey} />
 
       <Section id="qualifications" tone="paper">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="grid content-start gap-5">
-            <SectionHeading id="qualifications-title" fx="stroke">Qualifications</SectionHeading>
+            <SectionHeading id="qualifications-title" fx="stroke">{T.qualifications}</SectionHeading>
             <FanPile className="grid gap-3 sm:grid-cols-2">
               {founder.qualifications.map((q) => (
                 <li key={q.title} className="cert grid content-start gap-1 rounded-[1rem] border-2 border-ink/15 bg-paper p-4 shadow-[0_10px_24px_-16px_rgba(22,32,74,0.4)]">
@@ -61,7 +64,7 @@ export default function AboutPage() {
             </FanPile>
           </div>
           <div className="grid content-start gap-5">
-            <h2 className="text-lead">Certifications</h2>
+            <h2 className="text-lead">{T.certifications}</h2>
             <Stagger as="ul" className="grid gap-2">
               {founder.certifications.map((c) => (
                 <li key={c}>{c}</li>
@@ -72,7 +75,7 @@ export default function AboutPage() {
       </Section>
 
       <Section id="worked-with" tone="surface">
-        <SectionHeading id="worked-with-title" fx="stroke">Has worked with</SectionHeading>
+        <SectionHeading id="worked-with-title" fx="stroke">{T.workedWith}</SectionHeading>
         <ChipList items={founder.workedWith} tone="paper" className="mt-5" />
       </Section>
 
@@ -124,13 +127,13 @@ export default function AboutPage() {
       <Section id="vision" tone="paper">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="grid content-start gap-3">
-            <SectionHeading id="vision-title" fx="stroke">Vision</SectionHeading>
+            <SectionHeading id="vision-title" fx="stroke">{T.vision}</SectionHeading>
             <p className="text-lead">
               {vision.vision.lead} {vision.vision.outcomes.join(", ")}, {vision.vision.teachers}
             </p>
           </div>
           <div className="grid content-start gap-3">
-            <h2 className="text-lead">Mission</h2>
+            <h2 className="text-lead">{T.mission}</h2>
             <p>{vision.mission.text}</p>
             <ChipList items={vision.mission.focusAreas} />
             <p className="text-small text-muted">{vision.mission.educators}</p>
@@ -147,8 +150,8 @@ export default function AboutPage() {
       </Section>
 
       <CtaBand
-        title="Meet Trainer Revathi in person"
-        text="Visit a branch, or ask a question on WhatsApp."
+        title={T.cta.title}
+        text={T.cta.text}
         message={messages.about}
       />
     </>

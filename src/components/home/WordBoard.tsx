@@ -6,6 +6,7 @@ import { matchWord, nextSlot } from "@/lib/word-board";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { useHydrated } from "@/components/motion/useHydrated";
 import { EASE, prefersReducedMotion } from "@/components/motion/tokens";
+import { labels } from "@/content/labels";
 
 const { words, example, prompt, title } = home.board;
 const letters: readonly string[] = home.board.letters;
@@ -111,7 +112,7 @@ export function WordBoard() {
   };
 
   return (
-    <div role="group" aria-label="Word board: tap sounds to build a word" onKeyDown={onKey} className="grid gap-5 text-[clamp(2.25rem,1.4rem+3.2vw,4rem)]">
+    <div role="group" aria-label={labels.home.board.name} onKeyDown={onKey} className="grid gap-5 text-[clamp(2.25rem,1.4rem+3.2vw,4rem)]">
       <p className="font-display text-[0.4em] leading-none font-bold text-paper/90">{title}</p>
       <div data-testid="board-slots" className="flex min-h-[1.3em] items-center justify-center gap-[0.14em]">
         {slots.map((s, i) => (
@@ -160,7 +161,7 @@ export function WordBoard() {
       <div className="flex items-center justify-between gap-3 text-[0.3em]">
         <p className={`font-bold text-paper ${hydrated ? "" : "invisible"}`}>{prompt}</p>
         <button type="button" onClick={clear} disabled={!hydrated} className="font-bold text-paper underline underline-offset-4">
-          Clear
+          {labels.home.board.clear}
         </button>
       </div>
     </div>

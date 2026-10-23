@@ -5,6 +5,7 @@ import { Section, SectionHeading } from "@/components/layout/Section";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
 import { FxHeading } from "@/components/motion/FxHeading";
 import { RevealTarget } from "@/components/motion/RevealTarget";
+import { labels } from "@/content/labels";
 
 /** A leading figure ("20+", "4,500+") is set large; the rest of the line is untouched. */
 function Detail({ text }: { text: string }) {
@@ -34,7 +35,7 @@ export function WhyChooseUs() {
     <Section id="why-us" tone="surface">
       <div className="grid gap-8">
         <SectionHeading id="why-us-title" className="max-w-[24ch]">
-          Why parents choose {brand.name.replace("Tr. ", "Tr. ")}
+          {labels.home.why.title} {brand.name}
         </SectionHeading>
         <RevealTarget as="ol" attr="data-reveal" value="ruled" className="why-list" data-failsafe={1800}>
           {why.points.map((p, i) => {
