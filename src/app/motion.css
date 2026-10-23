@@ -390,6 +390,10 @@
 [data-enhanced] .path-stage {
   display: grid;
 }
+/* Each step carries its own description in the static list; the pinned scene shows it large instead. */
+[data-enhanced] .path-card-detail {
+  display: none;
+}
 
 /* ---------- Header nav: current page underline (static fallback) and the sliding indicator. ---------- */
 

@@ -828,7 +828,11 @@
   stroke-dasharray: 2 9;
 }
 
-/* Special classes: chips slide in from alternating sides while the block scrolls into view, then rest. */
+/* Special classes: chips slide in from alternating sides while the block scrolls into view, then rest.
+   The block clips sideways so a chip waiting off to the side never widens the page on a phone. */
+.conveyor {
+  overflow-x: clip;
+}
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .conveyor > li {

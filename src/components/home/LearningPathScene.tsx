@@ -114,7 +114,7 @@ export function LearningPathScene({ title, steps, detail }: Props) {
   }, []);
 
   return (
-    <section ref={root} id="learning-path" aria-labelledby="learning-path-title" className="bg-surface">
+    <section ref={root} id="learning-path" aria-labelledby="learning-path-title" className="overflow-x-clip bg-surface">
       <div className="path-pin lg:flex lg:min-h-svh lg:items-center">
         <div className="mx-auto grid w-full max-w-[var(--content-max)] gap-6 px-[var(--gutter)] py-[var(--section-gap)] lg:gap-8 lg:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -163,6 +163,7 @@ export function LearningPathScene({ title, steps, detail }: Props) {
                     <span className="grid">
                       <span className="text-small text-muted">Step {i + 1}</span>
                       <span className="font-display text-lead leading-tight font-bold">{s}</span>
+                      {detail?.[i] && <span className="path-card-detail mt-1 text-small text-muted">{detail[i]}</span>}
                     </span>
                   </li>
                 );
