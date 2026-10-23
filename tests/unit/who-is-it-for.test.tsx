@@ -16,7 +16,7 @@ describe("WhoIsItFor (Home's decision tool)", () => {
     panels.forEach((panel, i) => {
       const primaries = panel.match(/<a [^>]*data-variant="primary"[^>]*>/g) ?? [];
       expect(primaries, `panel ${i}`).toHaveLength(1);
-      const href = primaries[0].match(/href="([^"]+)"/)![1].replace(/&#x27;/g, "'").replace(/&amp;/g, "&");
+      const href = primaries[0]!.match(/href="([^"]+)"/)![1].replace(/&#x27;/g, "'").replace(/&amp;/g, "&");
       expect(new URL(href).searchParams.get("text")).toBe(expected[i]);
     });
   });
