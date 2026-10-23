@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
 import { faqByQuestion } from "@/content/faq";
 import { contact } from "@/content/contact";
@@ -44,11 +45,12 @@ export default function HomePage() {
       <WhyChooseUs />
       <GalleryPreview />
       <Section id="faq">
-        <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <SectionHeading id="faq-title" className="lg:sticky lg:top-8 lg:self-start">
-            Questions parents ask
-          </SectionHeading>
+        <div className="mx-auto grid max-w-[48rem] gap-8">
+          <SectionHeading id="faq-title">Questions parents ask</SectionHeading>
           <FaqAccordion items={HOME_FAQ} group="home-faq" />
+          <Link href="/contact#faq" className="link-u justify-self-start">
+            More answers
+          </Link>
         </div>
       </Section>
       <CtaBand

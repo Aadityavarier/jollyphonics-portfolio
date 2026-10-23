@@ -6,10 +6,12 @@ import { Todo } from "@/components/blocks/Todo";
 /** "Where and when": all four branches, grouped East / West, identical cards. */
 export function HomeBranches() {
   return (
-    <Section id="branches" className="pt-0">
+    <Section id="branches">
       <div className="grid gap-10">
         <div className="grid gap-4 md:grid-cols-[1fr_1fr] md:items-end">
-          <SectionHeading id="branches-title">Four branches across Ambernath</SectionHeading>
+          <SectionHeading id="branches-title" className="max-w-none !text-[clamp(1.75rem,1.2rem+2vw,2.5rem)]">
+            Four branches across Ambernath
+          </SectionHeading>
           <div className="max-w-[46ch] text-lead">
             <p>{contact.timingsLine}.</p>
             <Todo value={contact.timingsTodo} />

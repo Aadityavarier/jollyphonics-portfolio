@@ -1381,3 +1381,53 @@ body:has(.enq :focus-within) .sticky-bar {
     transform: scaleX(0);
   }
 }
+
+/* ============ Home: why parents choose us (ruled list) ============ */
+.why-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.why-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 1rem;
+  padding: 0.9rem 0;
+}
+.why-row::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: rgba(22, 32, 74, 0.16);
+  transform-origin: left;
+}
+.why-num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+@media (min-width: 1024px) {
+  .why-list {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    column-gap: 3.5rem;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed][data-reveal="ruled"]:not([data-shown]) .why-row::after {
+    transform: scaleX(0);
+  }
+  [data-reveal="ruled"][data-shown] .why-row::after {
+    transition: transform 700ms var(--ease-in-out) calc(var(--i, 0) * 60ms);
+  }
+}
