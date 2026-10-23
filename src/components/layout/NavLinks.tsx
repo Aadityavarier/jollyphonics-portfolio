@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import type { NavItem } from "@/content/nav";
+import { useHydrated } from "@/components/motion/useHydrated";
 
 interface Props {
   items: NavItem[];
@@ -17,7 +18,8 @@ interface Props {
 export function NavLinks({ items, className = "", linkClassName = "", onNavigate, indicator = false }: Props) {
   const pathname = usePathname();
   const ref = useRef<HTMLUListElement>(null);
-  const [ready, setReady] = useState(false);
+  const hydrated = useHydrated();
+  const ready = indicator && hydrated;
 
   const place = useCallback(() => {
     const ul = ref.current;
@@ -37,7 +39,6 @@ export function NavLinks({ items, className = "", linkClassName = "", onNavigate
 
   useEffect(() => {
     if (!indicator) return;
-    setReady(true);
     window.addEventListener("resize", place);
     document.fonts?.ready.then(place);
     return () => window.removeEventListener("resize", place);

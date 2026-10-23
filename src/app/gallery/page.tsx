@@ -31,8 +31,8 @@ export default function GalleryPage() {
             {galleryPhotos
               .filter((p) => categories.includes(p.category))
               .map((p) => (
-                // eslint-disable-next-line @next/next/no-img-element
                 <li key={p.src} className="overflow-hidden rounded-[var(--radius-panel)]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.src} alt={p.alt} className="aspect-square w-full object-cover" />
                 </li>
               ))}

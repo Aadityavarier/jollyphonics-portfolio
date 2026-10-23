@@ -39,7 +39,8 @@ export function EnquiryForm() {
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState<"f" | "b">("f");
   const [a, setA] = useState<Answers>({ topic: "", branch: "", name: "", note: "" });
-  const [typing, setTyping] = useState(false);
+  const [typingStep, setTypingStep] = useState<number | null>(null);
+  const typing = typingStep === STEPS && step === STEPS;
   const stepRef = useRef<HTMLDivElement>(null);
   const moved = useRef(false);
 
@@ -54,11 +55,8 @@ export function EnquiryForm() {
   }, [step, mode]);
 
   useEffect(() => {
-    if (step !== STEPS) {
-      setTyping(false);
-      return;
-    }
-    const t = window.setTimeout(() => setTyping(true), answered.length ? 480 : 80);
+    if (step !== STEPS) return;
+    const t = window.setTimeout(() => setTypingStep(STEPS), answered.length ? 480 : 80);
     return () => clearTimeout(t);
     // The delay only depends on whether chips are flying in; recomputing it per keystroke would restart typing.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,6 +64,7 @@ export function EnquiryForm() {
 
   const go = (to: number) => {
     moved.current = true;
+    setTypingStep(null);
     setDir(to >= step ? "f" : "b");
     setStep(to);
   };

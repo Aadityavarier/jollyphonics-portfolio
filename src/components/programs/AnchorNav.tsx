@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useHydrated } from "@/components/motion/useHydrated";
 
 interface Item {
   id: string;
@@ -14,7 +15,7 @@ interface Item {
 export function AnchorNav({ items }: { items: readonly Item[] }) {
   const [active, setActive] = useState(items[0]?.id);
   const ul = useRef<HTMLUListElement>(null);
-  const [ready, setReady] = useState(false);
+  const ready = useHydrated();
 
   useEffect(() => {
     const sections = items.map((i) => document.getElementById(i.id)).filter((el): el is HTMLElement => Boolean(el));
@@ -42,10 +43,6 @@ export function AnchorNav({ items }: { items: readonly Item[] }) {
   useLayoutEffect(() => {
     place();
   }, [active, place]);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
 
   return (
     <nav aria-label="Programs" className="sticky top-[var(--header-h)] z-20 border-b border-ink/10 bg-paper">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useHydrated } from "./useHydrated";
 
 export interface TabItem {
   id: string;
@@ -32,7 +33,7 @@ export function LayoutTabs({ tabs, label, className = "", listClassName = "", pa
   const [dir, setDir] = useState<"l" | "r" | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const btns = useRef<(HTMLButtonElement | null)[]>([]);
-  const [ready, setReady] = useState(false);
+  const ready = useHydrated();
 
   const place = useCallback(() => {
     const list = listRef.current;
@@ -47,7 +48,6 @@ export function LayoutTabs({ tabs, label, className = "", listClassName = "", pa
   }, [place]);
 
   useEffect(() => {
-    setReady(true);
     if (typeof ResizeObserver === "undefined" || !listRef.current) return;
     const ro = new ResizeObserver(place);
     ro.observe(listRef.current);
