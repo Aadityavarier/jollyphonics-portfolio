@@ -224,6 +224,19 @@
     opacity: 1;
   }
 }
+/* Tiles inside the h1: they start spread apart and close up. Never opacity or scale, so the heading paints whole on the first frame. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-tile-inline] .tile-face {
+    animation:
+      tile-spread 700ms var(--ease-out) calc(var(--asm, 0ms) * 0.4 + 150ms) backwards,
+      bob var(--bob, 1.5s) ease-in-out var(--bob-delay, 1s) 3;
+  }
+}
+@keyframes tile-spread {
+  from {
+    transform: translateX(var(--spx));
+  }
+}
 @keyframes bob {
   50% {
     translate: 0 -0.09em;

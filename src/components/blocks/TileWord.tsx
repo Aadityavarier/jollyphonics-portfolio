@@ -7,6 +7,8 @@ import { EASE, hasFinePointer, prefersReducedMotion } from "@/components/motion/
 interface Props {
   text: string;
   className?: string;
+  /** Set inside a heading: tiles are smaller than the type, and spread closed from the sides without ever fading (the h1 is the LCP element). */
+  inline?: boolean;
 }
 
 /** Resting angles, so the row reads as loose flash cards rather than a typeset word. */
@@ -27,7 +29,7 @@ const SCATTER = [
  * (desktop) and the tap hop; the inner .tile-face holds the resting angle and the short idle bob.
  * Decorative: the word is given once to screen readers; tiles are not focusable.
  */
-export function TileWord({ text, className = "" }: Props) {
+export function TileWord({ text, className = "", inline = false }: Props) {
   const area = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export function TileWord({ text, className = "" }: Props) {
   };
 
   return (
-    <span ref={area} onPointerDown={hop} className={`inline-flex items-center gap-[0.14em] ${className}`.trim()}>
+    <span ref={area} onPointerDown={hop} data-tile-inline={inline || undefined} className={`inline-flex items-center gap-[0.14em] ${inline ? "text-[0.56em] align-middle" : ""} ${className}`.trim()}>
       <span className="sr-only">{text}</span>
       {Array.from(text).map((ch, k) => {
         const tile = PHONICS_TILES[k % PHONICS_TILES.length];
@@ -72,6 +74,7 @@ export function TileWord({ text, className = "" }: Props) {
           "--sy": `${SCATTER[k % SCATTER.length].y}em`,
           "--sr": `${SCATTER[k % SCATTER.length].r}deg`,
           "--asm": `${k * 55}ms`,
+          "--spx": `${(k - (text.length - 1) / 2) * 0.7}em`,
         } as CSSProperties;
         return (
           <span key={k} aria-hidden="true" className="tile cursor-pointer select-none">
