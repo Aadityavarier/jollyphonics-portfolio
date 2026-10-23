@@ -1292,3 +1292,92 @@ body:has(.enq :focus-within) .sticky-bar {
     display: none;
   }
 }
+
+/* ============ Home: trainer seal (stamp) and journey teaser (rule) ============ */
+[data-reveal="stamp"] {
+  rotate: -4deg;
+}
+.jt {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  list-style: none;
+}
+.jt::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  width: 2px;
+  background: currentColor;
+  opacity: 0.55;
+  transform-origin: top;
+}
+.jt-stop {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+}
+.jt-dot {
+  position: absolute;
+  top: 0.1rem;
+  left: -1.75rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--color-paper);
+}
+@media (min-width: 640px) {
+  .jt {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.75rem 0 0;
+  }
+  .jt::before {
+    inset: 0.4rem 0 auto 0;
+    width: auto;
+    height: 2px;
+    transform-origin: left;
+  }
+  .jt-dot {
+    top: -1.75rem;
+    left: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed][data-reveal="stamp"]:not([data-shown]) {
+    opacity: 0;
+    transform: scale(1.14);
+    rotate: -14deg;
+  }
+  [data-reveal="stamp"][data-shown] {
+    transition:
+      opacity 200ms var(--ease-out),
+      transform 520ms var(--ease-spring),
+      rotate 520ms var(--ease-spring);
+  }
+  [data-armed][data-reveal="rule"]:not([data-shown])::before {
+    transform: scaleY(0);
+  }
+  [data-armed][data-reveal="rule"]:not([data-shown]) .jt-dot {
+    transform: scale(0);
+  }
+  [data-reveal="rule"][data-shown]::before {
+    transition: transform 900ms var(--ease-in-out);
+  }
+  [data-reveal="rule"][data-shown] .jt-dot {
+    transition: transform 360ms var(--ease-spring) calc(var(--i, 0) * 240ms + 150ms);
+  }
+  [data-reveal="rule"][data-shown] .jt-stop {
+    animation: fade-up 480ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 240ms + 200ms);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 640px) {
+  [data-armed][data-reveal="rule"]:not([data-shown])::before {
+    transform: scaleX(0);
+  }
+}
