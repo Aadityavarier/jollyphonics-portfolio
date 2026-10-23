@@ -81,7 +81,6 @@ export function WordBoard() {
       later(t + 500, () => setMode("free"));
     });
     return clearTimers;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const add = (letter: string) => {
