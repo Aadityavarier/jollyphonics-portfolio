@@ -1,15 +1,17 @@
 import type { BranchId } from "./types";
+import { photoManifest } from "./photos.generated";
 
 /**
- * Photo slots from PLAN.md §4. To add a photo, put the file in public/images/<page>/<ID>.jpg
- * and set `photo: { src, alt }` on its slot. `alt` must describe what is in the photo.
+ * Photo slots from PLAN.md §4. To add a photo, drop it in raw-images/ named after its slot (e.g. H1-portrait.jpg)
+ * and run `npm run photos`: the photo is converted, and its slot picks it up from photos.generated.ts. Alt text
+ * is edited in images.md. A `photo` set by hand below still wins.
  */
 export type Ratio = "4:5" | "4:3" | "3:2" | "1:1";
 
 export interface ImageSlotDef {
   description: string;
   ratio: Ratio;
-  photo?: { src: string; alt: string };
+  photo?: { src: string; alt: string; width?: number; height?: number };
 }
 
 const slots = {
@@ -65,7 +67,9 @@ const slots = {
 
 export type SlotId = keyof typeof slots;
 
-export const imageSlots: Record<SlotId, ImageSlotDef> = slots;
+export const imageSlots: Record<SlotId, ImageSlotDef> = Object.fromEntries(
+  Object.entries(slots).map(([id, def]) => [id, { ...def, photo: (def as ImageSlotDef).photo ?? photoManifest.slots[id] }]),
+) as Record<SlotId, ImageSlotDef>;
 
 export const branchPhotoSlot: Record<BranchId, SlotId> = {
   "om-dubey-dham": "B1",

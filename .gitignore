@@ -45,3 +45,7 @@ next-env.d.ts
 /.playwright-cli/
 /.taste-skill/
 .screens/
+
+# photo inbox (npm run photos); only the README is tracked
+/raw-images/*
+!/raw-images/README.md

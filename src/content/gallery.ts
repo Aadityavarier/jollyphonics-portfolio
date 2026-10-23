@@ -1,4 +1,5 @@
 import { todo } from "./todo";
+import { photoManifest } from "./photos.generated";
 
 export const galleryCategories = [
   { slug: "phonics-classes", label: "Phonics classes" },
@@ -23,8 +24,8 @@ export interface GalleryPhoto {
   alt: string;
 }
 
-/** Add photos here as they arrive (files in public/images/gallery/<category>/). */
-export const galleryPhotos: GalleryPhoto[] = [];
+/** Filled by `npm run photos` from raw-images/gallery/<category>/ (see CONTENT-GUIDE.md). */
+export const galleryPhotos: GalleryPhoto[] = photoManifest.gallery;
 
 export const MIN_PHOTOS_PER_CATEGORY = 3;
 
