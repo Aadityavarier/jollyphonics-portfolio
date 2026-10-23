@@ -1,73 +1,107 @@
-# Morning report — unattended build session
+# Final report
 
-Session ran overnight while you were offline, per your "work fully unattended, don't wait for review" instruction. Summary below; full decision trail is in `.superpowers/sdd/PLAN/progress.md`.
+State of the site after the redesign, the Home rebuild and the quality gate. Nothing has been pushed.
+The decision trail is in `.superpowers/sdd/PLAN/progress.md`; the plan it followed is `FINAL-PLAN.md`.
 
-## What was built
+## What is on each page
 
-### Part 1 — Home page fixes (commit `e9ba247`)
-1. **Hero above the fold at 1366×768 and 1440×900**: capped the desktop `--text-display` size (was uncapped up to 7.5rem via a viewport-wide clamp; now caps at 5rem), and fixed the hero grid so the red sound-tile panel aligns with the top of the h1 instead of starting below it. Verified both viewports with screenshots — tiles are fully visible without scrolling.
-2. **Learning path**: the active step's one-line description now shows under the big word (new `learningPathDetail` content, derived from the existing "Covers" facts in `content.md` — not invented), and the gap to the step cards is tighter.
-3. **Vertical rhythm**: tightened the shared `--section-gap` token from `clamp(4.5rem,10vw,10rem)` to `clamp(4rem,8vw,7rem)`, and removed the `min-h-[60svh]`/`content-between` on `CtaBand` that was leaving large empty space at the bottom of the red/teal closing bands.
-4. **Preview noindex**: added `src/app/robots.ts` (disallow-all unless `VERCEL_ENV === "production"`) and an `X-Robots-Tag: noindex, nofollow` header in `next.config.ts` for every route in non-production environments. Verified against a real production build: locally (no `VERCEL_ENV`) `robots.txt` correctly emits `Disallow: /`.
+Every page has a different signature moment and a different heading treatment from its neighbours. Each one is fully
+readable with JavaScript off and with reduced motion.
 
-**Bug caught and fixed during verification**: removing the h1's `lg:col-span-2` without giving the content column and panel explicit grid placement broke the desktop hero layout (content floated into the wrong row, overlapping the panel). Found via a real screenshot at 1366×768, fixed with explicit `lg:col-start`/`row-start` on all three grid children. Also found and killed a stale `next dev` process squatting on port 3000 from a previous session, which was silently serving an old build and made the bug invisible until the correct port (3001) was used.
+| Page | Signature moment | Supporting moments | Headings |
+|---|---|---|---|
+| **Home** | "Phonics" in the headline is sound tiles that close up; beside it a **word board** where you tap sounds to build a word | Letter names vs letter sounds demo; the pinned learning path; Trainer Revathi seal, journey teaser and awards; audience selector with one WhatsApp button per audience; **Inside the classes** bento of seven live previews; East / West railway; ruled "why parents choose us" list; **hello tiles that become the WhatsApp message** | mask rise, sound-out |
+| **About** | Pinned journey path, 2001 to 2025 | Read-aloud belief quote, fanning qualifications, flip award cards | stroke underline |
+| **Programs** | 42-tile sound wall ripple with the "42 sounds" counter | Sentence builder, typing speech bubble, handwriting strokes, special-classes conveyor, sliding anchor nav, tile art "read" | sound-out |
+| **Coaching** | Scroll-scrubbed staircase, Sr. KG to Std. 8 | Letter-sound flip cards for subjects | tile flip |
+| **Teacher training** | Sticky stacking course cards | Calm ARPAN section (opacity only, no transform motion), tile art "teach" | wipe |
+| **For schools** | Tabs with a sliding indicator and direction-aware panels | "What each group takes away" strip | word slide |
+| **Contact** | Conversational enquiry that ends in a WhatsApp chat bubble | East / West branch toggle, pin-drop maps, tile art "ask" | light-up |
+| **Gallery** | Waits for photos (noindex, out of nav and sitemap) | | stroke |
+| **Global** | Page transitions with a persistent logo, sliding nav indicator, sound-tile scroll progress | | |
 
-### Part 2 — Remaining pages (commit `4227719`)
-Built `/about`, `/programs`, `/coaching`, `/teacher-training`, `/for-schools`, `/contact`, `/gallery`, all content-driven from the existing typed `src/content/` layer (no invented facts; gaps render the existing dev-only `Todo` markers).
+### Home, before and after
 
-- **`/about`**: Inner Wheel role timeline (2017 → 2024–25) with a GSAP ScrollTrigger line-draw + staggered reveal; qualifications and awards as animated chips/cards; vision, mission, core values.
-- **`/programs`**: sticky anchor nav that highlights the section in view; reuses the home page's `LearningPathScene`; "covers" chips cascade in with the existing `Stagger` component.
-- **`/coaching`**: subject grid with staggered entrance, branches, FAQ subset.
-- **`/teacher-training`**: expanding course cards (native `<details>`, same accessible pattern as the FAQ accordion); ARPAN section kept deliberately calm — no extra motion beyond the shared reveal, per CLAUDE.md's "no alarming visuals" rule.
-- **`/for-schools`**: three audience tracks (teachers / students / parents) as tabs.
-- **`/contact`**: tap-to-load maps (reused `BranchList withMap`), an enquiry form that builds a prefilled WhatsApp message client-side and opens `wa.me` — no backend, nothing stored — plus the full FAQ.
-- **`/gallery`**: the route resolves (so a direct link doesn't 404) but stays out of nav, footer and sitemap via the existing `galleryHasPhotos()` gate, unchanged, until real photos exist.
+The diagnosis was that seven of ten Home sections were "heading, paragraph, cards", the hero's right half was empty, the
+only real phonics interaction was a small button, and two neighbouring sections shared a background. Home now alternates
+interactive and calm sections in the order paper, red, surface, teal, paper, ink, paper, surface, paper, red, checked by a
+probe at 375 and 1440. At 375px the page grew from 10,221 to 11,339 px because it now carries the showroom; at 1440 it is
+8,366 px.
 
-### Part 3 — End-of-run verification
-- 1440px screenshots taken for all 8 pages; visually reviewed, no layout breaks found.
-- Reduced-motion audit (emulated `prefers-reduced-motion: reduce`): Home hero content shows immediately, and the learning path correctly falls back to its static 6-card list with no GSAP pinning — matches its documented contract.
-- `npx tsc --noEmit`: clean.
-- `npm run build`: succeeds, all 11 routes prerender statically.
-- All 7 new routes return HTTP 200 against the production build.
-- Lighthouse (mobile), run once against the production build (`next start`) on `/` only:
+The h1, the 20+ / 4,500+ / 2001 trust line and the WhatsApp button are fully visible without scrolling at 375x667, 1366x610
+(a real 1366x768 laptop's visible Chrome viewport), 1366x768 and 1440x900. The h1 is the largest contentful paint element
+and nothing above the fold waits on JavaScript.
 
-  | Category | Score |
-  |---|---|
-  | Performance | 70 |
-  | Accessibility | 100 |
-  | Best Practices | 100 |
-  | SEO | 69 |
+## GIFs and screenshots (local, gitignored)
 
-  **Caveats**: this is the same host flagged in earlier session notes as unreliable for Lighthouse (an AMD A6 box, benchmark ~640) — the real 95+ gate is PageSpeed Insights on a Vercel preview, not this machine. The SEO 69 is entirely one audit, `is-crawlable: 0`, because `VERCEL_ENV` isn't `production` locally, so `robots.ts` correctly emits `disallow: /` — that's Fix 4 working as intended, not a defect; on an actual Vercel production deploy this should read ~100. I only ran Lighthouse on the home page, not all 8 — given the host's known unreliability, running it 8× wouldn't have produced trustworthy per-page numbers worth the time; a single run already demonstrates the pattern (and confirms the noindex fix end-to-end).
+`.screens/gifs/`: `home-hero-v2.gif`, `home-showcase.gif`, `home-cta.gif`, `home-hero.gif`, `home-audience.gif`,
+`home-branches.gif`, `about-journey.gif`, `programs-wall.gif`, `programs-grammar.gif`, `programs-english.gif`,
+`programs-handwriting.gif`, `programs-special.gif`, `coaching-stairs.gif`, `tt-stack.gif`, `schools-tabs.gif`,
+`contact-form.gif`.
 
-## Decisions made on your behalf (full detail in progress.md)
+`.screens/final/`: full-page 375px and 1440px screenshots of all eight routes, taken from the production build.
 
-1. **Learning-path step descriptions** (`learningPathDetail` in `src/content/programs.ts`) are paraphrases of the existing "Covers" facts already in `content.md`, not new invented claims. Easy to revert if you disagree with the call.
-2. **No full JSON-LD or sitemap.ts this session.** CLAUDE.md asks for `EducationalOrganization`/`Person`/`FAQPage`/`BreadcrumbList`/`LocalBusiness` JSON-LD and `sitemap.ts`, but these are explicitly PLAN.md's separate Task 16/17 (SEO phase) and weren't named in your Part 1/Part 2 instructions for this session. **This is the single biggest gap left open** — flagging clearly rather than quietly skipping it.
-3. **`review-animations` and `impeccable` skills were not run as full automated passes.** I did a direct visual review of every page's screenshots instead (faster, and I could act on findings immediately) and found nothing beyond one cosmetic note (below). This is a scope reduction from your instruction to "run review-animations + impeccable across the whole site" — noting it rather than claiming it was done in full.
-4. **`AnchorNav`'s sticky offset** (on `/programs`) is hardcoded to `64px`/`88px` (mobile/desktop) rather than tied to a real `--header-h` CSS variable, because no such token exists in the design system yet. Visually correct at the viewports checked; worth a proper token later if the header height changes.
-5. **Cosmetic, not fixed**: `PageHero` without a `slot` photo (used on `/programs`, `/teacher-training`, `/contact`) leaves an empty right column on desktop. This is existing `PageHero` behavior, not something this session introduced, and fixing it would mean changing a shared component under time pressure — left as-is.
-6. A stray "hydration mismatch" console error shows up in the dev browser on at least `/programs`; traced it to the React DevTools browser extension injecting attributes before hydration (React's own warning text names this as a known cause). Not an app bug, didn't chase further.
+## Skill audits (details in `.superpowers/sdd/PLAN/audit-findings.md`)
 
-## Screenshots
-All in `.screens/` at the repo root (gitignored, not committed):
-- `home-375.png`, `home-1366.png`, `home-1440.png`, `home-1440-final.png` / `home-1366-v2.png` (hero fix verification)
-- `learning-path-1366c.png` (description under active word)
-- `founder-1366.png` (teal band rhythm)
-- `{about,programs,coaching,teacher-training,for-schools,contact,gallery}-375.png` (per-page mobile)
-- `{home,about,programs,coaching,teacher-training,for-schools,contact,gallery}-1440.png` (per-page desktop)
-- `home-reduced-motion.png`, `home-reduced-motion-path.png` (reduced-motion audit)
-- `contact-form-375.png` (enquiry form)
-- `lh-home.json` (full Lighthouse report)
+| Skill | Result |
+|---|---|
+| improve-animations | Gated one hover colour for touch, replaced a `scale(0)` pop, no `transition: all`, no layout-property animation, every JS animation sits behind a reduced-motion check |
+| animation-performance, gsap-performance | Only transform, opacity, clip-path and stroke-dashoffset animate; GSAP is lazy, reverts on resize, transforms only |
+| impeccable (detector) | One side-tab border fixed; one advisory kept (the site's soft-overshoot easing token) |
+| **review-animations** | **Not run.** The skill can only be started by you: run `/review-animations` yourself |
 
-## Commits (local only, not pushed, per your instruction)
-- `e9ba247` — fix: hero fold, learning path copy, section rhythm, preview noindex
-- `4227719` — feat: build remaining pages (about, programs, coaching, teacher training, for-schools, contact, gallery)
+## Probes and checks (`npm run probe`, scripts in `scripts/`)
 
-## Still open / needs your decision
-- **JSON-LD + sitemap.ts** (PLAN.md Task 16/17) — not started this session, biggest remaining gap before the SEO requirements in CLAUDE.md are fully met.
-- Full `review-animations`/`impeccable` automated passes were not run (see decision #3 above) — worth doing properly before ship if you want that level of polish assurance beyond my direct visual check.
-- Real Lighthouse/PageSpeed Insights numbers need a Vercel preview deploy — nothing here is a substitute for that.
-- Everything already listed in `TODO.md` (batch timings, coaching subjects/boards confirmation, social URLs, pincodes, logo approval, photo consent, scholarship-drawing meaning) is unchanged and still open — all of it now correctly surfaces as dev-only TODO markers across the new pages too, confirmed in screenshots.
+| Check | Result |
+|---|---|
+| Clean-profile hydration, 8 routes x 3 cold loads | 0 errors |
+| End key and anchor jumps | nothing left hidden |
+| Reduced motion | nothing faded or masked |
+| Resize across 1024px | pins appear, disappear and return cleanly |
+| No sideways scroll at 375px on every route | pass (after fixes below) |
+| Production sweep at 375px, JS on and off | no TODO text, no placeholders, alt on every image, one h1 per page, wa.me and tel links present, tab panels stacked without JS |
+| Unit tests, types, lint | 112 tests, `tsc` and `eslint` clean |
+| 4x CPU throttle at 375px | **Not a pass**, see below |
 
-Dev server is still running on `http://localhost:3001` for your review. Production server was stopped after the Lighthouse run.
+### Real bugs the probes found (all fixed)
+
+1. The learning path's step descriptions were hidden on phones, with reduced motion and without JavaScript. Each step card now carries its own description.
+2. Home and Programs scrolled sideways on phones (scroll-triggered card and chip offsets widened the page). Both are clipped now.
+3. Without JavaScript the Home audience panels and the For Schools tracks stayed hidden, because Tailwind's `[hidden]` rule beats unlayered `!important` CSS. The no-JS styles now sit in the same layer.
+4. The Showcase's four-column layout overflowed between 900 and 1100px.
+5. Reveal arming read every node's position between attribute writes, forcing a layout per node. It is now batched: Home went from 38 layouts to 16 and from 173 style recalculations to 99 at 4x throttle.
+6. Two contrast failures (showcase tile labels, the dimmed words in the About quote).
+
+## Scores and the open performance item
+
+**Lighthouse mobile on this machine (AMD A6, benchmark about 600, with Lighthouse's own 4x slowdown on top) is not
+representative.** Even the lightest page scores 78 here. For the record: performance Home 33 to 44 (run to run), About 62,
+Programs 53, Coaching 58, Teacher training 78, For schools 66, Contact 61, Gallery 64; accessibility 96 to 100 (the two
+contrast items above were fixed afterwards); best practices 100 everywhere; SEO 69 everywhere, only because `robots.txt`
+blocks crawling outside Vercel production (the `is-crawlable` audit). CLS is 0 to 0.005.
+
+**Open item:** under the 4x CPU throttle script, Home, Programs and Coaching show long tasks over 50 ms (the one-off
+GSAP module evaluation is about 130 ms; Home also has 100 to 250 ms frames mid-page that I could not attribute to a
+script). The other five pages are host-bound with no long tasks. I did not simplify any scene because I could not isolate
+a cause within the budget. Home's first-load JavaScript is 210.5 KB gzipped against 188 KB for About; the change against
+the pre-redesign Home was not measurable (a baseline build failed), so the 8 KB budget is unverified.
+**Run PageSpeed Insights on a Vercel preview before launch** (steps in `DEPLOY.md`).
+
+## Decisions made for you
+
+- Home's board words (cat, sat, pat, tap, nap, pan, can, tan, ant, pin, tin, sip, nip, tip, pit, sit), "hello" and "C . A . T ... ?" are illustrative UI words, approved by you.
+- The "tiles gather into the bubble" idea became "tiles drop in, then the bubble grows from the last tile's corner", so the finished frame is identical with and without JavaScript.
+- Touched the learning path's markup (static descriptions) even though the plan said to leave it alone, because the static mode lost content.
+- Three production builds were run instead of one, because fixes found by the sweep needed re-verification.
+- The external schema validator was not used (it needs a public URL); JSON-LD was checked structurally.
+
+## Still waiting on the client (`TODO.md`)
+
+Batch timings, days, fees and class mode; the exact starting age for phonics; which programs run at which branch;
+coaching subjects and boards; social media URLs; pincodes and map pins; the meaning of "Scholarship Drawing"; logo
+approval; photo consent and real photos (every slot in `src/content/images.ts` is empty); email; real testimonials
+(the section stays hidden).
+
+## Commits
+
+All local, none pushed, on `main`. See `git log origin/main..HEAD`.
