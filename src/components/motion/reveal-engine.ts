@@ -2,7 +2,7 @@
  * One shared engine for every scroll reveal. A node arms itself from its own effect (so it has hydrated),
  * and is shown when it scrolls into view, when it is already in view or above the viewport on arm, when a
  * scroll/resize sweep finds it past the fold (jumps, anchors, find-in-page), when the page is printed or
- * hidden, or 1.5s after it was triggered. Server HTML and no-JS state are fully visible.
+ * hidden, or 1.5s after it was triggered (data-failsafe overrides, for sequences that are longer by design). Server HTML and no-JS state are fully visible.
  */
 const WATCHDOG_MS = 1500;
 const LIMIT = 0.9;
@@ -21,7 +21,7 @@ function show(el: Element) {
   if (!pending.delete(el)) return;
   io?.unobserve(el);
   el.setAttribute("data-shown", "");
-  window.setTimeout(() => el.setAttribute("data-done", ""), WATCHDOG_MS);
+  window.setTimeout(() => el.setAttribute("data-done", ""), Number(el.getAttribute("data-failsafe")) || WATCHDOG_MS);
   callbacks.get(el)?.();
   if (pending.size === 0) stopListening();
 }

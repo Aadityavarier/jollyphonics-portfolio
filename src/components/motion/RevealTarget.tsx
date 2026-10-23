@@ -12,6 +12,7 @@ interface Props {
   id?: string;
   "aria-hidden"?: true;
   "data-load"?: string;
+  "data-failsafe"?: number;
   children?: ReactNode;
 }
 

@@ -80,7 +80,7 @@
   [data-stagger] > :nth-child(11) {
     --i: 10;
   }
-  [data-stagger] > :nth-child(12) {
+  [data-stagger] > :nth-child(n + 12) {
     --i: 11;
   }
 
