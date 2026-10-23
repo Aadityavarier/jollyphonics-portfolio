@@ -1431,3 +1431,44 @@ body:has(.enq :focus-within) .sticky-bar {
     transition: transform 700ms var(--ease-in-out) calc(var(--i, 0) * 60ms);
   }
 }
+
+/* ============ Home: hello → WhatsApp bubble ============
+   Rest state (server HTML, reduced motion, after playing): five tiles and the full message. While
+   data-phase="tiles" the tiles drop in one by one and the bubble waits; at "bubble" it grows from its
+   bottom-left corner (the enq-bubble keyframes) while the message types. */
+.hc-tiles {
+  display: flex;
+  gap: 0.14em;
+}
+.hc-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 1.2em;
+  aspect-ratio: 1;
+  border-radius: 0.22em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  rotate: calc((var(--i) - 2) * 2.5deg);
+}
+.hc-bubble {
+  font-size: 1rem;
+  transform-origin: left bottom;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-phase="tiles"] .hc-tile {
+    animation: hc-drop 520ms var(--ease-spring) calc(var(--i) * 90ms) backwards;
+  }
+  [data-phase="tiles"] .hc-bubble {
+    opacity: 0;
+  }
+  [data-phase="bubble"] .hc-bubble {
+    animation: enq-bubble 320ms var(--ease-out) backwards;
+  }
+}
+@keyframes hc-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-1.4em) scale(0.8);
+  }
+}

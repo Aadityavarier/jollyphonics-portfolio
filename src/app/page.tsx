@@ -1,11 +1,8 @@
 import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
 import { faqByQuestion } from "@/content/faq";
-import { contact } from "@/content/contact";
-import { messages } from "@/content/messages";
 import { Section, SectionHeading } from "@/components/layout/Section";
 import { FaqAccordion } from "@/components/blocks/FaqAccordion";
-import { CtaBand } from "@/components/blocks/CtaBand";
 import { HomeHero } from "@/components/home/HomeHero";
 import { WhyPhonics } from "@/components/home/WhyPhonics";
 import { LearningPathScene } from "@/components/home/LearningPathScene";
@@ -15,6 +12,7 @@ import { WhoIsItFor } from "@/components/home/WhoIsItFor";
 import { HomeBranches } from "@/components/home/HomeBranches";
 import { FounderIntro } from "@/components/home/FounderIntro";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { HelloCta } from "@/components/home/HelloCta";
 import { Showcase } from "@/components/home/Showcase";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
 
@@ -53,13 +51,7 @@ export default function HomePage() {
           </Link>
         </div>
       </Section>
-      <CtaBand
-        title="Ask about a batch near you"
-        text={contact.line}
-        message={messages.general}
-        tone="red"
-        decor="edge"
-      />
+      <HelloCta />
     </>
   );
 }
