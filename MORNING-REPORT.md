@@ -1,107 +1,110 @@
-# Final report
+# Morning report: final fix round
 
-State of the site after the redesign, the Home rebuild and the quality gate. Nothing has been pushed.
-The decision trail is in `.superpowers/sdd/PLAN/progress.md`; the plan it followed is `FINAL-PLAN.md`.
+Everything in FIX-PLAN.md is done, tested on a production build and pushed to `preview` (`aa445d4..16e8c82`).
+The decision log is `.superpowers/sdd/FIX-PLAN/progress.md`. The final review was a **self-review**; no second
+reviewer looked at it.
 
-## What is on each page
+## Why your phone looked broken
 
-Every page has a different signature moment and a different heading treatment from its neighbours. Each one is fully
-readable with JavaScript off and with reduced motion.
+Your phone was fine, and so was the site. **The development server refused your phone.** Next.js 16 blocks dev
+resources for any address other than `localhost` unless you allow it. The log said
+`Blocked cross-origin request … from "192.168.1.107"`. The page's JavaScript never started, so you saw the no-JS
+version: the Menu did nothing, nothing animated, and the header was see-through.
 
-| Page | Signature moment | Supporting moments | Headings |
-|---|---|---|---|
-| **Home** | "Phonics" in the headline is sound tiles that close up; beside it a **word board** where you tap sounds to build a word | Letter names vs letter sounds demo; the pinned learning path; Trainer Revathi seal, journey teaser and awards; audience selector with one WhatsApp button per audience; **Inside the classes** bento of seven live previews; East / West railway; ruled "why parents choose us" list; **hello tiles that become the WhatsApp message** | mask rise, sound-out |
-| **About** | Pinned journey path, 2001 to 2025 | Read-aloud belief quote, fanning qualifications, flip award cards | stroke underline |
-| **Programs** | 42-tile sound wall ripple with the "42 sounds" counter | Sentence builder, typing speech bubble, handwriting strokes, special-classes conveyor, sliding anchor nav, tile art "read" | sound-out |
-| **Coaching** | Scroll-scrubbed staircase, Sr. KG to Std. 8 | Letter-sound flip cards for subjects | tile flip |
-| **Teacher training** | Sticky stacking course cards | Calm ARPAN section (opacity only, no transform motion), tile art "teach" | wipe |
-| **For schools** | Tabs with a sliding indicator and direction-aware panels | "What each group takes away" strip | word slide |
-| **Contact** | Conversational enquiry that ends in a WhatsApp chat bubble | East / West branch toggle, pin-drop maps, tile art "ask" | light-up |
-| **Gallery** | Waits for photos (noindex, out of nav and sitemap) | | stroke |
-| **Global** | Page transitions with a persistent logo, sliding nav indicator, sound-tile scroll progress | | |
+I reproduced it from this PC with phone emulation on `http://192.168.1.107:3001`, added `allowedDevOrigins` for
+`192.168.*.*` and `10.*.*.*` (dev only), and the same check now passes. **Phone testing over Wi-Fi works again:**
+run `npm run dev -- -p 3001` and open `http://<this PC's IP>:3001` on the phone.
 
-### Home, before and after
+## What was broken, why, and what changed
 
-The diagnosis was that seven of ten Home sections were "heading, paragraph, cards", the hero's right half was empty, the
-only real phonics interaction was a small button, and two neighbouring sections shared a background. Home now alternates
-interactive and calm sections in the order paper, red, surface, teal, paper, ink, paper, surface, paper, red, checked by a
-probe at 375 and 1440. At 375px the page grew from 10,221 to 11,339 px because it now carries the showroom; at 1440 it is
-8,366 px.
+| Problem | Cause | Fix |
+|---|---|---|
+| **Menu:** the page scrolled behind it, Tab escaped it | Only Escape was handled | Scroll is locked while the menu is open and focus stays in the menu. The probe also found that tabbing jumped the page to the top (focusing inside a sticky header does that); focus now moves without scrolling. |
+| **Header see-through** | Its paper background was hidden until JavaScript saw a scroll | Solid paper with a light shadow from the first paint, with or without JS; the shadow deepens once you scroll. |
+| **"rograms"** | The sound-out effect spread letters out from the middle, so the first ones started off screen on phones | Below 640px each letter rises into place one after another instead; wider screens keep the spread. Checked frame by frame at 375 and 412. |
+| **Empty-looking school cards** | Their CSS pushed the text to the bottom of a tall card | Cards hug their text: colour bar, then the words. |
+| **Dark circle near the phone icon** | Next.js's own dev badge (the "N"). Production never has it. | Hidden in dev too. |
+| **Teacher Training had no motion on phones** | The stacking cards exist only from 1024px | The course cards now rise into place as you scroll, on phones and tablets. |
+| **Accessibility 96–98 on four pages** | Flip cards named by a hidden label rather than what they show; text read against the wrong face; one red slightly too light; a half-faded stage caught mid-animation; one skipped heading level | **100 on all 8 pages** (Lighthouse, production build). |
+| **Home "non-composited animations"** | Two transform animations on the same word-board tile | Split across two elements: **none left**. |
+| Animation polish (your `/review-animations` list) | | Hover colour gated to mouse, reduced motion fades gently instead of cutting, pop starts at 0.9, names/sounds 450ms with a 40ms stagger and a soft blur, press scale 0.97, overshoot only on one-off moments. |
 
-The h1, the 20+ / 4,500+ / 2001 trust line and the WhatsApp button are fully visible without scrolling at 375x667, 1366x610
-(a real 1366x768 laptop's visible Chrome viewport), 1366x768 and 1440x900. The h1 is the largest contentful paint element
-and nothing above the fold waits on JavaScript.
-
-## GIFs and screenshots (local, gitignored)
-
-`.screens/gifs/`: `home-hero-v2.gif`, `home-showcase.gif`, `home-cta.gif`, `home-hero.gif`, `home-audience.gif`,
-`home-branches.gif`, `about-journey.gif`, `programs-wall.gif`, `programs-grammar.gif`, `programs-english.gif`,
-`programs-handwriting.gif`, `programs-special.gif`, `coaching-stairs.gif`, `tt-stack.gif`, `schools-tabs.gif`,
-`contact-form.gif`.
-
-`.screens/final/`: full-page 375px and 1440px screenshots of all eight routes, taken from the production build.
-
-## Skill audits (details in `.superpowers/sdd/PLAN/audit-findings.md`)
-
-| Skill | Result |
-|---|---|
-| improve-animations | Gated one hover colour for touch, replaced a `scale(0)` pop, no `transition: all`, no layout-property animation, every JS animation sits behind a reduced-motion check |
-| animation-performance, gsap-performance | Only transform, opacity, clip-path and stroke-dashoffset animate; GSAP is lazy, reverts on resize, transforms only |
-| impeccable (detector) | One side-tab border fixed; one advisory kept (the site's soft-overshoot easing token) |
-| **review-animations** | **Not run.** The skill can only be started by you: run `/review-animations` yourself |
-
-## Probes and checks (`npm run probe`, scripts in `scripts/`)
+## Checks on the final production build
 
 | Check | Result |
 |---|---|
-| Clean-profile hydration, 8 routes x 3 cold loads | 0 errors |
-| End key and anchor jumps | nothing left hidden |
-| Reduced motion | nothing faded or masked |
-| Resize across 1024px | pins appear, disappear and return cleanly |
-| No sideways scroll at 375px on every route | pass (after fixes below) |
-| Production sweep at 375px, JS on and off | no TODO text, no placeholders, alt on every image, one h1 per page, wa.me and tel links present, tab panels stacked without JS |
-| Unit tests, types, lint | 112 tests, `tsc` and `eslint` clean |
-| 4x CPU throttle at 375px | **Not a pass**, see below |
+| `npm test` / typecheck / lint / build | 137 tests pass, all clean |
+| **`npm run probe:mobile`** (new: Pixel 7 + iPhone 13, real taps, 8 pages) | **226 / 226 pass.** Covers menu, every tap target, each page's moment actually playing, valid WhatsApp/call links, no errors, no sideways scroll, solid header. |
+| `npm run probe` | hydration, reduced motion (nothing moves, fades kept), resize, anchor jumps, showcase, fold, pacing: **pass** |
+| Production sweep at 375, JS on and off | no TODO text, alt on every image, one h1 per page, no sideways scroll: **pass** |
+| Lighthouse accessibility / best practices | **100 / 100** on all 8 pages |
+| 4× CPU throttle script | **Not a pass.** See below. |
 
-### Real bugs the probes found (all fixed)
+**Still open:**
+- **4× CPU throttle:** Home and Programs still show long tasks under the 4× slowdown, as before. **About now shows one 80–120ms task (about 20–30ms on a real phone) on every run.** I couldn't pin it to a cause. Its PageSpeed score is the one to watch.
+- **Forced reflow:** the remaining reflow on Home is the scroll-reveal engine's single batched position read. I left it, because changing it would alter how 7 components appear.
+- **14 KiB of old-browser code:** it is Next.js's own built-in polyfill code. A browser-target setting doesn't change it (I checked: byte-identical), so it stays.
 
-1. The learning path's step descriptions were hidden on phones, with reduced motion and without JavaScript. Each step card now carries its own description.
-2. Home and Programs scrolled sideways on phones (scroll-triggered card and chip offsets widened the page). Both are clipped now.
-3. Without JavaScript the Home audience panels and the For Schools tracks stayed hidden, because Tailwind's `[hidden]` rule beats unlayered `!important` CSS. The no-JS styles now sit in the same layer.
-4. The Showcase's four-column layout overflowed between 900 and 1100px.
-5. Reveal arming read every node's position between attribute writes, forcing a layout per node. It is now batched: Home went from 38 layouts to 16 and from 173 style recalculations to 99 at 4x throttle.
-6. Two contrast failures (showcase tile labels, the dimmed words in the About quote).
+## PageSpeed: your 8 preview URLs
 
-## Scores and the open performance item
+Git didn't print the preview address and I couldn't log in to Vercel from here. Open **vercel.com → the project → Deployments**: the newest `preview` deployment (commit `16e8c82`) is the one. Then test these paths on it at <https://pagespeed.web.dev> (Mobile):
 
-**Lighthouse mobile on this machine (AMD A6, benchmark about 600, with Lighthouse's own 4x slowdown on top) is not
-representative.** Even the lightest page scores 78 here. For the record: performance Home 33 to 44 (run to run), About 62,
-Programs 53, Coaching 58, Teacher training 78, For schools 66, Contact 61, Gallery 64; accessibility 96 to 100 (the two
-contrast items above were fixed afterwards); best practices 100 everywhere; SEO 69 everywhere, only because `robots.txt`
-blocks crawling outside Vercel production (the `is-crawlable` audit). CLS is 0 to 0.005.
+| Page | URL |
+|---|---|
+| Home | `<preview-url>/` |
+| About | `<preview-url>/about` |
+| Programs | `<preview-url>/programs` |
+| Coaching | `<preview-url>/coaching` |
+| Teacher training | `<preview-url>/teacher-training` |
+| For schools | `<preview-url>/for-schools` |
+| Contact | `<preview-url>/contact` |
+| Gallery | `<preview-url>/gallery` |
 
-**Open item:** under the 4x CPU throttle script, Home, Programs and Coaching show long tasks over 50 ms (the one-off
-GSAP module evaluation is about 130 ms; Home also has 100 to 250 ms frames mid-page that I could not attribute to a
-script). The other five pages are host-bound with no long tasks. I did not simplify any scene because I could not isolate
-a cause within the budget. Home's first-load JavaScript is 210.5 KB gzipped against 188 KB for About; the change against
-the pre-redesign Home was not measurable (a baseline build failed), so the 8 KB budget is unverified.
-**Run PageSpeed Insights on a Vercel preview before launch** (steps in `DEPLOY.md`).
+Your bar: no page below 95 (it was Home 95, Programs 100, Coaching 100, About 99, Contact 100). The one SEO
+warning about being blocked from indexing is expected on previews.
 
-## Decisions made for you
+## Tap these on your phone
 
-- Home's board words (cat, sat, pat, tap, nap, pan, can, tan, ant, pin, tin, sip, nip, tip, pit, sit), "hello" and "C . A . T ... ?" are illustrative UI words, approved by you.
-- The "tiles gather into the bubble" idea became "tiles drop in, then the bubble grows from the last tile's corner", so the finished frame is identical with and without JavaScript.
-- Touched the learning path's markup (static descriptions) even though the plan said to leave it alone, because the static mode lost content.
-- Three production builds were run instead of one, because fixes found by the sweep needed re-verification.
-- The external schema validator was not used (it needs a public URL); JSON-LD was checked structurally.
+1. Menu: open it, scroll the page behind it (it shouldn't move), tap a link, then confirm the menu has closed on the new page.
+2. Home: tap the sounds on the red board, tap "Clear", flip "Letter names / Letter sounds", tap each audience tab and a tile under "Inside the classes".
+3. Programs: watch the big heading's letters rise in; tap the section links under it.
+4. Coaching: scroll through the staircase, tap a subject card.
+5. Teacher Training: scroll; each course card rises in; tap one to open it.
+6. For Schools: tap each workshop tab (the cards are now compact).
+7. Contact: answer the steps; your message types into the green bubble; tap East / West; tap "Show map".
+8. Any page: the header stays solid white over content, and there's no dark circle near the phone icon.
 
-## Still waiting on the client (`TODO.md`)
+## Ready for the client's changes
 
-Batch timings, days, fees and class mode; the exact starting age for phonics; which programs run at which branch;
-coaching subjects and boards; social media URLs; pincodes and map pins; the meaning of "Scholarship Drawing"; logo
-approval; photo consent and real photos (every slot in `src/content/images.ts` is empty); email; real testimonials
-(the section stays hidden).
+- **[CONTENT-GUIDE.md](CONTENT-GUIDE.md):** where every page's words live, how each missing fact is filled in (and its TODO disappears), testimonials, social links, timings, ages, pincodes and map pins, photos. All copy now lives in `src/content/`, and a test enforces it.
+- **[CLIENT-QUESTIONS.md](CLIENT-QUESTIONS.md):** ready to forward. Thirteen plain questions, the photo list by priority, the parent-consent note and how to send photos.
+- **Photos:** drop them in `raw-images/` named by slot (`H1-anything.jpg`) or in `raw-images/gallery/<topic>/`, then run `npm run photos`. They're converted to WebP, placeholders disappear, and a gallery topic goes live at 3 photos (menu and sitemap included). Alt text is edited in `images.md`.
+- **Testimonials:** the "What parents say" section appears on Home before the FAQ as soon as `src/content/testimonials.ts` has one real entry.
+- **[DEPLOY.md](DEPLOY.md):** the "Going live" steps: merge preview into main, set the domain, turn preview protection back on, submit the sitemap in Search Console.
 
-## Commits
+## Rulings I made
 
-All local, none pushed, on `main`. See `git log origin/main..HEAD`.
+- **Dev server:** started detached from PowerShell. Turbopack's CSS worker crashed (Windows 0xc0000142) when started from my shell. This affects only how I run dev here, not the product.
+- **Header height:** removed an old `--header-h: 4.75rem` that overrode the new exact height (68/80px).
+- **`scale(1)` in the showcase card keyframes:** kept. The cards rest at a smaller scale, so the keyframes need the same function list.
+- **Framer springs on tabs and branch cards:** left as is. They're interruptible and critically damped, with no overshoot.
+- **Reduced motion:** the 160ms press scale on buttons stays, as tap feedback.
+- **Award year colour:** used the existing `--color-red-deep` instead of a new `--color-red-ink` (same value). Only the small year uses it.
+- **Old-browser code:** browserslist reverted, because the chunk was byte-identical.
+- **Reveal engine:** not rewritten for the remaining reflow, as above.
+- **Tray rects:** not cached. The FLIP reads only two rects per placement.
+- **Teacher Training on phones:** got its own scroll-linked card rise. It is transform only, so contrast checks can't catch a half-faded card.
+- **Labels:** all interface words live in one `labels.ts`. "What parents say" is new UI wording.
+- **Photo script:**
+  - It reads slot IDs from `images.ts` and gallery topics from `gallery.ts`.
+  - HEIC files are skipped with "export as JPG".
+  - A photo set by hand in `images.ts` still wins over the script.
+- **Branches:** optional `postalCode` and `geo` fields, so pincodes and pins are data-only for the client.
+- **Client photo list:** follows what the site shows today. Certificates, awards and P/T slots are under "for later".
+- **Home example words:** added as a question for the client.
+- **4× throttle:** left failing as described above.
+
+## Deferred minors
+
+- The `labels` import sits after the relative imports in a few files (style only).
+- The press scale still runs under reduced motion (see the rulings).
