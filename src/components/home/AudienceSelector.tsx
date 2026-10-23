@@ -61,7 +61,7 @@ export function AudienceSelector({ items, label }: { items: Audience[]; label: s
               aria-controls={`${uid}-p-${it.id}`}
               tabIndex={i === active ? 0 : -1}
               onClick={() => go(i)}
-              className="relative isolate min-h-12 shrink-0 rounded-full px-5 font-display text-lead font-bold"
+              className="relative isolate min-h-14 shrink-0 rounded-full px-6 font-display text-lead font-bold"
             >
               {i === active && (
                 <MorphSpan
