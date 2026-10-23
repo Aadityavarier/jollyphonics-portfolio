@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/metadata";
-import { coaching } from "@/content/coaching";
+import { coaching, coachingSteps } from "@/content/coaching";
 import { teachingApproach } from "@/content/programs";
 import { why } from "@/content/why";
 import { messages } from "@/content/messages";
@@ -10,7 +10,10 @@ import { Todo } from "@/components/blocks/Todo";
 import { FaqAccordion } from "@/components/blocks/FaqAccordion";
 import { BranchList } from "@/components/contact/BranchList";
 import { CtaBand } from "@/components/blocks/CtaBand";
-import { Stagger } from "@/components/motion/Reveal";
+import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
+import { FxHeading } from "@/components/motion/FxHeading";
+import { FlipCard } from "@/components/motion/FlipCard";
+import { Staircase } from "@/components/coaching/Staircase";
 
 export const metadata = pageMetadata("coaching");
 
@@ -21,32 +24,67 @@ export default function CoachingPage() {
     <>
       <PageHero
         title={coaching.title}
+        fx="tileflip"
         intro={`${coaching.range}. ${coaching.focus}`}
         trail={[{ name: "Home", path: "/" }, { name: "Coaching", path: "/coaching" }]}
         slot="C1"
       />
 
+      <Section id="classes" tone="paper">
+        <SectionHeading id="classes-title" fx="tileflip">
+          {coaching.range}
+        </SectionHeading>
+        <div className="mt-8">
+          <Staircase steps={coachingSteps} label={coaching.range} />
+        </div>
+      </Section>
+
       <Section id="subjects" tone="surface">
-        <SectionHeading id="subjects-title">Subjects</SectionHeading>
-        <Stagger as="ul" className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {coaching.subjects.map((s) => (
-            <li key={s} className="rounded-[var(--radius-panel)] bg-paper p-4 text-center font-medium">
-              {s}
-            </li>
-          ))}
-        </Stagger>
+        <SectionHeading id="subjects-title" fx="tileflip">
+          Subjects
+        </SectionHeading>
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {coaching.subjects.map((s, i) => {
+            const tile = PHONICS_TILES[i % PHONICS_TILES.length];
+            return (
+              <li key={s}>
+                <FlipCard
+                  label={s}
+                  delay={i * 90}
+                  className="rounded-[var(--radius-panel)] bg-paper"
+                  front={
+                    <span
+                      className="grid h-28 place-items-center rounded-[var(--radius-panel)] font-display text-[3rem] leading-none font-bold"
+                      style={{ background: tile.bg, color: tile.fg }}
+                    >
+                      {s[0]}
+                      {s[0].toLowerCase()}
+                    </span>
+                  }
+                  back={<span className="grid h-28 place-items-center p-3 text-center font-display text-lead leading-tight font-bold">{s}</span>}
+                />
+              </li>
+            );
+          })}
+        </ul>
         <Todo value={coaching.subjectsTodo} />
         <Todo value={coaching.boardsTodo} />
       </Section>
 
       <Section id="approach" tone="paper">
-        <SectionHeading id="approach-title">Our approach</SectionHeading>
-        <p className="mt-4 max-w-[60ch] text-lead">{coaching.focus}</p>
+        <SectionHeading id="approach-title" fx="tileflip">
+          Our approach
+        </SectionHeading>
+        <FxHeading as="p" fx="wipe" className="mt-4 max-w-[34ch] text-lead">
+          {coaching.focus}
+        </FxHeading>
         <p className="mt-4 font-display text-lead font-bold">{teachingApproach.title}</p>
       </Section>
 
       <Section id="why" tone="surface">
-        <SectionHeading id="why-title">Why Tr. Revathi</SectionHeading>
+        <SectionHeading id="why-title" fx="tileflip">
+          Why Tr. Revathi
+        </SectionHeading>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {why.points.slice(0, 4).map((p) => (
             <li key={p.title} className="rounded-[var(--radius-panel)] bg-paper p-5">
@@ -58,14 +96,18 @@ export default function CoachingPage() {
       </Section>
 
       <Section id="branches" tone="paper">
-        <SectionHeading id="branches-title">Branches</SectionHeading>
+        <SectionHeading id="branches-title" fx="tileflip">
+          Branches
+        </SectionHeading>
         <div className="mt-8">
           <BranchList />
         </div>
       </Section>
 
       <Section id="faq" tone="surface">
-        <SectionHeading id="faq-title">Questions parents ask</SectionHeading>
+        <SectionHeading id="faq-title" fx="tileflip">
+          Questions parents ask
+        </SectionHeading>
         <div className="mt-6 max-w-[60ch]">
           <FaqAccordion items={COACHING_FAQ} group="coaching-faq" />
         </div>
