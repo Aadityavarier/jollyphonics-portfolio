@@ -14,6 +14,11 @@ export function MotionRoot() {
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
+    const root = document.documentElement.style;
+    const measure = () => root.setProperty("--header-h", `${header.offsetHeight}px`);
+    measure();
+    const ro = typeof ResizeObserver === "undefined" ? undefined : new ResizeObserver(measure);
+    ro?.observe(header);
     let scrolled = false;
     const update = () => {
       const next = window.scrollY > 24;
@@ -23,7 +28,10 @@ export function MotionRoot() {
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      ro?.disconnect();
+    };
   }, []);
 
   return null;

@@ -25,7 +25,7 @@ export function SiteHeader() {
           <Logo className="h-11 w-auto lg:h-12" preload />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <NavLinks items={items} className="flex items-center gap-7" linkClassName="font-display text-[1.0625rem] font-bold hover:text-red" />
+          <NavLinks indicator items={items} className="flex items-center gap-7" linkClassName="font-display text-[1.0625rem] font-bold hover:text-red" />
         </nav>
         <div className="hidden lg:block">
           <WhatsAppLink message={messages.general} variant="primary" />
