@@ -11,6 +11,16 @@ interface Props {
 
 /** Resting angles, so the row reads as loose flash cards rather than a typeset word. */
 const ANGLES = [-6, 4, -3, 5, -4, 3, -5];
+/** Where each tile starts before it flies into place (em of the tile size, degrees). */
+const SCATTER = [
+  { x: -3.2, y: -2.4, r: -38 },
+  { x: 2.4, y: 1.8, r: 52 },
+  { x: -1.2, y: -2.9, r: -64 },
+  { x: 3.4, y: 2.2, r: 41 },
+  { x: -2.6, y: 2.6, r: -47 },
+  { x: 1.6, y: -2.1, r: 70 },
+  { x: -3.0, y: 1.4, r: -30 },
+];
 
 /**
  * The hero's sound tiles: two elements each (see motion.css). The outer .tile takes the pointer lean
@@ -57,7 +67,11 @@ export function HeroTiles({ text, className = "" }: Props) {
         const style = {
           "--r": `${ANGLES[k % ANGLES.length]}deg`,
           "--bob": `${1.4 + (k % 3) * 0.1}s`,
-          "--bob-delay": `${1 + k * 0.12}s`,
+          "--bob-delay": `${2 + k * 0.12}s`,
+          "--sx": `${SCATTER[k % SCATTER.length].x}em`,
+          "--sy": `${SCATTER[k % SCATTER.length].y}em`,
+          "--sr": `${SCATTER[k % SCATTER.length].r}deg`,
+          "--asm": `${k * 55}ms`,
         } as CSSProperties;
         return (
           <span key={k} aria-hidden="true" className="tile cursor-pointer select-none">

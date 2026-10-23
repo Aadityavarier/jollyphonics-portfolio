@@ -200,7 +200,20 @@
    endless per-frame main-thread work. Starts and ends at rest, so nothing jumps. */
 @media (prefers-reduced-motion: no-preference) {
   .tile-face {
-    animation: bob var(--bob, 1.5s) ease-in-out var(--bob-delay, 1s) 3;
+    animation:
+      tile-assemble 950ms var(--ease-out) calc(var(--asm, 0ms) + 120ms) backwards,
+      bob var(--bob, 1.5s) ease-in-out var(--bob-delay, 1s) 3;
+  }
+}
+/* Tiles start scattered and slightly rotated (per-tile --sx/--sy/--sr, set inline) and fly into place.
+   CSS, so it starts at first paint rather than after hydration. */
+@keyframes tile-assemble {
+  from {
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(0.7);
+  }
+  40% {
+    opacity: 1;
   }
 }
 @keyframes bob {

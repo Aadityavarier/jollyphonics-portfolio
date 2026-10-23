@@ -6,7 +6,7 @@ export type Fx = "stroke" | "soundout" | "tileflip" | "wipe" | "wordslide" | "li
 const LETTER_COLOURS = ["#f80000", "#f87000", "#00b8e8", "#f80098", "#f8b000", "#10b800", "#1848a0"];
 
 interface Props {
-  as?: "h1" | "h2" | "h3";
+  as?: "h1" | "h2" | "h3" | "span";
   fx: Fx;
   id?: string;
   className?: string;

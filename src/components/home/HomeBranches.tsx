@@ -15,7 +15,7 @@ export function HomeBranches() {
             <Todo value={contact.timingsTodo} />
           </div>
         </div>
-        <BranchList headingLevel={3} />
+        <BranchList headingLevel={3} railway />
       </div>
     </Section>
   );

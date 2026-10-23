@@ -2,6 +2,7 @@ import { brand } from "@/content/brand";
 import { why } from "@/content/why";
 import { Section, SectionHeading } from "@/components/layout/Section";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
+import { FxHeading } from "@/components/motion/FxHeading";
 import { Stagger } from "@/components/motion/Reveal";
 
 /** The eight reasons from content.md as one large plain list, each marked with a small sound tile. */
@@ -21,7 +22,9 @@ export function WhyChooseUs() {
                   className="size-[0.7em] translate-y-[0.05em] rounded-[0.18em]"
                   style={{ background: PHONICS_TILES[i % PHONICS_TILES.length].bg }}
                 />
-                {p.title}
+                <FxHeading as="span" fx="soundout">
+                  {p.title}
+                </FxHeading>
               </dt>
               <dd className="pl-[calc(0.7em*1.25+0.75rem)] max-sm:pl-0">{p.text}</dd>
             </div>

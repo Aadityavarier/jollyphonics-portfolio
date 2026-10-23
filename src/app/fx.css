@@ -405,3 +405,77 @@
     transform: translateX(-1.5rem);
   }
 }
+
+/* ============ Home branches: abstract East | West railway ============ */
+.rail-line {
+  position: relative;
+  height: 2px;
+  background: repeating-linear-gradient(to right, var(--color-ink) 0 10px, transparent 10px 18px);
+  opacity: 0.55;
+  transform-origin: left;
+}
+@media (min-width: 1024px) {
+  .rail-line {
+    width: 2px;
+    height: auto;
+    background: repeating-linear-gradient(to bottom, var(--color-ink) 0 10px, transparent 10px 18px);
+    transform-origin: top;
+  }
+}
+.rail-dot {
+  flex: none;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background: var(--color-red);
+}
+[data-side="west"] .rail-dot {
+  background: var(--color-teal);
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed][data-reveal="rail"]:not([data-shown]) .rail-line {
+    transform: scale(0, 1);
+  }
+  [data-armed][data-reveal="rail"]:not([data-shown]) .rail-dot {
+    opacity: 0;
+    transform: translateY(-1.1em);
+  }
+  [data-armed][data-reveal="rail"]:not([data-shown]) .branch-card {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  @media (min-width: 1024px) {
+    [data-armed][data-reveal="rail"]:not([data-shown]) .rail-line {
+      transform: scale(1, 0);
+    }
+  }
+  [data-reveal="rail"][data-shown][data-armed] .rail-line {
+    transition: transform 700ms var(--ease-in-out);
+  }
+  [data-reveal="rail"][data-shown][data-armed] .rail-dot {
+    animation: rail-drop 520ms cubic-bezier(0.34, 1.56, 0.64, 1) 650ms backwards;
+  }
+  [data-reveal="rail"][data-shown][data-armed] .branch-card {
+    transition:
+      opacity 560ms var(--ease-out),
+      transform 560ms var(--ease-out);
+    transition-delay: 950ms;
+  }
+  [data-reveal="rail"][data-done] .rail-line,
+  [data-reveal="rail"][data-done] .rail-dot,
+  [data-reveal="rail"][data-done] .branch-card {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-reveal="rail"][data-done] .rail-line {
+    opacity: 0.55 !important;
+  }
+}
+@keyframes rail-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-1.1em);
+  }
+}
