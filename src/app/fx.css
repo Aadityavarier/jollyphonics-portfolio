@@ -551,7 +551,7 @@
       transform 420ms var(--ease-out);
   }
   .journey[data-mode] .journey-dot {
-    transition: transform 520ms var(--ease-spring);
+    transition: transform 520ms var(--ease-out);
   }
 }
 
@@ -1097,9 +1097,14 @@
 .cta-ink {
   background: var(--color-ink);
   color: var(--color-paper);
+  transition:
+    background-color 160ms var(--ease-out),
+    transform 160ms ease-out;
 }
-.cta-ink:hover {
-  background: #232f66;
+@media (hover: hover) and (pointer: fine) {
+  .cta-ink:hover {
+    background: #232f66;
+  }
 }
 .enq-chip {
   position: relative;
@@ -1157,7 +1162,7 @@
   .enq-tile {
     transition:
       opacity 240ms var(--ease-out),
-      transform 360ms var(--ease-spring);
+      transform 360ms var(--ease-out);
   }
   .enq-step[data-dir="f"] {
     animation: enq-in-f 240ms var(--ease-out) both;
@@ -1258,14 +1263,19 @@ body:has(.enq :focus-within) .sticky-bar {
 .nvs-layer {
   grid-area: 1 / 1;
   align-content: start;
-  transition: opacity 320ms var(--ease-out);
+  transition:
+    opacity 320ms var(--ease-out),
+    filter 320ms var(--ease-out);
 }
+/* The layer going away softens slightly, so the two states read as one change rather than a double image. */
 .nvs[data-mode="names"] .nvs-sounds,
 .nvs[data-mode="sounds"] .nvs-names {
   opacity: 0;
   visibility: hidden;
+  filter: blur(2px);
   transition:
     opacity 320ms var(--ease-out),
+    filter 320ms var(--ease-out),
     visibility 0s linear 320ms;
 }
 .nvs-row {
@@ -1290,7 +1300,7 @@ body:has(.enq :focus-within) .sticky-bar {
 }
 .nvs-sounds .nvs-tile {
   transform: translateX(calc(var(--i) * 0.45em));
-  transition: transform 650ms var(--ease-in-out);
+  transition: transform 450ms var(--ease-in-out) calc(var(--i) * 40ms);
 }
 .nvs[data-mode="sounds"] .nvs-sounds .nvs-tile {
   transform: translateX(calc(var(--i) * -0.14em));
@@ -1305,6 +1315,7 @@ body:has(.enq :focus-within) .sticky-bar {
   .nvs[data-mode] .nvs-layer {
     opacity: 1;
     visibility: visible;
+    filter: none;
     transition: none;
   }
   .nvs .nvs-sounds .nvs-tile {

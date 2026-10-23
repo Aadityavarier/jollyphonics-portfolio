@@ -20,7 +20,7 @@
   transition: transform 160ms var(--ease-out);
 }
 .sc-tile:active {
-  transform: scale(0.985);
+  transform: scale(0.97);
 }
 @media (hover: hover) and (pointer: fine) {
   .sc-tile:hover {
@@ -321,7 +321,7 @@
 @keyframes sc-pop {
   from {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0.9);
   }
 }
 @keyframes sc-snap {

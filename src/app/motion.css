@@ -368,10 +368,14 @@
 }
 .site-header .header-logo {
   transform-origin: left center;
-  transition: transform var(--dur-ui) var(--ease-out);
 }
 .site-header[data-scrolled] .header-logo {
   transform: scale(0.86);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .site-header .header-logo {
+    transition: transform var(--dur-ui) var(--ease-out);
+  }
 }
 
 /* ---------- FAQ: the agreed height exception (native ::details-content, one element, 220ms). ---------- */
