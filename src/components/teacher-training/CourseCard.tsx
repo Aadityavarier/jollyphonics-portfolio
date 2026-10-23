@@ -1,4 +1,8 @@
+import type { CSSProperties } from "react";
+
 interface Props {
+  /** Position in the stack (0-based): sets the sticky offset on wide screens. */
+  index?: number;
   title: string;
   subtitle?: string;
   intro?: string;
@@ -8,12 +12,13 @@ interface Props {
   open?: boolean;
 }
 
-/** A native <details> "course card" that expands to show who it's for and what it covers. */
-export function CourseCard({ title, subtitle, intro, for: forWhom, topics, topicsLabel = "Covers", open }: Props) {
+/** A native <details> "course card". Phones: expands on tap. Wide screens: always open, stacked (fx.css). */
+export function CourseCard({ index = 0, title, subtitle, intro, for: forWhom, topics, topicsLabel = "Covers", open }: Props) {
   return (
     <details
       open={open}
-      className="course-card group rounded-[var(--radius-panel)] bg-surface p-6 transition-colors duration-[var(--dur-ui)] open:bg-paper open:shadow-[0_10px_30px_-18px_rgba(22,32,74,0.4)]"
+      style={{ "--i": index } as CSSProperties}
+      className="course-card stack-card group rounded-[var(--radius-panel)] bg-surface p-6 transition-colors duration-[var(--dur-ui)] open:bg-paper open:shadow-[0_10px_30px_-18px_rgba(22,32,74,0.4)]"
     >
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
         <span>

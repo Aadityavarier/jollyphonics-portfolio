@@ -952,3 +952,61 @@
     top: 0.5rem;
   }
 }
+
+/* ============ Teacher training: stacking course cards ============ */
+@media (min-width: 1024px) {
+  .stack {
+    display: grid;
+    gap: 9rem;
+    padding-bottom: 4rem;
+  }
+  .stack-card {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem + var(--i, 0) * 1.1rem);
+    padding: 2rem 2.25rem;
+    background: var(--color-paper);
+    box-shadow: 0 18px 40px -22px rgba(22, 32, 74, 0.55);
+    transform-origin: center top;
+  }
+  /* Always open on wide screens: no expansion inside the stack (it would make the stack jump). */
+  .stack-card > summary {
+    pointer-events: none;
+  }
+  .stack-card > summary > span:last-child {
+    display: none;
+  }
+  .stack-card::details-content {
+    content-visibility: visible;
+    display: block;
+    block-size: auto;
+    height: auto;
+  }
+}
+@supports (animation-timeline: view()) and (timeline-scope: --a) {
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .stack {
+      timeline-scope: --c2, --c3;
+    }
+    .stack-card:nth-child(2) {
+      view-timeline: --c2 block;
+    }
+    .stack-card:nth-child(3) {
+      view-timeline: --c3 block;
+    }
+    .stack-card:nth-child(1) {
+      animation: stack-back linear both;
+      animation-timeline: --c2;
+      animation-range: entry 20% entry 100%;
+    }
+    .stack-card:nth-child(2) {
+      animation: stack-back linear both;
+      animation-timeline: --c3;
+      animation-range: entry 20% entry 100%;
+    }
+  }
+}
+@keyframes stack-back {
+  to {
+    transform: scale(0.94);
+  }
+}

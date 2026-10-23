@@ -1,7 +1,7 @@
 import type { ElementType, ReactNode } from "react";
 import { RevealTarget } from "./RevealTarget";
 
-export type RevealVariant = "rise" | "fade" | "mask" | "panel";
+export type RevealVariant = "rise" | "fade" | "mask" | "panel" | "calm";
 
 interface RevealProps {
   as?: ElementType;

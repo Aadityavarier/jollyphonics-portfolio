@@ -7,6 +7,7 @@ import { Section, SectionHeading } from "@/components/layout/Section";
 import { CredentialLine } from "@/components/blocks/CredentialLine";
 import { ChipList } from "@/components/blocks/ChipList";
 import { CtaBand } from "@/components/blocks/CtaBand";
+import { Reveal } from "@/components/motion/Reveal";
 import { CourseCard } from "@/components/teacher-training/CourseCard";
 
 export const metadata = pageMetadata("teacher-training");
@@ -16,6 +17,7 @@ export default function TeacherTrainingPage() {
     <>
       <PageHero
         title="Teacher Training"
+        fx="wipe"
         intro="Training for teachers and aspiring teachers."
         trail={[{ name: "Home", path: "/" }, { name: "Teacher Training", path: "/teacher-training" }]}
       >
@@ -23,23 +25,26 @@ export default function TeacherTrainingPage() {
       </PageHero>
 
       <Section id="courses" tone="surface" labelledBy="courses-title">
-        <h2 id="courses-title" className="sr-only">
+        <SectionHeading id="courses-title" fx="wipe">
           Training programs
-        </h2>
-        <div className="grid gap-4">
+        </SectionHeading>
+        <div className="stack mt-8 grid gap-4">
           <CourseCard
+            index={0}
             title={teacherTraining.phonics.title}
             for={teacherTraining.phonics.for}
             topics={teacherTraining.phonics.covers}
             open
           />
           <CourseCard
+            index={1}
             title={teacherTraining.ecced.title}
             subtitle={teacherTraining.ecced.fullName}
             for={teacherTraining.ecced.for}
             topics={teacherTraining.ecced.topics}
           />
           <CourseCard
+            index={2}
             title={teacherTraining.montessori.title}
             intro={teacherTraining.montessori.intro}
             topics={teacherTraining.montessori.topics}
@@ -47,17 +52,19 @@ export default function TeacherTrainingPage() {
         </div>
       </Section>
 
-      <Section id="arpan" tone="teal">
-        <SectionHeading id="arpan-title" className="text-paper">
-          {teacherTraining.arpan.title}
-        </SectionHeading>
-        <p className="mt-4 max-w-[60ch] text-lead">{teacherTraining.arpan.credential}</p>
-        <p className="mt-3 max-w-[60ch]">{teacherTraining.arpan.intro}</p>
-        <ChipList items={teacherTraining.arpan.topics} tone="paper" className="mt-6" />
+      <Section id="arpan" tone="calm">
+        <Reveal variant="calm" className="grid gap-4">
+          <h2 id="arpan-title" className="max-w-[20ch] text-head">
+            {teacherTraining.arpan.title}
+          </h2>
+          <p className="max-w-[60ch] text-lead">{teacherTraining.arpan.credential}</p>
+          <p className="max-w-[60ch]">{teacherTraining.arpan.intro}</p>
+          <ChipList items={teacherTraining.arpan.topics} tone="paper" className="mt-2" />
+        </Reveal>
       </Section>
 
       <Section id="trainer" tone="paper">
-        <SectionHeading id="trainer-title">Trainer qualifications</SectionHeading>
+        <SectionHeading id="trainer-title" fx="wipe">Trainer qualifications</SectionHeading>
         <ChipList items={founder.qualifications.map((q) => `${q.title} — ${q.detail}`)} tone="surface" className="mt-5" />
       </Section>
 

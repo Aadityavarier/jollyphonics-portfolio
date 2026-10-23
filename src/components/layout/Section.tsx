@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { RevealTarget } from "@/components/motion/RevealTarget";
 import { FxHeading, type Fx } from "@/components/motion/FxHeading";
 
-export type SectionTone = "paper" | "surface" | "red" | "teal" | "ink";
+export type SectionTone = "paper" | "surface" | "red" | "teal" | "ink" | "calm";
 
 const TONE: Record<SectionTone, string> = {
   paper: "bg-paper text-ink",
@@ -10,6 +10,7 @@ const TONE: Record<SectionTone, string> = {
   red: "on-dark bg-red text-paper",
   teal: "on-dark bg-teal text-paper",
   ink: "on-dark bg-ink text-paper", // at most one ink band per page
+  calm: "bg-calm text-calm-ink", // ARPAN: muted ground, no playful colour
 };
 
 export function Container({ className = "", children }: { className?: string; children: ReactNode }) {
