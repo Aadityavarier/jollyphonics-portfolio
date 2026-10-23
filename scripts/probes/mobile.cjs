@@ -13,7 +13,7 @@ const MOMENTS = {
   "/programs": { sel: ".sound-wall" },
   "/coaching": { sel: ".stair" },
   "/teacher-training": { sel: ".stack" },
-  "/for-schools": { sel: ".tabs-panel", tap: "[role=tab]:nth-child(2)" },
+  "/for-schools": { sel: ".tabs", tap: ".tabs-list [role=tab] >> nth=1" },
   "/contact": { sel: ".enq", tap: ".enq-step .enq-chip" },
   "/gallery": null,
 };
@@ -46,7 +46,10 @@ async function signature(page, dev, route) {
   if (!(await loc.count())) return line(false, dev, route, "signature moment", `${m.sel} not found`);
   await loc.scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
-  if (m.tap) await page.locator(m.tap).first().tap();
+  if (m.tap) {
+    await page.locator(m.tap).first().tap();
+    await page.waitForTimeout(40);
+  }
   const a = await page.evaluate(snapshot, m.sel);
   await page.evaluate(() => scrollBy(0, 140));
   await page.waitForTimeout(160);
@@ -58,12 +61,19 @@ async function signature(page, dev, route) {
   line(plays, dev, route, "signature moment plays", `running=${a.running}/${b.running}/${c.running}`);
 }
 
+/** A real finger tap at the element's current spot. locator.tap() first scrolls the element "into view", which
+ *  for a sticky header can move the page and spoil the scroll-position check. */
+async function tapInPlace(page, loc) {
+  const b = await loc.boundingBox();
+  await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2);
+}
+
 async function menu(page, dev, route) {
   await page.evaluate(() => scrollTo(0, 600));
   await page.waitForTimeout(150);
   const before = await page.evaluate(() => scrollY);
   const toggle = page.locator("header button[aria-controls]");
-  await toggle.tap();
+  await tapInPlace(page, toggle);
   await page.waitForTimeout(250);
   line((await toggle.getAttribute("aria-expanded")) === "true", dev, route, "menu opens by tap");
   const locked = await page.evaluate(
@@ -96,9 +106,11 @@ async function interactions(page, dev, route) {
 
     const nvs = page.locator(".nvs");
     await nvs.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1900); // the card plays names → sounds once (1.3s) when it first comes into view
     const m0 = await nvs.getAttribute("data-mode");
+    await page.waitForTimeout(400);
     await page.locator(".nvs-toggle button[aria-pressed=false]").first().tap();
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(400);
     line((await nvs.getAttribute("data-mode")) !== m0, dev, route, "names-vs-sounds toggle by tap");
 
     const tabs = page.locator("#who [role=tab], [aria-label] [role=tablist] [role=tab]");

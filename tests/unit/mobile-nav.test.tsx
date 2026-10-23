@@ -40,6 +40,20 @@ describe("MobileNav", () => {
     expect(document.activeElement).toBe(last);
   });
 
+  it("moves focus itself, without scrolling the page (sticky header focus would jump to the top)", () => {
+    render(<MobileNav items={items} />);
+    fireEvent.click(toggle());
+    const links = screen.getAllByRole("link");
+    const focus = vi.spyOn(HTMLElement.prototype, "focus");
+    toggle().focus();
+    focus.mockClear();
+    const ev = fireEvent.keyDown(document, { key: "Tab" });
+    expect(ev).toBe(false); // default prevented: the browser does not move (or scroll to) focus
+    expect(document.activeElement).toBe(links[0]);
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true });
+    focus.mockRestore();
+  });
+
   it("closes on Escape and returns focus to the toggle", () => {
     render(<MobileNav items={items} />);
     fireEvent.click(toggle());

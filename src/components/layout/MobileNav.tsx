@@ -29,21 +29,17 @@ export function MobileNav({ items }: { items: NavItem[] }) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpenOn(null);
-        toggleRef.current?.focus();
+        toggleRef.current?.focus({ preventScroll: true });
         return;
       }
       if (e.key !== "Tab") return;
+      // Every Tab is handled here: the browser's own focus move would scroll to the sticky header's place in the
+      // page (the very top), so focus moves with preventScroll and wraps between the toggle and the last link.
+      e.preventDefault();
       const stops = [toggleRef.current, ...(panelRef.current?.querySelectorAll<HTMLElement>("a[href]") ?? [])].filter(Boolean) as HTMLElement[];
-      const first = stops[0];
-      const last = stops[stops.length - 1];
-      const at = document.activeElement;
-      if (e.shiftKey && (at === first || !stops.includes(at as HTMLElement))) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && (at === last || !stops.includes(at as HTMLElement))) {
-        e.preventDefault();
-        first.focus();
-      }
+      const at = stops.indexOf(document.activeElement as HTMLElement);
+      const next = at === -1 ? 0 : (at + (e.shiftKey ? -1 : 1) + stops.length) % stops.length;
+      stops[next].focus({ preventScroll: true });
     };
     document.addEventListener("keydown", onKey);
     return () => {
