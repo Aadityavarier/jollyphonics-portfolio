@@ -14,6 +14,8 @@ import { FlipCard } from "@/components/motion/FlipCard";
 import { ReadAloud } from "@/components/motion/ReadAloud";
 import { TileProgress } from "@/components/motion/TileProgress";
 import { PathJourney } from "@/components/about/PathJourney";
+import { JsonLd } from "@/components/blocks/JsonLd";
+import { personGraph } from "@/lib/jsonld";
 import { journey } from "@/content/journey";
 
 export const metadata = pageMetadata("about");
@@ -21,6 +23,7 @@ export const metadata = pageMetadata("about");
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={personGraph()} />
       <TileProgress />
       <PageHero title={founder.knownAs} fx="stroke" trail={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} slot="A1">
         <CredentialLine />

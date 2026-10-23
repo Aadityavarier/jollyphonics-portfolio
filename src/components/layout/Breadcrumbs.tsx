@@ -1,14 +1,17 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/blocks/JsonLd";
+import { breadcrumbGraph } from "@/lib/jsonld";
 
 export interface Crumb {
   name: string;
   path: string;
 }
 
-/** Visual breadcrumbs for inner pages. JSON-LD BreadcrumbList is added in Task 17. */
+/** Visual breadcrumbs for inner pages, with the matching BreadcrumbList JSON-LD from the same trail. */
 export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb" className="text-small">
+      <JsonLd data={breadcrumbGraph(trail)} />
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted">
         {trail.map((c, i) => {
           const last = i === trail.length - 1;

@@ -7,6 +7,8 @@ import { seo } from "@/content/seo";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { StickyContactBar } from "@/components/layout/StickyContactBar";
+import { JsonLd } from "@/components/blocks/JsonLd";
+import { siteGraph } from "@/lib/jsonld";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { PageTransitions } from "@/components/motion/PageTransitions";
 
@@ -42,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <JsonLd data={siteGraph()} />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

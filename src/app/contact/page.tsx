@@ -9,6 +9,8 @@ import { CallLink } from "@/components/contact/CallLink";
 import { BranchList } from "@/components/contact/BranchList";
 import { FaqAccordion } from "@/components/blocks/FaqAccordion";
 import { EnquiryForm } from "@/components/contact/EnquiryForm";
+import { JsonLd } from "@/components/blocks/JsonLd";
+import { faqGraph } from "@/lib/jsonld";
 import { Todo } from "@/components/blocks/Todo";
 
 export const metadata = pageMetadata("contact");
@@ -16,6 +18,7 @@ export const metadata = pageMetadata("contact");
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={faqGraph(faq)} />
       <PageHero
         title={contact.status}
         fx="lightup"
