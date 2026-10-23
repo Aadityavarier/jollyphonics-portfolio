@@ -71,7 +71,7 @@ export function FxHeading({ as: Tag = "h2", fx, id, className = "", load, childr
       <span aria-hidden="true" className="fx-wrap">
         {body}
         {fx === "stroke" && (
-          <svg className="fx-line" viewBox="0 0 200 12" preserveAspectRatio="none" focusable="false">
+          <svg className="fx-line" viewBox="0 0 200 12" focusable="false">
             <path pathLength="1" d="M2 8 C 34 2, 62 11, 98 6 S 168 3, 198 7" />
           </svg>
         )}

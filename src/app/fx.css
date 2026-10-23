@@ -21,39 +21,25 @@
 .fx-line {
   position: absolute;
   left: 0;
-  bottom: -0.18em;
-  width: min(100%, 9em);
-  height: 0.22em;
+  top: calc(100% - 0.3em);
+  width: min(100%, 7em);
+  height: 0.42em;
   overflow: visible;
   fill: none;
+  pointer-events: none;
+}
+.fx-line path {
   stroke: var(--color-red);
-  stroke-width: 5;
+  stroke-width: 2.4;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
-  vector-effect: non-scaling-stroke;
-}
-.on-dark .fx-line {
-  stroke: var(--color-paper);
-}
-.fx-line path {
-  vector-effect: non-scaling-stroke;
-  stroke-width: 4;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-[data-reveal^="fx-"] .fx-text {
-  padding-bottom: 0.18em;
-  display: inline-block;
-}
-.fx-line {
-  stroke: none;
-}
-.fx-line path {
-  stroke: var(--color-red);
 }
 .on-dark .fx-line path {
   stroke: var(--color-paper);
+}
+[data-reveal^="fx-"] .fx-text {
+  display: inline-block;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -478,4 +464,238 @@
     opacity: 0;
     transform: translateY(-1.1em);
   }
+}
+
+/* ============ About: the journey path ============ */
+.journey-path {
+  display: none;
+}
+.journey-list {
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0 0 0 2.5rem;
+  list-style: none;
+}
+.journey-list::before,
+.journey-list::after {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: rgba(22, 32, 74, 0.12);
+}
+.journey-list::after {
+  background: var(--color-red);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.journey:not([data-mode]) .journey-list::after {
+  transform: scaleY(1);
+  background: rgba(22, 32, 74, 0.12);
+}
+.journey[data-mode="v"] .journey-list::after {
+  transform: scaleY(var(--p, 0));
+}
+.journey-item {
+  position: relative;
+}
+.journey-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.35rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.5rem;
+  transform: translateX(-50%);
+  border: 3px solid var(--color-surface);
+  border-radius: 50%;
+  background: var(--tc);
+  box-sizing: content-box;
+}
+.journey-when {
+  color: var(--color-red);
+}
+.journey-card {
+  display: grid;
+  gap: 0.15rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .journey[data-mode] .journey-item:not(.is-reached) .journey-card {
+    opacity: 0.3;
+    transform: translateY(0.6rem);
+  }
+  .journey[data-mode] .journey-item:not(.is-reached) .journey-dot {
+    transform: translateX(-50%) scale(0.45);
+  }
+  .journey[data-mode] .journey-card {
+    transition:
+      opacity 420ms var(--ease-out),
+      transform 420ms var(--ease-out);
+  }
+  .journey[data-mode] .journey-dot {
+    transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .journey[data-mode="h"] .journey-pin {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    padding-top: var(--header-h);
+    overflow: clip;
+  }
+  .journey[data-mode="h"] .journey-view {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding-inline: var(--gutter);
+    overflow: clip;
+  }
+  .journey[data-mode="h"] .journey-track {
+    position: relative;
+    flex: none;
+    width: max-content;
+    height: min(30rem, 62svh);
+    will-change: transform;
+  }
+  .journey[data-mode="h"] .journey-path {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: var(--color-red);
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+  .journey[data-mode="h"] .journey-path path {
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .journey[data-mode="h"] .journey-list {
+    display: flex;
+    gap: 0;
+    height: 100%;
+    padding: 0;
+  }
+  .journey[data-mode="h"] .journey-list::before,
+  .journey[data-mode="h"] .journey-list::after {
+    display: none;
+  }
+  .journey[data-mode="h"] .journey-item {
+    flex: 0 0 20rem;
+    height: 100%;
+  }
+  .journey[data-mode="h"] .journey-dot {
+    left: 50%;
+    top: 30%;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+  .journey[data-mode="h"] .journey-item[data-pos="low"] .journey-dot {
+    top: 70%;
+  }
+  .journey[data-mode="h"] .journey-item:not(.is-reached) .journey-dot {
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  /* Cards sit on the far side of their dot, so the curve between dots never runs through text. */
+  .journey[data-mode="h"] .journey-card {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: calc(70% + 1.6rem);
+  }
+  .journey[data-mode="h"] .journey-item[data-pos="low"] .journey-card {
+    bottom: auto;
+    top: calc(70% + 1.6rem);
+  }
+}
+
+/* ============ FanPile ============ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed][data-reveal="fan"]:not([data-shown]) > * {
+    position: relative;
+    z-index: var(--fz);
+    transform: translate(var(--fx), var(--fy)) rotate(var(--fr));
+  }
+  [data-reveal="fan"][data-shown][data-armed] > * {
+    transition: transform 850ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  [data-reveal="fan"][data-done] > * {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+@media print {
+  [data-reveal="fan"] > * {
+    transform: none !important;
+  }
+}
+
+/* ============ ReadAloud ============ */
+.ra-w {
+  border-radius: 0.2em;
+  transition: opacity 180ms linear;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ra-w[data-state="wait"],
+  .ra-w[data-state="next"] {
+    opacity: 0.35;
+  }
+  .ra-w[data-state="now"] {
+    background: rgba(248, 176, 0, 0.45);
+    box-shadow: 0 0 0 0.12em rgba(248, 176, 0, 0.45);
+  }
+}
+@media print {
+  .ra-w {
+    opacity: 1 !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ============ About: certificate cards and award medals ============ */
+.cert {
+  position: relative;
+}
+.cert-seal {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(227, 0, 27, 0.18);
+}
+.award .flip-face {
+  min-height: 9.5rem;
+}
+.award .flip-front {
+  justify-items: start;
+  align-content: space-between;
+}
+.award-medal {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-letter-i);
+  box-shadow:
+    inset 0 0 0 5px rgba(255, 255, 255, 0.55),
+    0 6px 0 -2px var(--color-red);
 }
