@@ -14,7 +14,7 @@ import { WhoIsItFor } from "@/components/home/WhoIsItFor";
 import { HomeBranches } from "@/components/home/HomeBranches";
 import { FounderIntro } from "@/components/home/FounderIntro";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
-import { AudienceTeasers } from "@/components/home/AudienceTeasers";
+import { Showcase } from "@/components/home/Showcase";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
 
 export const metadata = pageMetadata("home");
@@ -37,11 +37,11 @@ export default function HomePage() {
         steps={programs.phonics.learningPath}
         detail={programs.phonics.learningPathDetail}
       />
-      <WhoIsItFor />
-      <HomeBranches />
       <FounderIntro />
+      <WhoIsItFor />
+      <Showcase />
+      <HomeBranches />
       <WhyChooseUs />
-      <AudienceTeasers />
       <GalleryPreview />
       <Section id="faq">
         <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
