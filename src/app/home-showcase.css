@@ -204,13 +204,21 @@
   top: 0;
   height: 3rem;
   padding: 0.4rem 0.8rem;
-  border-left: 4px solid var(--c, var(--color-teal));
   border-radius: 0.7rem;
   background: var(--color-paper);
   box-shadow: 0 6px 14px -8px rgba(22, 32, 74, 0.45);
   font-size: 0.85rem;
   font-weight: 700;
   transform-origin: top center;
+}
+.sc-stack span::before {
+  content: "";
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.5rem;
+  border-radius: 0.15rem;
+  background: var(--c, var(--color-teal));
 }
 .sc-stack span:nth-child(1) {
   --c: var(--color-letter-p);

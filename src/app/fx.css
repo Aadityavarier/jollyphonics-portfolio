@@ -1363,13 +1363,16 @@ body:has(.enq :focus-within) .sticky-bar {
     transform: scaleY(0);
   }
   [data-armed][data-reveal="rule"]:not([data-shown]) .jt-dot {
-    transform: scale(0);
+    opacity: 0;
+    transform: scale(0.4);
   }
   [data-reveal="rule"][data-shown]::before {
     transition: transform 900ms var(--ease-in-out);
   }
   [data-reveal="rule"][data-shown] .jt-dot {
-    transition: transform 360ms var(--ease-spring) calc(var(--i, 0) * 240ms + 150ms);
+    transition:
+      transform 360ms var(--ease-spring) calc(var(--i, 0) * 240ms + 150ms),
+      opacity 200ms var(--ease-out) calc(var(--i, 0) * 240ms + 150ms);
   }
   [data-reveal="rule"][data-shown] .jt-stop {
     animation: fade-up 480ms var(--ease-out) backwards;
