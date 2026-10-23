@@ -54,22 +54,25 @@ export function PathJourney({ title, milestones }: Props) {
         const view = q<HTMLElement>(".journey-view");
         const path = q<SVGPathElement>(".journey-path path");
         const setX = gsap.quickSetter(track, "x", "px");
-        const gut = () => parseFloat(getComputedStyle(view).paddingLeft) || 0;
-        const dist = () => Math.max(0, track.scrollWidth - (view.clientWidth - 2 * gut()));
-        // The pen sits 60% across the screen; milestone i lights when it is under the pen.
-        const reach = (i: number) => {
-          const d = dist();
-          return d <= 0 ? 0 : Math.min(1, Math.max(0, ((i + 0.5) / n) * track.scrollWidth + gut() - view.clientWidth * 0.6) / d);
+        // Measured once per refresh, never inside the scroll handler (no layout reads while scrolling).
+        let m = { w: 0, d: 0, gut: 0, vw: 0, reach: [] as number[] };
+        const measure = () => {
+          const gut = parseFloat(getComputedStyle(view).paddingLeft) || 0;
+          const w = track.scrollWidth;
+          const vw = view.clientWidth;
+          const d = Math.max(0, w - (vw - 2 * gut));
+          // The pen sits 60% across the screen; milestone i lights when it is under the pen.
+          const reach = items.map((_, i) => (d <= 0 ? 0 : Math.min(1, Math.max(0, ((i + 0.5) / n) * w + gut - vw * 0.6) / d)));
+          m = { w, d, gut, vw, reach };
         };
+        measure();
         let reached = items.map(() => false);
         const apply = (p: number) => {
-          const w = track.scrollWidth;
-          const d = dist();
-          setX(-p * d);
-          const f = Math.min(1, Math.max(0, (p * d + view.clientWidth * 0.6 - gut()) / w));
+          setX(-p * m.d);
+          const f = Math.min(1, Math.max(0, (p * m.d + m.vw * 0.6 - m.gut) / m.w));
           path.style.strokeDashoffset = String(1 - f);
           items.forEach((it, i) => {
-            const on = p >= reach(i) - 0.0001;
+            const on = p >= m.reach[i] - 0.0001;
             if (on !== reached[i]) {
               reached[i] = on;
               it.classList.toggle("is-reached", on);
@@ -80,11 +83,15 @@ export function PathJourney({ title, milestones }: Props) {
         ScrollTrigger.create({
           trigger: q(".journey-pin"),
           start: "top top",
-          end: () => `+=${dist()}`,
+          end: () => {
+            measure();
+            return `+=${m.d}`;
+          },
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onRefresh: (self) => {
+            measure();
             reached = items.map(() => false);
             apply(self.progress);
           },
@@ -102,11 +109,12 @@ export function PathJourney({ title, milestones }: Props) {
       mm.add("(max-width: 1023px)", () => {
         el.setAttribute("data-mode", "v");
         const list = q<HTMLElement>(".journey-list");
+        const fill = q<HTMLElement>(".journey-fill");
         ScrollTrigger.create({
           trigger: list,
           start: "top 70%",
           end: "bottom 60%",
-          onUpdate: (self) => list.style.setProperty("--p", self.progress.toFixed(3)),
+          onUpdate: (self) => (fill.style.transform = `scaleY(${self.progress.toFixed(3)})`),
         });
         items.forEach((it) =>
           ScrollTrigger.create({
@@ -116,10 +124,9 @@ export function PathJourney({ title, milestones }: Props) {
             onLeaveBack: () => it.classList.remove("is-reached"),
           }),
         );
-        list.style.setProperty("--p", "0");
         return () => {
           el.removeAttribute("data-mode");
-          list.style.removeProperty("--p");
+          fill.style.transform = "";
           items.forEach((it) => it.classList.remove("is-reached"));
         };
       });
@@ -147,6 +154,7 @@ export function PathJourney({ title, milestones }: Props) {
               <path d={pathFor(n)} pathLength={1} />
             </svg>
             <ol className="journey-list">
+              <li aria-hidden="true" className="journey-fill" />
               {milestones.map((m, i) => {
                 const tile = PHONICS_TILES[i % PHONICS_TILES.length];
                 return (
