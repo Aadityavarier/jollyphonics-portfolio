@@ -19,7 +19,8 @@ interface Props {
   initial?: number;
 }
 
-const NOSCRIPT_CSS = ".tabs [role=tabpanel][hidden]{display:block!important}.tabs [role=tablist]{display:none!important}";
+/** In @layer base so it beats Tailwind's preflight `[hidden]{display:none!important}` (earlier layers win for !important). */
+const NOSCRIPT_CSS = "@layer base{.tabs [role=tabpanel][hidden]{display:block!important}.tabs [role=tablist]{display:none!important}}";
 
 /**
  * ARIA tabs with a sliding indicator (one element, transform only) and direction-aware panel entry.

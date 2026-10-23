@@ -35,9 +35,12 @@ describe("HelloCta (client)", () => {
     vi.unstubAllGlobals();
   });
 
-  it("plays tiles, then the bubble, then rests", () => {
+  it("plays tiles, then the bubble, then rests", async () => {
     stubEnv(false);
-    const { container } = render(<HelloCta />);
+    let container!: HTMLElement;
+    await act(async () => {
+      container = render(<HelloCta />).container;
+    });
     const chat = container.querySelector("[data-hello-chat]")!;
     expect(chat.getAttribute("data-phase")).toBe("tiles");
     act(() => void vi.advanceTimersByTime(1100));

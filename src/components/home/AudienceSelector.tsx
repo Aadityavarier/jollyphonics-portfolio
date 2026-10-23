@@ -10,7 +10,11 @@ export interface Audience {
   card: ReactNode;
 }
 
-const NOSCRIPT_CSS = ".aud [role=tabpanel][hidden]{display:block!important;margin-bottom:1rem}.aud [role=tablist]{display:none!important}";
+/**
+ * Without JS the four panels show stacked. Tailwind's preflight has `[hidden]{display:none!important}` inside @layer base, and
+ * for !important declarations an earlier layer beats unlayered CSS, so this must sit in the same layer (higher specificity then wins).
+ */
+const NOSCRIPT_CSS = "@layer base{.aud [role=tabpanel][hidden]{display:block!important;margin-bottom:1rem}.aud [role=tablist]{display:none!important}}";
 
 /**
  * "Is it right for my child?" as one shared card that changes into each audience's content. The active-tab

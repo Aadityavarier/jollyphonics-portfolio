@@ -21,7 +21,7 @@ function Label({ title, line }: { title: string; line?: string }) {
   return (
     <span className="grid gap-0.5">
       <h3 className="font-display text-lead leading-tight font-bold">{title}</h3>
-      {line && <span className="text-small opacity-80">{line}</span>}
+      {line && <span className="text-small">{line}</span>}
     </span>
   );
 }

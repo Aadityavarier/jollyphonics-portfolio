@@ -73,6 +73,45 @@ interface ArmOptions {
   onShow?: () => void;
 }
 
+interface Waiting {
+  el: Element;
+  hide: boolean;
+  onShow?: () => void;
+  cancelled: boolean;
+}
+let waiting: Waiting[] = [];
+
+/**
+ * Many nodes arm in the same commit (all their effects run back to back). Reading each one's position right
+ * after the previous one's attribute write would force a layout per node, so arming is queued to a microtask
+ * (still before the next paint): every position is read first, then every attribute is written.
+ */
+function flushArming() {
+  const batch = waiting;
+  waiting = [];
+  const limit = window.innerHeight * LIMIT;
+  const tops = batch.map((w) => (w.cancelled ? 0 : w.el.getBoundingClientRect().top));
+  batch.forEach((w, i) => {
+    if (w.cancelled) return;
+    if (tops[i] < limit) {
+      w.el.setAttribute("data-shown", "");
+      w.onShow?.();
+      return;
+    }
+    if (w.hide) w.el.setAttribute("data-armed", "");
+    if (w.onShow) callbacks.set(w.el, w.onShow);
+    pending.add(w.el);
+    io ??= new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting || e.boundingClientRect.top < 0) show(e.target);
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    io.observe(w.el);
+    startListening();
+  });
+}
+
 /** Arms `el`; returns a cleanup. In view, above the fold, or reduced motion: shown at once, never hidden. */
 export function armReveal(el: Element, { hide = true, onShow }: ArmOptions = {}): () => void {
   if (el.hasAttribute("data-shown")) {
@@ -80,23 +119,15 @@ export function armReveal(el: Element, { hide = true, onShow }: ArmOptions = {})
     onShow?.();
     return () => {};
   }
-  if (reducedMotion() || el.getBoundingClientRect().top < window.innerHeight * LIMIT) {
+  if (reducedMotion()) {
     el.setAttribute("data-shown", "");
     onShow?.();
     return () => {};
   }
-  if (hide) el.setAttribute("data-armed", "");
-  if (onShow) callbacks.set(el, onShow);
-  pending.add(el);
-  io ??= new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) if (e.isIntersecting || e.boundingClientRect.top < 0) show(e.target);
-    },
-    { rootMargin: "0px 0px -12% 0px" },
-  );
-  io.observe(el);
-  startListening();
+  const w: Waiting = { el, hide, onShow, cancelled: false };
+  if (waiting.push(w) === 1) queueMicrotask(flushArming);
   return () => {
+    w.cancelled = true;
     if (pending.delete(el)) io?.unobserve(el);
     if (pending.size === 0) stopListening();
   };

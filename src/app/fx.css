@@ -650,7 +650,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .ra-w[data-state="wait"],
   .ra-w[data-state="next"] {
-    opacity: 0.35;
+    opacity: 0.7; /* dimmed, not faint: stays above 4.5:1 on the surface ground */
   }
   .ra-w[data-state="now"] {
     background: rgba(248, 176, 0, 0.45);
