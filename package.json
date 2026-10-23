@@ -10,7 +10,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "probe": "node scripts/probes/run-all.cjs",
-    "probe:mobile": "node scripts/probes/mobile.cjs"
+    "probe:mobile": "node scripts/probes/mobile.cjs && node scripts/probes/soundout.cjs"
   },
   "dependencies": {
     "framer-motion": "^14.6.0",

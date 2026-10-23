@@ -72,6 +72,15 @@
       fx-snap 460ms var(--ease-out) both;
     animation-delay: calc(var(--i) * var(--step)), calc(var(--n) * var(--step) + 120ms);
   }
+  /* Phones: a sideways spread would push the first letters past the screen edge, so each letter rises
+     into place instead, one after another. */
+  @media (max-width: 639px) {
+    [data-reveal="fx-soundout"][data-shown][data-armed] .fx-p,
+    [data-reveal="fx-soundout"][data-load] .fx-p {
+      animation: fx-rise 460ms var(--ease-out) both;
+      animation-delay: calc(var(--i) * var(--step));
+    }
+  }
 
   /* ----- tile flip: coloured tiles flip over to reveal each letter ----- */
   [data-reveal="fx-tileflip"] .fx-p::after {
@@ -161,6 +170,12 @@
 @keyframes fx-appear {
   from {
     opacity: var(--o0, 0);
+  }
+}
+@keyframes fx-rise {
+  from {
+    opacity: var(--o0, 0);
+    translate: 0 0.4em;
   }
 }
 @keyframes fx-snap {
