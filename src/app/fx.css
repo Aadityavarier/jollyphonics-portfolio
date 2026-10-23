@@ -1225,3 +1225,70 @@ body:has(.enq :focus-within) .sticky-bar {
     opacity: 0;
   }
 }
+
+/* ============ Home: letter names vs letter sounds ============
+   Two complete layers share one grid cell. data-mode picks the visible one; in "sounds" the tiles slide
+   together (transform only). Reduced motion shows both layers one above the other, with no toggle. */
+.nvs-stack {
+  display: grid;
+}
+.nvs-layer {
+  grid-area: 1 / 1;
+  align-content: start;
+  transition: opacity 320ms var(--ease-out);
+}
+.nvs[data-mode="names"] .nvs-sounds,
+.nvs[data-mode="sounds"] .nvs-names {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 320ms var(--ease-out),
+    visibility 0s linear 320ms;
+}
+.nvs-row {
+  display: flex;
+  align-items: center;
+  gap: 0.18em;
+  font-size: clamp(3.5rem, 2.4rem + 5vw, 6rem);
+}
+.nvs-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 1.2em;
+  aspect-ratio: 1;
+  border-radius: 0.22em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+}
+/* Names: far apart, with room for a gap between each; Sounds: closed up into a word. */
+.nvs-names .nvs-tile {
+  transform: translateX(calc(var(--i) * 0.25em));
+}
+.nvs-sounds .nvs-tile {
+  transform: translateX(calc(var(--i) * 0.45em));
+  transition: transform 650ms var(--ease-in-out);
+}
+.nvs[data-mode="sounds"] .nvs-sounds .nvs-tile {
+  transform: translateX(calc(var(--i) * -0.14em));
+}
+@media (prefers-reduced-motion: reduce) {
+  .nvs-stack {
+    gap: 2rem;
+  }
+  .nvs-layer {
+    grid-area: auto;
+  }
+  .nvs[data-mode] .nvs-layer {
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+  .nvs .nvs-sounds .nvs-tile {
+    transform: translateX(calc(var(--i) * -0.14em));
+    transition: none;
+  }
+  .nvs-toggle {
+    display: none;
+  }
+}

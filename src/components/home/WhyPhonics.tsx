@@ -5,7 +5,7 @@ import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { Panel } from "@/components/layout/Panel";
 import { SectionHeading } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { SoundBlend } from "./SoundBlend";
+import { NamesVsSounds } from "./NamesVsSounds";
 
 /** Answers the parent's first question, "what is phonics, really?", on the red panel. */
 export function WhyPhonics() {
@@ -29,7 +29,7 @@ export function WhyPhonics() {
           </Reveal>
         </div>
         <Reveal className="rounded-[var(--radius-panel)] bg-paper p-6 text-ink shadow-[0_24px_48px_-24px_rgba(22,32,74,0.45)] sm:p-10">
-          <SoundBlend sounds={parents.example.sounds} word={parents.example.word} />
+          <NamesVsSounds sounds={parents.example.sounds} word={parents.example.word} />
         </Reveal>
       </div>
     </Panel>
