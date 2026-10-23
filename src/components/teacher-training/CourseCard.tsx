@@ -14,7 +14,7 @@ interface Props {
 }
 
 /** A native <details> "course card". Phones: expands on tap. Wide screens: always open, stacked (fx.css). */
-export function CourseCard({ index = 0, title, subtitle, intro, for: forWhom, topics, topicsLabel = "Covers", open }: Props) {
+export function CourseCard({ index = 0, title, subtitle, intro, for: forWhom, topics, topicsLabel = labels.courseCard.covers, open }: Props) {
   return (
     <details
       open={open}
@@ -35,12 +35,12 @@ export function CourseCard({ index = 0, title, subtitle, intro, for: forWhom, to
         {intro && <p>{intro}</p>}
         {forWhom && (
           <div>
-            <h4 className="text-small font-bold text-muted uppercase">{labels.courseCard.for}</h4>
+            <h3 className="text-small font-bold text-muted uppercase">{labels.courseCard.for}</h3>
             <p className="mt-1">{forWhom.join(", ")}.</p>
           </div>
         )}
         <div>
-          <h4 className="text-small font-bold text-muted uppercase">{topicsLabel}</h4>
+          <h3 className="text-small font-bold text-muted uppercase">{topicsLabel}</h3>
           <ul className="mt-2 flex flex-wrap gap-2">
             {topics.map((t) => (
               <li key={t} className="rounded-full bg-surface px-3.5 py-1.5 text-small font-medium">

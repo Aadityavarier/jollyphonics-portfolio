@@ -22,7 +22,7 @@ export const labels = {
     close: "Close",
   },
   programsNav: "Programs",
-  courseCard: { for: "For" },
+  courseCard: { for: "For", covers: "Covers" },
   footer: {
     nav: "Footer",
     explore: "Explore",
