@@ -57,10 +57,10 @@ describe("LayoutTabs", () => {
 describe("FlipCard", () => {
   it("keeps both faces in the DOM and toggles aria-pressed on activation", () => {
     stubMotion(false);
-    render(<FlipCard label="Award" enter="front" front={<span>2023</span>} back={<span>Award details</span>} />);
+    render(<FlipCard enter="front" front={<span>2023</span>} back={<span>Award details</span>} />);
     expect(screen.getByText("2023")).toBeInTheDocument();
     expect(screen.getByText("Award details")).toBeInTheDocument();
-    const btn = screen.getByRole("button", { name: "Award" });
+    const btn = screen.getByRole("button", { name: /Award details/ });
     expect(btn).toHaveAttribute("aria-pressed", "false");
     fireEvent.click(btn);
     expect(btn).toHaveAttribute("aria-pressed", "true");
@@ -68,9 +68,9 @@ describe("FlipCard", () => {
 
   it("under reduced motion stays unenhanced: both faces visible, toggle inert", () => {
     stubMotion(true);
-    const { container } = render(<FlipCard label="Award" front={<span>2023</span>} back={<span>Award details</span>} />);
+    const { container } = render(<FlipCard front={<span>2023</span>} back={<span>Award details</span>} />);
     expect(container.querySelector(".flip")).not.toHaveAttribute("data-enhanced");
-    expect(screen.getByRole("button", { name: "Award" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /Award details/ })).toBeDisabled();
   });
 });
 

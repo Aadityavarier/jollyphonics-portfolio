@@ -279,7 +279,6 @@ export default function StyleguidePage() {
         </div>
         <div className="mt-16 grid gap-10 sm:grid-cols-2">
           <FlipCard
-            label="Award, 2023"
             className="rounded-[var(--radius-panel)] bg-surface p-6"
             front={<span className="font-display text-head font-bold text-red">2023</span>}
             back={<span className="font-bold">Business Entrepreneur Award</span>}

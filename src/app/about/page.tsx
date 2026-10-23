@@ -82,7 +82,6 @@ export default function AboutPage() {
           {founder.awards.map((a, i) => (
             <li key={a.name}>
               <FlipCard
-                label={`${a.name}, ${a.year}`}
                 delay={i * 220}
                 className="award rounded-[var(--radius-panel)] bg-surface p-6"
                 front={
@@ -95,7 +94,7 @@ export default function AboutPage() {
                   <>
                     <span className="font-display text-lead leading-tight font-bold">{a.name}</span>
                     <span className="text-small text-muted">{a.detail}</span>
-                    <span className="font-bold text-red">{a.year}</span>
+                    <span className="font-bold text-red-deep">{a.year}</span>
                   </>
                 }
               />

@@ -62,7 +62,7 @@ export function Staircase({ steps, label }: Props) {
           bgs.forEach((bg, i) => {
             const k = clamp((p - (i / n) * 0.85) / 0.15);
             bg.style.transform = wide ? `scaleY(${k})` : `scaleX(${k})`;
-            labels[i].style.opacity = String(k);
+            labels[i].style.opacity = k >= 0.6 ? "1" : "0";
           });
           const f = clamp(p / 0.96) * (n - 1);
           const i = Math.min(n - 2, Math.floor(f));

@@ -274,6 +274,14 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+/* Each face carries the card's own background (inherited down from .flip), so the back face's text is
+   always read against the card, never against the front face stacked in the same cell. */
+.flip[data-enhanced] .flip-btn,
+.flip[data-enhanced] .flip-inner,
+.flip[data-enhanced] .flip-face {
+  background-color: inherit;
+  border-radius: inherit;
+}
 .flip[data-enhanced] .flip-back {
   transform: rotateY(180deg);
 }
@@ -865,7 +873,7 @@
 }
 @keyframes conveyor {
   from {
-    opacity: 0.2;
+    opacity: 0;
     transform: translateX(var(--from));
   }
 }
@@ -899,7 +907,9 @@
   background: var(--c);
   transform-origin: left center;
 }
+/* The scrub turns each label on once its step is mostly built; a short fade, never a half-faded label. */
 .stair-label {
+  transition: opacity 160ms var(--ease-out);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.125rem;

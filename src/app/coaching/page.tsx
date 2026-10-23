@@ -49,11 +49,11 @@ export default function CoachingPage() {
             return (
               <li key={s}>
                 <FlipCard
-                  label={s}
                   delay={i * 90}
                   className="rounded-[var(--radius-panel)] bg-paper"
                   front={
                     <span
+                      aria-hidden="true"
                       className="grid h-28 place-items-center rounded-[var(--radius-panel)] font-display text-[3rem] leading-none font-bold"
                       style={{ background: tile.bg, color: tile.fg }}
                     >
