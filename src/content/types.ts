@@ -19,6 +19,10 @@ export interface Branch {
   /** Structured-data type only (C2). Never used for visual presentation. */
   schema: "LocalBusiness" | "Place";
   hostBusiness?: string;
+  /** Pincode, once the client supplies it (TODO pincodes). Goes into the structured data. */
+  postalCode?: string;
+  /** Exact map pin, once supplied: directions and the map then land on it instead of an address search. */
+  geo?: { lat: number; lng: number };
 }
 
 export type PageKey =

@@ -10,7 +10,14 @@ export const ORG_ID = `${SITE_URL}/#org`;
 export const PERSON_ID = `${SITE_URL}/#revathi`;
 
 function address(b: Branch) {
-  return { "@type": "PostalAddress", streetAddress: b.address, addressLocality: "Ambernath", addressRegion: "Maharashtra", addressCountry: "IN" };
+  return {
+    "@type": "PostalAddress",
+    streetAddress: b.address,
+    addressLocality: "Ambernath",
+    addressRegion: "Maharashtra",
+    ...(b.postalCode ? { postalCode: b.postalCode } : {}),
+    addressCountry: "IN",
+  };
 }
 
 /** Branches 1-2 are the organisation's own (LocalBusiness); 3-4 are hosted at partner preschools (Place). */
@@ -20,6 +27,7 @@ export function branchNode(b: Branch) {
     "@id": `${SITE_URL}/#branch-${b.id}`,
     name: b.name,
     address: address(b),
+    ...(b.geo ? { geo: { "@type": "GeoCoordinates", latitude: b.geo.lat, longitude: b.geo.lng } } : {}),
     ...(b.secondary ? { description: `${brand.fullName} ${b.secondary}` } : {}),
   };
   return b.schema === "LocalBusiness"

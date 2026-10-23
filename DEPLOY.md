@@ -1,12 +1,13 @@
 # Deploying to Vercel
 
-Nothing has been pushed. This is what to do when you are ready.
+Work happens on the `preview` branch. Every push to it builds a Vercel **preview** (noindex, for checking on
+phones and PageSpeed). `main` is production. Going live is merging `preview` into `main`: see **Going live** below.
 
 ## 1. Check what you are about to push
 
 ```bash
 git status                # should be clean
-git log --oneline origin/main..HEAD   # the local commits that will go up
+git log --oneline origin/preview..HEAD   # the local commits that will go up
 git remote -v             # origin → https://github.com/Aadityavarier/jollyphonics-portfolio.git
 ```
 
@@ -16,11 +17,12 @@ want this site in. If it is not, change it first: `git remote set-url origin <th
 ## 2. Push
 
 ```bash
-git push origin main
+git push origin preview
 ```
 
-Do not force-push. If GitHub rejects the push because `origin/main` has commits this branch lacks, stop and look at
-them (`git fetch && git log origin/main --oneline`) before merging or rebasing.
+Do not force-push. If GitHub rejects the push because `origin/preview` has commits this branch lacks, stop and look
+at them (`git fetch && git log origin/preview --oneline`) before merging or rebasing. The preview URL is on the
+Vercel dashboard (Project → Deployments) and in the GitHub commit's status checks.
 
 ## 3. Import the repository in Vercel
 
@@ -81,3 +83,29 @@ gate is real mobile scores from <https://pagespeed.web.dev>:
   (the JSON-LD has only been checked locally).
 - Add real photos by setting `photo: { src, alt }` on the slots in `src/content/images.ts` and putting the files in
   `public/images/`. Gallery photos go in `galleryPhotos` (`src/content/gallery.ts`).
+
+## Going live
+
+Do these in order once the client has signed off the preview.
+
+1. **Merge `preview` into `main`.** Either open a pull request on GitHub (`preview` → `main`) and merge it, or:
+
+   ```bash
+   git checkout main
+   git pull origin main
+   git merge --ff-only preview     # fails safely if main has commits preview lacks: stop and look
+   git push origin main
+   git checkout preview
+   ```
+
+   Vercel builds `main` as production. Production is indexable; previews stay noindex.
+2. **Domain.** When a domain exists, add it in Vercel (Project → Settings → Domains), then set
+   `NEXT_PUBLIC_SITE_URL=https://your-domain` (Settings → Environment Variables → Production) and **redeploy** so
+   canonical links, Open Graph URLs, `sitemap.xml` and `llms.txt` use it.
+3. **Protect previews again.** Settings → Deployment Protection → turn **Vercel Authentication** back on for Preview
+   deployments (it was relaxed so the client and PageSpeed could open preview links). Production stays public.
+4. **Google Search Console.** search.google.com/search-console → Add property → **Domain** (verify with the DNS TXT
+   record your domain registrar shows you) → Sitemaps → submit `https://your-domain/sitemap.xml`. Then use
+   **URL inspection** on the home page and request indexing.
+5. **Re-check on production:** PageSpeed (mobile) for all eight pages, the Rich Results Test for `/`, `/about` and
+   `/contact`, and tap through the site on a real phone (`MORNING-REPORT.md` has a checklist).

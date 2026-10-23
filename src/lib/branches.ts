@@ -26,10 +26,13 @@ export function groupBranchesBySide(bs: Branch[]): BranchGroup[] {
   );
 }
 
+/** What the map searches for: the exact pin when the client has supplied one, otherwise the address. */
+const place = (b: Branch) => (b.geo ? `${b.geo.lat},${b.geo.lng}` : b.address);
+
 export function directionsUrl(b: Branch): string {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.address)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place(b))}`;
 }
 
 export function mapEmbedUrl(b: Branch): string {
-  return `https://www.google.com/maps?q=${encodeURIComponent(b.address)}&output=embed`;
+  return `https://www.google.com/maps?q=${encodeURIComponent(place(b))}&output=embed`;
 }
