@@ -29,7 +29,7 @@ export function WordBoard() {
   const [mode, setMode] = useState<Mode>("example");
   const timers = useRef<number[]>([]);
   const tray = useRef<Record<string, HTMLButtonElement | null>>({});
-  const slotEls = useRef<(HTMLSpanElement | null)[]>([]);
+  const faceEls = useRef<(HTMLSpanElement | null)[]>([]);
   const fly = useRef<{ slot: number; letter: string } | null>(null);
 
   const full = nextSlot(slots) === -1;
@@ -51,12 +51,13 @@ export function WordBoard() {
     return from.map((s, k) => (k === i ? letter : s));
   };
 
-  // Plays the placed sound in from its tray tile (FLIP: measured once, transform only).
+  // Plays the placed sound in from its tray tile (FLIP: measured once, transform only). The FLIP runs on the
+  // tile face; the slot around it owns the blend shift, so no element ever has two transform animations.
   useLayoutEffect(() => {
     const f = fly.current;
     fly.current = null;
     if (!f || prefersReducedMotion()) return;
-    const to = slotEls.current[f.slot];
+    const to = faceEls.current[f.slot];
     const from = tray.current[f.letter];
     if (!to || !from || typeof to.animate !== "function") return;
     const a = from.getBoundingClientRect();
@@ -116,19 +117,22 @@ export function WordBoard() {
         {slots.map((s, i) => (
           <span
             key={i}
-            ref={(el) => {
-              slotEls.current[i] = el;
-            }}
             aria-hidden="true"
-            className={`inline-grid size-[1.2em] place-items-center rounded-[0.22em] font-display leading-none font-bold transition-transform duration-500 ease-[var(--ease-in-out)] motion-reduce:transition-none ${s ? "" : "border-2 border-dashed border-paper/50"}`}
-            style={
-              {
-                ...(s ? { background: tileFor(s).bg, color: tileFor(s).fg } : null),
-                transform: blended ? `translateX(${-i * 0.14}em)` : "none",
-              } as CSSProperties
-            }
+            className={`inline-grid size-[1.2em] rounded-[0.22em] font-display leading-none font-bold transition-transform duration-500 ease-[var(--ease-in-out)] motion-reduce:transition-none ${s ? "" : "border-2 border-dashed border-paper/50"}`}
+            style={{ transform: blended ? `translateX(${-i * 0.14}em)` : "none" } as CSSProperties}
           >
-            {s && <span className="translate-y-[0.05em]">{s}</span>}
+            {s && (
+              <span
+                data-face=""
+                ref={(el) => {
+                  faceEls.current[i] = el;
+                }}
+                className="grid place-items-center rounded-[inherit]"
+                style={{ background: tileFor(s).bg, color: tileFor(s).fg }}
+              >
+                <span className="translate-y-[0.05em]">{s}</span>
+              </span>
+            )}
           </span>
         ))}
       </div>

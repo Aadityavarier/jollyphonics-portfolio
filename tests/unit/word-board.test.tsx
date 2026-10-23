@@ -93,4 +93,23 @@ describe("WordBoard", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add sound p" }));
     expect(animate).not.toHaveBeenCalled();
   });
+
+  it("plays the FLIP on the tile face, never on the slot that carries the blend shift", () => {
+    const targets: Element[] = [];
+    Element.prototype.animate = vi.fn(function (this: Element) {
+      targets.push(this);
+    }) as never;
+    render(<WordBoard />);
+    act(() => void vi.advanceTimersByTime(600)); // tap while the demo is still waiting to start
+    for (const l of ["c", "a", "t"]) fireEvent.click(screen.getByRole("button", { name: `Add sound ${l}` }));
+    expect(targets).toHaveLength(3);
+    for (const t of targets) {
+      expect(t).toHaveAttribute("data-face");
+      // The slot (the face's parent) owns the CSS transform transition; the face owns the FLIP. Never both.
+      expect(t.parentElement?.closest("[data-testid=board-slots]")).not.toBeNull();
+      expect((t as HTMLElement).style.transform).toBe("");
+    }
+    act(() => void vi.advanceTimersByTime(6000)); // the cancelled demo never comes back
+    expect(screen.getByTestId("board-slots").textContent).toBe("cat");
+  });
 });
