@@ -15,3 +15,22 @@ export function telHref(): string {
 export function branchMessage(branch: Branch): string {
   return `Hi, I'm enquiring about the ${branch.name} branch.`;
 }
+
+export interface EnquiryAnswers {
+  topic?: string;
+  branch?: string;
+  name?: string;
+  note?: string;
+}
+
+/** The enquiry as one WhatsApp message. Blank answers are left out; with none at all it is the general greeting. */
+export function buildEnquiryMessage({ topic, branch, name, note }: EnquiryAnswers): string {
+  const t = topic?.trim();
+  const lines = [
+    t ? `Hi, I'd like to enquire about ${t}.` : "Hi, I'd like to know more about your classes.",
+    name?.trim() && `Name: ${name.trim()}`,
+    branch?.trim() && `Preferred branch: ${branch.trim()}`,
+    note?.trim() && `Note: ${note.trim()}`,
+  ].filter(Boolean);
+  return lines.join("\n");
+}

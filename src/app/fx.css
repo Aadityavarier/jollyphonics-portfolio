@@ -1073,3 +1073,159 @@
     transform: translateY(0.75rem);
   }
 }
+
+/* ============ Contact: conversational enquiry ============ */
+.cta-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.cta-ink:hover {
+  background: #232f66;
+}
+.enq-chip {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+.enq-chip > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(22, 32, 74, 0.15);
+  border-radius: 999px;
+  background: var(--color-paper);
+  font-weight: 500;
+  line-height: 1.2;
+  transition:
+    background-color 160ms ease-out,
+    border-color 160ms ease-out,
+    transform 160ms ease-out;
+}
+.enq-chip:active > span {
+  transform: scale(0.97);
+}
+.enq-chip:has(input:checked) > span {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.enq-chip:has(input:focus-visible) > span {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+}
+.enq-tile {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 0.4rem;
+  background: var(--c);
+  opacity: 0.22;
+  transform: scale(0.88);
+}
+.enq-tile[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.enq-bubble {
+  position: relative;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem 1rem 1rem 0.25rem;
+  background: #d9fdd3;
+  color: var(--color-ink);
+  box-shadow: 0 1px 0 rgba(22, 32, 74, 0.12);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .enq-tile {
+    transition:
+      opacity 240ms var(--ease-out),
+      transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .enq-step[data-dir="f"] {
+    animation: enq-in-f 240ms var(--ease-out) both;
+  }
+  .enq-step[data-dir="b"] {
+    animation: enq-in-b 240ms var(--ease-out) both;
+  }
+  .enq-fly li {
+    animation: enq-fly 560ms var(--ease-in-out) 120ms both;
+  }
+  .enq-bubble {
+    animation: enq-bubble 320ms var(--ease-out) 380ms backwards;
+  }
+}
+@keyframes enq-in-f {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+}
+@keyframes enq-in-b {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+}
+@keyframes enq-fly {
+  to {
+    opacity: 0;
+    transform: translateY(2.75rem) scale(0.85);
+  }
+}
+@keyframes enq-bubble {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    transform-origin: left bottom;
+  }
+}
+/* The bottom contact bar steps aside while a form field has focus. */
+body:has(.enq :focus-within) .sticky-bar {
+  transform: translateY(100%);
+}
+
+/* Tap-to-load map: fades in, then a pin drops onto it. */
+.map-frame {
+  position: relative;
+}
+.map-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: -2rem 0 0 -1rem;
+  color: var(--color-red);
+  pointer-events: none;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .map-frame iframe {
+    animation: map-in 360ms var(--ease-out) both;
+  }
+  .map-pin {
+    animation: pin-drop 760ms cubic-bezier(0.34, 1.56, 0.64, 1) 200ms both, pin-fade 400ms ease-in 2200ms forwards;
+  }
+}
+@keyframes map-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes pin-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-1.75rem);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pin-fade {
+  to {
+    opacity: 0;
+  }
+}

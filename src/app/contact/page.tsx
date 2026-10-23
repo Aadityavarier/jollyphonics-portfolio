@@ -18,6 +18,7 @@ export default function ContactPage() {
     <>
       <PageHero
         title={contact.status}
+        fx="lightup"
         intro={contact.line}
         trail={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]}
       >
@@ -27,25 +28,29 @@ export default function ContactPage() {
         </div>
       </PageHero>
 
-      <Section id="branches" tone="surface">
-        <SectionHeading id="branches-title">Our branches</SectionHeading>
-        <p className="mt-3 max-w-[60ch] text-muted">{contact.timingsLine}</p>
-        <Todo value={contact.timingsTodo} />
-        <div className="mt-8">
-          <BranchList withMap />
-        </div>
-      </Section>
-
-      <Section id="enquire" tone="paper">
-        <SectionHeading id="enquire-title">Send an enquiry</SectionHeading>
-        <p className="mt-3 max-w-[60ch] text-muted">Fill this in and it opens a prefilled WhatsApp message — nothing is stored on our side.</p>
-        <div className="mt-8 max-w-[36rem]">
+      <Section id="enquire" tone="surface">
+        <SectionHeading id="enquire-title" fx="lightup">
+          Send an enquiry
+        </SectionHeading>
+        <p className="mt-3 max-w-[60ch] text-muted">Answer a few quick questions, or skip any of them. It opens WhatsApp with your message ready. Nothing is stored on our side.</p>
+        <div className="mt-8 max-w-[44rem]">
           <EnquiryForm />
         </div>
       </Section>
 
+      <Section id="branches" tone="paper">
+        <SectionHeading id="branches-title" fx="lightup">
+          Our branches
+        </SectionHeading>
+        <p className="mt-3 max-w-[60ch] text-muted">{contact.timingsLine}</p>
+        <Todo value={contact.timingsTodo} />
+        <div className="mt-8">
+          <BranchList withMap explorer />
+        </div>
+      </Section>
+
       <Section id="faq" tone="surface">
-        <SectionHeading id="faq-title">Frequently asked questions</SectionHeading>
+        <SectionHeading id="faq-title" fx="lightup">Frequently asked questions</SectionHeading>
         <div className="mt-6 max-w-[60ch]">
           <FaqAccordion items={faq} group="contact-faq" />
         </div>

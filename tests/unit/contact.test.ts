@@ -39,3 +39,23 @@ describe("messages", () => {
     expect(url.searchParams.get("text")).toBe(text);
   });
 });
+
+import { buildEnquiryMessage } from "@/lib/contact";
+
+describe("buildEnquiryMessage", () => {
+  it("is the general greeting when nothing is answered", () => {
+    expect(buildEnquiryMessage({})).toBe("Hi, I'd like to know more about your classes.");
+  });
+
+  it("includes only the answers that were given, in a fixed order", () => {
+    expect(buildEnquiryMessage({ topic: "Jolly Phonics", name: " Priya ", branch: "Ambernath East — Vadavali", note: "Age 5" })).toBe(
+      ["Hi, I'd like to enquire about Jolly Phonics.", "Name: Priya", "Preferred branch: Ambernath East — Vadavali", "Note: Age 5"].join("\n"),
+    );
+    expect(buildEnquiryMessage({ topic: "ECCEd", note: "  " })).toBe("Hi, I'd like to enquire about ECCEd.");
+  });
+
+  it("survives the wa.me round trip, including Devanagari", () => {
+    const text = buildEnquiryMessage({ name: "प्रिया", note: "A & B #1?" });
+    expect(new URL(whatsappUrl(text)).searchParams.get("text")).toBe(text);
+  });
+});

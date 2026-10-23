@@ -3,6 +3,7 @@ import { branches } from "@/content/branches";
 import { groupBranchesBySide } from "@/lib/branches";
 import { RevealTarget } from "@/components/motion/RevealTarget";
 import { BranchCard } from "./BranchCard";
+import { BranchExplorer } from "./BranchExplorer";
 
 interface Props {
   withMap?: boolean;
@@ -10,9 +11,11 @@ interface Props {
   headingLevel?: 2 | 3;
   /** Home: an abstract East | West railway line draws in, markers drop, then the cards rise. */
   railway?: boolean;
+  /** Contact: an East / West toggle that rearranges the cards. */
+  explorer?: boolean;
 }
 
-export function BranchList({ withMap = false, headingLevel = 3, railway = false }: Props) {
+export function BranchList({ withMap = false, headingLevel = 3, railway = false, explorer = false }: Props) {
   const GroupHeading = `h${headingLevel}` as const;
   const cardLevel = (headingLevel + 1) as 3 | 4;
   const groups = groupBranchesBySide(branches);
@@ -33,6 +36,18 @@ export function BranchList({ withMap = false, headingLevel = 3, railway = false 
       </section>
     </Fragment>
   ));
+
+  if (explorer) {
+    return (
+      <BranchExplorer
+        groups={groups.map((g, i) => ({
+          side: g.side,
+          label: g.label,
+          content: Array.isArray(list) ? list[i] : null,
+        }))}
+      />
+    );
+  }
 
   const layout = railway ? "branch-list branch-list-rail grid gap-6 lg:grid-cols-[3fr_auto_1fr] lg:gap-x-6" : "branch-list grid gap-10 lg:grid-cols-[3fr_1fr] lg:gap-3";
   if (!railway) return <div className={layout}>{list}</div>;

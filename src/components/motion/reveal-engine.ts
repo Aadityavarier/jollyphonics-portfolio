@@ -75,7 +75,11 @@ interface ArmOptions {
 
 /** Arms `el`; returns a cleanup. In view, above the fold, or reduced motion: shown at once, never hidden. */
 export function armReveal(el: Element, { hide = true, onShow }: ArmOptions = {}): () => void {
-  if (el.hasAttribute("data-shown")) return () => {};
+  if (el.hasAttribute("data-shown")) {
+    // Already shown (e.g. StrictMode re-running the effect): still let the caller start its own sequence.
+    onShow?.();
+    return () => {};
+  }
   if (reducedMotion() || el.getBoundingClientRect().top < window.innerHeight * LIMIT) {
     el.setAttribute("data-shown", "");
     onShow?.();
