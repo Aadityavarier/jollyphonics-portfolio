@@ -709,6 +709,10 @@
   justify-items: start;
   align-content: space-between;
 }
+/* Both faces show together without JS / under reduced motion: name the award once. */
+.award:not([data-enhanced]) .award-back-name {
+  display: none;
+}
 .award-medal {
   width: 2.25rem;
   height: 2.25rem;
