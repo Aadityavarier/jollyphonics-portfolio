@@ -1,7 +1,7 @@
 // Runs every probe in turn against BASE (default http://localhost:3001) and prints a verdict per probe.
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
-const probes = ["hydration", "reduced-motion", "resize", "jump", "showcase", "fold", "pacing"]
+const probes = ["hydration", "reduced-motion", "resize", "jump", "showcase", "fold", "pacing", "dupe-images"]
   .map((n) => path.join(__dirname, n + ".cjs"))
   .concat(path.join(__dirname, "../perf/throttle.cjs"));
 let failed = 0;
