@@ -32,8 +32,24 @@ describe("JSON-LD", () => {
 
   it("Person awards and credentials equal the content", () => {
     const person = (personGraph()["@graph"] as Node[])[0];
-    expect(person.award).toEqual(founder.awards.map((a) => a.name));
-    expect((person.hasCredential as Node[]).map((c) => c.name)).toEqual(founder.qualifications.map((q) => q.title));
+    expect(person.award).toEqual(founder.awards.map((a) => `${a.name} (${a.year})`));
+    expect((person.hasCredential as Node[]).map((c) => c.name)).toEqual([
+      ...founder.qualifications.map((q) => q.title),
+      ...founder.certifications.map((c) => c.name),
+    ]);
+    expect(person.knowsAbout).toEqual(founder.expertise);
+    const roles = person.memberOf as Node[];
+    expect(roles.map((r) => (r.memberOf as Node).name)).toEqual(["Inner Wheel Club of Ambernath", "Rotary Club of Ambernath East"]);
+    expect(roles[0]).toMatchObject({ "@type": "OrganizationRole", roleName: "IPP (Immediate Past President)", startDate: "2017" });
+    const org = nodes().find((n) => n["@type"] === "EducationalOrganization")!;
+    expect(org.foundingDate).toBe("2023");
+  });
+
+  it("publishes exactly the four confirmed awards and never the excluded ones", () => {
+    const all = JSON.stringify([siteGraph(), personGraph()]) + buildLlmsTxt();
+    expect(founder.awards).toHaveLength(4);
+    expect(all).not.toMatch(/Lata Mangeshkar|MIMAMSA|RCAN Nation Builder/);
+    expect(all.match(/Nation Builder Award/g)).toHaveLength(2); // once in JSON-LD, once in llms.txt
   });
 
   it("FAQPage carries every visible question; BreadcrumbList is positioned from the trail", () => {

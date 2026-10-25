@@ -46,12 +46,14 @@ export function organizationNode() {
     description: `${brand.tagline}. ${brand.subTagline}`,
     telephone: contact.phoneE164,
     areaServed: contact.area,
+    foundingDate: founder.founded,
     founder: { "@id": PERSON_ID },
     location: branches.map((b) => ({ "@id": `${SITE_URL}/#branch-${b.id}` })),
   };
 }
 
 export function personNode() {
+  const iw = founder.community.innerWheel;
   return {
     "@type": "Person",
     "@id": PERSON_ID,
@@ -60,11 +62,20 @@ export function personNode() {
     jobTitle: founder.role,
     description: founder.credential,
     worksFor: { "@id": ORG_ID },
-    hasCredential: founder.qualifications.map((q) => ({ "@type": "EducationalOccupationalCredential", name: q.title, description: q.detail })),
-    award: founder.awards.map((a) => a.name),
+    hasCredential: [
+      ...founder.qualifications.map((q) => ({ "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: q.title, description: q.detail })),
+      ...founder.certifications.map((c) => ({ "@type": "EducationalOccupationalCredential", credentialCategory: "certification", name: c.name, ...("detail" in c ? { description: c.detail } : {}) })),
+    ],
+    award: founder.awards.map((a) => `${a.name} (${a.year})`),
+    knowsAbout: founder.expertise,
     memberOf: [
-      { "@type": "Organization", name: founder.community.innerWheel.org },
-      { "@type": "Organization", name: founder.community.rotary.replace(/^Rotarian\s+[—-]\s+/, "") },
+      {
+        "@type": "OrganizationRole",
+        memberOf: { "@type": "Organization", name: iw.org },
+        roleName: iw.roles.at(-1)!.role,
+        startDate: iw.roles[0].period.replace(/^since\s+/, ""),
+      },
+      { "@type": "OrganizationRole", memberOf: { "@type": "Organization", name: founder.community.rotary.org }, roleName: founder.community.rotary.role },
     ],
   };
 }
