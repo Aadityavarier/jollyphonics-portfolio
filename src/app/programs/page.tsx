@@ -92,7 +92,7 @@ export default function ProgramsPage() {
       </Section>
 
       <Section id="grammar" tone="paper">
-        <SectionHeading id="grammar-title" fx="soundout">{programs.grammar.title}</SectionHeading>
+        <SectionHeading id="grammar-title" fx="soundout">{programs.grammar.heading}</SectionHeading>
         <p className="mt-4 max-w-[60ch] text-lead">{programs.grammar.intro}</p>
         <SentenceBuilder words={SENTENCE} jumble={[2, 0, 3, 1]} className="mt-8" />
         <ChipList items={programs.grammar.topics} className="mt-8" />

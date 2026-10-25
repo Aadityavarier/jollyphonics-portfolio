@@ -58,7 +58,9 @@ export const programs = {
   grammar: {
     id: "grammar",
     title: "Jolly Grammar",
-    intro: "From phonics to structured grammar.",
+    /** Section heading on /programs: Jolly English is taught with Jolly Grammar, not as its own program. */
+    heading: "Jolly Grammar & Jolly English",
+    intro: "From phonics to structured grammar, taught together with Jolly English.",
     topics: [
       "Parts of speech (nouns, pronouns, verbs, adjectives, adverbs)",
       "Tenses",
