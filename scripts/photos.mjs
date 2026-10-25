@@ -1,9 +1,11 @@
 // npm run photos — turns photos dropped into raw-images/ into site-ready WebP files and wires them in.
 //
 //   raw-images/H1-anything.jpg            → public/images/home/H1.webp        (the slot's ImageSlot shows it)
-//   raw-images/gallery/<category>/x.jpg   → public/images/gallery/<category>/<n>.webp
+//   raw-images/gallery/<category>/x.jpg   → public/images/gallery/<category>/<n>.webp (+ <n>-thumb.webp, 640px)
+//   raw-images/inbox/                     → ignored (unsorted originals waiting to be picked)
 //
-// Long edge at most 2000px, WebP quality 78, EXIF rotation applied. Writes src/content/photos.generated.ts
+// Long edge at most 2000px, WebP quality 78, EXIF rotation applied; EXIF/GPS and other metadata are not copied.
+// Gallery thumbnails are pre-built so the site serves them as plain files, outside the image optimizer. Writes src/content/photos.generated.ts
 // (read by images.ts and gallery.ts) and images.md (alt text you can edit; your edits are kept).
 // Files it cannot place or read are listed as skipped; it never stops halfway.
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
@@ -15,6 +17,8 @@ import { galleryFromPath, parseImagesMd, renderImagesMd, slotFromName } from "./
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MAX = 2000;
 const QUALITY = 78;
+const THUMB = 640;
+const THUMB_QUALITY = 72;
 const READABLE = new Set([".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".avif"]);
 const PAGE = { H: "home", A: "about", P: "programs", C: "coaching", T: "teacher-training", S: "for-schools", B: "branches" };
 
@@ -41,11 +45,20 @@ function walk(dir) {
   });
 }
 
-async function convert(from, to) {
+// sharp copies no metadata unless asked (.withMetadata), so outputs carry no EXIF, GPS, XMP or IPTC.
+async function convert(from, to, max = MAX, quality = QUALITY) {
   mkdirSync(dirname(to), { recursive: true });
-  const info = await sharp(from).rotate().resize({ width: MAX, height: MAX, fit: "inside", withoutEnlargement: true }).webp({ quality: QUALITY }).toFile(to);
+  const info = await sharp(from).rotate().resize({ width: max, height: max, fit: "inside", withoutEnlargement: true }).webp({ quality }).toFile(to);
   return { width: info.width, height: info.height };
 }
+
+/** "H3-WA0064.jpg" → "WA0064", "gallery/events/01-WA0093.jpg" → "WA0093": which original a file came from. */
+const sourceOf = (rel, slot) =>
+  rel
+    .split("/")
+    .pop()
+    .replace(/\.[^.]+$/, "")
+    .replace(slot ? new RegExp(`^${slot}[-_ ]?`, "i") : /^\d+[-_ ]/, "");
 
 export async function runPhotos({
   raw = join(ROOT, "raw-images"),
@@ -65,7 +78,7 @@ export async function runPhotos({
 
   const files = walk(raw)
     .map((f) => relative(raw, f).replace(/\\/g, "/"))
-    .filter((f) => !/(^|\/)(README\.md|\.gitkeep|\.DS_Store|Thumbs\.db)$/i.test(f))
+    .filter((f) => !/(^|\/)(README\.md|\.gitkeep|\.DS_Store|Thumbs\.db)$/i.test(f) && !f.startsWith("inbox/"))
     .sort();
 
   for (const rel of files) {
@@ -92,16 +105,18 @@ export async function runPhotos({
         const src = `/images/${PAGE[slot[0]] ?? "misc"}/${slot}.webp`;
         const size = await convert(join(raw, rel), join(publicDir, src));
         const alt = keptAlt.get(slot) || slots.get(slot);
-        out.slots[slot] = { src, alt, ...size };
+        out.slots[slot] = { src, alt, ...size, source: sourceOf(rel, slot) };
         rows.push({ key: slot, file: src, alt, description: slots.get(slot) });
         log(`ok    ${rel} → ${src} (${size.width}×${size.height})`);
       } else {
         counters[category] = (counters[category] ?? 0) + 1;
         const src = `/images/gallery/${category}/${counters[category]}.webp`;
         const size = await convert(join(raw, rel), join(publicDir, src));
+        const thumb = `/images/gallery/${category}/${counters[category]}-thumb.webp`;
+        await convert(join(raw, rel), join(publicDir, thumb), THUMB, THUMB_QUALITY);
         const key = `gallery/${category}/${counters[category]}`;
         const alt = keptAlt.get(key) || cats.get(category);
-        out.gallery.push({ category, src, alt, ...size });
+        out.gallery.push({ category, src, thumb, alt, ...size, source: sourceOf(rel) });
         rows.push({ key, file: src, alt, description: `Gallery: ${cats.get(category)}` });
         log(`ok    ${rel} → ${src}`);
       }
@@ -123,9 +138,11 @@ export async function runPhotos({
       "  alt: string;",
       "  width: number;",
       "  height: number;",
+      "  /** The original this file came from (e.g. WA0064), so a page can avoid showing one photo twice. */",
+      "  source: string;",
       "}",
       "",
-      "export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoFile & { category: GalleryCategorySlug })[] } = " +
+      "export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoFile & { category: GalleryCategorySlug; thumb: string })[] } = " +
         JSON.stringify(out, null, 2) +
         ";",
       "",

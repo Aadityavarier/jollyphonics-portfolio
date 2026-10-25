@@ -70,15 +70,50 @@ describe("npm run photos (end to end, temporary folders)", () => {
   }, 60000);
 });
 
+describe("npm run photos: gallery thumbnails, inbox and metadata", () => {
+  it("writes a ~640px thumbnail next to each gallery photo, ignores raw-images/inbox, and strips EXIF/GPS", async () => {
+    const root = mkdtempSync(join(tmpdir(), "photos-"));
+    const raw = join(root, "raw");
+    mkdirSync(join(raw, "gallery", "events"), { recursive: true });
+    mkdirSync(join(raw, "inbox"), { recursive: true });
+    const gps = { IFD0: { Make: "TestCam" }, IFD3: { GPSLatitudeRef: "N", GPSLatitude: "19/1 12/1 0/1" } };
+    await sharp({ create: { width: 1600, height: 1200, channels: 3, background: { r: 10, g: 120, b: 90 } } })
+      .withExif(gps)
+      .jpeg()
+      .toFile(join(raw, "gallery", "events", "01-WA0093.jpg"));
+    await sharp({ create: { width: 900, height: 1600, channels: 3, background: "#888" } }).withExif(gps).jpeg().toFile(join(raw, "H3-x.jpg"));
+    await sharp({ create: { width: 400, height: 300, channels: 3, background: "#888" } }).jpeg().toFile(join(raw, "inbox", "IMG-1.jpg"));
+    expect((await sharp(join(raw, "H3-x.jpg")).metadata()).exif).toBeDefined();
+
+    const out = join(root, "public");
+    const manifest = join(root, "photos.generated.ts");
+    const report = await runPhotos({ raw, publicDir: out, manifest, md: join(root, "images.md"), quiet: true });
+
+    expect(report.skipped).toEqual([]);
+    const thumb = await sharp(join(out, "images", "gallery", "events", "1-thumb.webp")).metadata();
+    expect(Math.max(thumb.width!, thumb.height!)).toBe(640);
+    for (const f of ["gallery/events/1.webp", "gallery/events/1-thumb.webp", "home/H3.webp"]) {
+      const m = await sharp(join(out, "images", f)).metadata();
+      expect(m.exif, f).toBeUndefined();
+      expect(m.xmp, f).toBeUndefined();
+      expect(m.iptc, f).toBeUndefined();
+    }
+    const ts = readFileSync(manifest, "utf8");
+    expect(ts).toContain('"thumb": "/images/gallery/events/1-thumb.webp"');
+    expect(ts).toContain('"source": "WA0093"');
+    expect(ts).toContain('"source": "x"');
+  }, 60000);
+});
+
 describe("gallery goes live at 3 photos per category", () => {
-  const photos = (n: number): GalleryPhoto[] => Array.from({ length: n }, (_, i) => ({ category: "events", src: `/images/gallery/events/${i}.webp`, alt: "An event" }));
+  const photos = (n: number): GalleryPhoto[] => Array.from({ length: n }, (_, i) => ({ category: "events", src: `/images/gallery/events/${i}.webp`, thumb: `/images/gallery/events/${i}-thumb.webp`, alt: "An event", width: 1600, height: 1200, source: `WA${i}` }));
   it("2 photos: hidden; 3 photos: the category shows", () => {
     expect(visibleCategories(photos(2))).toEqual([]);
     expect(galleryHasPhotos(photos(2))).toBe(false);
     expect(visibleCategories(photos(3))).toEqual(["events"]);
     expect(galleryHasPhotos(photos(3))).toBe(true);
   });
-  it("the sitemap leaves /gallery out while it has no live category", () => {
-    expect(sitemapPages()).not.toContain("gallery");
+  it("the sitemap lists /gallery exactly when a category is live", () => {
+    expect(sitemapPages().includes("gallery")).toBe(galleryHasPhotos());
   });
 });
