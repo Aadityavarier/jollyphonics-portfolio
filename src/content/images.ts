@@ -40,6 +40,7 @@ const slots = {
   A6: { description: "Receiving the Nation Builder Award (2025)", ratio: "3:2" },
   A7: { description: "Tr. Revathi at an Inner Wheel or Rotary event", ratio: "3:2" },
   A8: { description: "Little moment: Tr. Revathi with one child, candid", ratio: "1:1" },
+  A9: { description: "Receiving the Innovative Teaching Award (2026)", ratio: "3:2" },
   // Programs
   P1: { description: "Children doing phonics sound actions or sound cards", ratio: "3:2" },
   P2: { description: "Children writing sentences or doing a grammar worksheet", ratio: "3:2" },
