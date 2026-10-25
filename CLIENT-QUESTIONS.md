@@ -28,14 +28,13 @@ Reply in any order; a WhatsApp voice note is fine.
    (it matches your current logo)?
 9. **Instagram, Facebook and YouTube:** please send the links to your pages.
 10. **Email address:** would you like one shown? (Optional; WhatsApp stays the main way to reach you.)
-11. **Your introduction** in the draft stopped at "With over 20 years". Was anything else meant to follow?
 
-12. **Example words on the Home page:** the little "build a word" board uses simple three-letter words (cat, sat,
+11. **Example words on the Home page:** the little "build a word" board uses simple three-letter words (cat, sat,
     pin, tip…), and the last section spells "hello". Happy with these, or would you prefer other words?
 
 ## Parents' words
 
-13. **Testimonials:** if some parents are happy to share a few lines, please send their words exactly, with a first
+12. **Testimonials:** if some parents are happy to share a few lines, please send their words exactly, with a first
     name or initials and who they are (for example "Priya S., parent, Jolly Phonics"). Only real ones, with their
     permission. The section appears on the website as soon as we add the first one.
 
@@ -81,6 +80,6 @@ Branch photos appear only when all four (B1 to B4) are in, so the cards look the
 ### For later (we have a place ready for these)
 
 Your Jolly Phonics Trainer certificate and ARPAN Trainer certificate (photographed flat and straight-on); you
-receiving each of your three awards; you at an Inner Wheel or Rotary event; a child's hand on letter-sound cards or
+receiving each of your awards (including the Innovative Teaching Award 2026); you at an Inner Wheel or Rotary event; a child's hand on letter-sound cards or
 tracing letters (*no faces needed*); a close-up of pencil grip on a practice sheet (*no faces needed*);
 Montessori materials on a table (*no faces needed*); teachers practising phonics activities.

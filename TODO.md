@@ -15,4 +15,4 @@ Each item is a `todo()` in `src/content/`. In dev it shows as a visible `TODO:` 
 | `todo:logo-approval` | Q10 | Approval of SVG logo redraw (or original hi-res logo) | Header, footer, favicon, OG image |
 | `todo:photo-consent` | Q11 | Parents' consent for children's photos | All photo slots with children's faces; Gallery |
 
-Not code TODOs, but still open: the illustrative UI words on Home (word-board words, "hello", "C · A · T … ?"), which Tr. Revathi may replace; Q1 brand-name confirmation (assumed), Q7 real testimonials (section hidden), Q9 email (omitted), Q13 truncated intro.
+Not code TODOs, but still open: the illustrative UI words on Home (word-board words, "hello", "C · A · T … ?"), which Tr. Revathi may replace; Q1 brand-name confirmation (assumed), Q7 real testimonials (section hidden), Q9 email (omitted).

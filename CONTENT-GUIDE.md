@@ -19,7 +19,7 @@ npm run probe:mobile        # taps through all 8 pages on two phone profiles
 | Page | Facts | Headings, buttons, labels |
 |---|---|---|
 | Home `/` | `home.ts` (hero, word board), `parents.ts` (why phonics, "is it right for my child"), `founder.ts`, `journey.ts`, `programs.ts`, `why.ts`, `faq.ts`, `contact.ts`, `brand.ts` (20+ / 4,500+ / 2001) | `labels.ts` → `home` |
-| About `/about` | `founder.ts` (bio, qualifications, certifications, awards, worked-with), `journey.ts`, `vision.ts` | `labels.ts` → `pages.about` |
+| About `/about` | `founder.ts` (bio, qualifications, certifications, awards, expertise, community, vision line, worked-with), `journey.ts` (curated: set `journey: true` on an award or Inner Wheel role to add a stop; same-year events share one stop), `vision.ts` | `labels.ts` → `pages.about` |
 | Programs `/programs` | `programs.ts` (every program, the learning path, special classes), `brand.ts` (the program chips) | `labels.ts` → `pages.programs` |
 | Coaching `/coaching` | `coaching.ts` (range, subjects, boards, approach), `why.ts`, `faq.ts` | `labels.ts` → `pages.coaching` |
 | Teacher training `/teacher-training` | `teacher-training.ts` (Phonics TT, ECCEd, Montessori, ARPAN), `founder.ts` (trainer qualifications) | `labels.ts` → `pages.teacherTraining` |
