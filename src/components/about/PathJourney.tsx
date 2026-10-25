@@ -158,12 +158,16 @@ export function PathJourney({ title, milestones }: Props) {
               {milestones.map((m, i) => {
                 const tile = PHONICS_TILES[i % PHONICS_TILES.length];
                 return (
-                  <li key={`${m.when}-${m.title}`} className="journey-item" data-pos={i % 2 ? "low" : "high"} style={{ "--tc": tile.bg } as CSSProperties}>
+                  <li key={`${m.when}-${m.lines[0].id}`} className="journey-item" data-pos={i % 2 ? "low" : "high"} style={{ "--tc": tile.bg } as CSSProperties}>
                     <span aria-hidden="true" className="journey-dot" />
                     <div className="journey-card">
                       <p className="journey-when font-display text-lead font-bold">{m.when}</p>
-                      <p className="font-display text-[1.25rem] leading-tight font-bold">{m.title}</p>
-                      {m.detail && <p className="text-small text-muted">{m.detail}</p>}
+                      {m.lines.map((l) => (
+                        <div key={l.id} className="grid gap-0.5">
+                          <p className="font-display text-[1.25rem] leading-tight font-bold">{l.title}</p>
+                          {l.detail && <p className="text-small text-muted">{l.detail}</p>}
+                        </div>
+                      ))}
                     </div>
                   </li>
                 );

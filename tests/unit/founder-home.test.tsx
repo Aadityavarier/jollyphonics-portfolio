@@ -8,11 +8,11 @@ import { FounderIntro } from "@/components/home/FounderIntro";
 describe("teaserMilestones", () => {
   const picked = teaserMilestones(journey);
 
-  it("picks four milestones: the start, joining Inner Wheel, the first award and the latest", () => {
+  it("picks four milestones: the start, joining Inner Wheel, the founding and the latest", () => {
     expect(picked).toHaveLength(4);
     expect(picked[0]).toBe(journey[0]);
-    expect(picked[1].title).toMatch(/^Joined/);
-    expect(picked[2].title).toMatch(/Award/);
+    expect(picked[1].lines[0].title).toMatch(/^Joined/);
+    expect(picked[2].lines.map((l) => l.id)).toContain("founded");
     expect(picked[3]).toBe(journey[journey.length - 1]);
   });
 
@@ -26,7 +26,7 @@ describe("teaserMilestones", () => {
 describe("FounderIntro", () => {
   const html = renderToString(<FounderIntro />);
 
-  it("shows the credential, the belief, all three awards and the qualification titles as plain text", () => {
+  it("shows the credential, the belief, every award and the qualification titles as plain text", () => {
     expect(html).toContain("Internationally Certified Jolly Phonics Trainer");
     expect(html).toContain(founder.belief);
     founder.awards.forEach((a) => expect(html).toContain(a.name));
