@@ -40,16 +40,22 @@ Reply in any order; a WhatsApp voice note is fine.
 
 ## Photos
 
-### Before sending any photo of children
-
-**Please confirm that the parents have agreed to their child's photo being on the website.** Photos marked
-*no faces needed* below can be sent before that is sorted out.
-
 ### How to send
 
 Send the original photos on WhatsApp as **"Document"** (not as a photo, so the quality stays high), or in a Google
 Drive folder. In each message, say which item number it is for (for example "H1"). Bright daylight, a tidy
 background and the phone held steady make the biggest difference.
+
+### Still needed from the photos you sent (25 Oct 2026)
+
+Thank you for the photos! They are on the site now. Three things are still missing:
+
+1. **H1, your portrait:** none of the photos is a close portrait of you on your own. Please send one photo of
+   **you from the waist up, smiling at the camera**, as the **original file** (WhatsApp "Document", not a normal
+   WhatsApp photo, which shrinks it).
+2. **The original of your teacher-talk photo** (you speaking with a microphone in front of the "Jolly Phonics in the
+   Classroom" screen, 18 Sep 2026). It is on the About and Teacher Training pages; the original file will look sharper.
+3. **B1 to B4, the four branches:** one photo of the **entrance or signboard of each branch** (see the table below).
 
 ### Must-have for launch
 
@@ -81,5 +87,5 @@ Branch photos appear only when all four (B1 to B4) are in, so the cards look the
 
 Your Jolly Phonics Trainer certificate and ARPAN Trainer certificate (photographed flat and straight-on); you
 receiving each of your awards (including the Innovative Teaching Award 2026); you at an Inner Wheel or Rotary event; a child's hand on letter-sound cards or
-tracing letters (*no faces needed*); a close-up of pencil grip on a practice sheet (*no faces needed*);
-Montessori materials on a table (*no faces needed*); teachers practising phonics activities.
+tracing letters; a close-up of pencil grip on a practice sheet;
+Montessori materials on a table; teachers practising phonics activities.

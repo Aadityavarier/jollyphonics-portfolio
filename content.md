@@ -16,7 +16,7 @@
 8. **Social media URLs:** Instagram, Facebook, YouTube links (names given, no URLs).
 9. **Email address** (optional).
 10. **Logo:** need the original high-resolution file (or approval to redraw it as SVG matching the current design).
-11. **Photo consent:** confirm parents have consented to children's photos being published.
+11. ~~**Photo consent:** confirm parents have consented to children's photos being published.~~ **ANSWERED (2026-10-25):** the client confirmed parent consent for all photos supplied.
 12. **"Scholarship Drawing"** — confirm meaning (drawing grade exam prep?).
 13. ~~Draft intro was cut off at "With over 20 years" — confirm nothing else was meant to follow.~~ **ANSWERED (2026-10-24, bio-data):** "With over 20 years of experience in education, she has been teaching Jolly Phonics since 2001 across Ambernath and Ulhasnagar and has trained more than 4,500 students."
 
@@ -249,7 +249,7 @@ Sounds · Listening · Speaking · Activities · Games · Reading · Writing · 
 TODO — real testimonials only. Do NOT use the example quotes from the original draft.
 
 ## GALLERY CATEGORIES
-Phonics classes · Student activities · Teacher training · Workshops · School sessions · Certificate distribution · Summer camps · Student achievements · Reading activities · Phonics games · Events · Trainer Revathi conducting sessions
+Phonics classes · Drawing & art · Teacher training · Workshops · School sessions · Certificate distribution · Summer camps · Student achievements · Reading activities · Phonics games · Events · Trainer Revathi conducting sessions
 
 ## NOTE ON "JOLLY PHONICS"
 "Jolly Phonics" and "Jolly Grammar" are trademarks of Jolly Learning Ltd. Describe them as programs taught by a certified trainer. Do not use Jolly Learning's logo or character artwork, and do not imply the business is Jolly Learning itself.
