@@ -14,7 +14,7 @@ import { labels } from "@/content/labels";
 
 /**
  * Teal panel: the trust moment. Her credential as a stamp (overlapping the portrait's corner once the photo
- * exists), her belief, a four-stop teaser of her journey, the three awards and her qualifications.
+ * exists), her belief, a short teaser of her journey, her awards and her qualifications.
  */
 export function FounderIntro() {
   const photo = Boolean(imageSlots.H1.photo);
@@ -49,7 +49,7 @@ export function FounderIntro() {
             <h3 className="text-lead">{labels.home.founder.awards}</h3>
             <Stagger as="ul" className="grid gap-3">
               {founder.awards.map((a) => (
-                <li key={a.name} className="grid grid-cols-[3.5rem_1fr] gap-3">
+                <li key={a.id} className="grid grid-cols-[3.5rem_1fr] gap-3">
                   <span className="font-display text-lead font-bold">{a.year}</span>
                   <span>
                     <span className="font-bold">{a.name}</span>

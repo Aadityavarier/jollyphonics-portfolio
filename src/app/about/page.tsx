@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/metadata";
-import { founder } from "@/content/founder";
+import { certificationLine, founder } from "@/content/founder";
 import { vision } from "@/content/vision";
 import { messages } from "@/content/messages";
 import { PageHero } from "@/components/blocks/PageHero";
@@ -29,6 +29,7 @@ export default function AboutPage() {
       <JsonLd data={personGraph()} />
       <TileProgress />
       <PageHero title={founder.knownAs} fx="stroke" trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.about, path: "/about" }]} slot="A1">
+        <p className="text-small font-bold tracking-wide uppercase">{founder.titleLine.join(" · ")}</p>
         <CredentialLine />
         <TrustStats animated />
       </PageHero>
@@ -67,7 +68,7 @@ export default function AboutPage() {
             <h2 className="text-lead">{T.certifications}</h2>
             <Stagger as="ul" className="grid gap-2">
               {founder.certifications.map((c) => (
-                <li key={c}>{c}</li>
+                <li key={c.id}>{certificationLine(c)}</li>
               ))}
             </Stagger>
           </div>
@@ -75,15 +76,23 @@ export default function AboutPage() {
       </Section>
 
       <Section id="worked-with" tone="surface">
-        <SectionHeading id="worked-with-title" fx="stroke">{T.workedWith}</SectionHeading>
-        <ChipList items={founder.workedWith} tone="paper" className="mt-5" />
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <SectionHeading id="worked-with-title" fx="stroke">{T.workedWith}</SectionHeading>
+            <ChipList items={founder.workedWith} tone="paper" className="mt-5" />
+          </div>
+          <div>
+            <h2 id="expertise-title" className="text-lead">{T.expertise}</h2>
+            <ChipList items={founder.expertise} tone="paper" className="mt-5" />
+          </div>
+        </div>
       </Section>
 
       <Section id="awards" tone="paper">
-        <SectionHeading id="awards-title" fx="stroke">{"Awards & recognition"}</SectionHeading>
-        <ul className="mt-6 grid gap-5 sm:grid-cols-3">
+        <SectionHeading id="awards-title" fx="stroke">{T.awards}</SectionHeading>
+        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {founder.awards.map((a, i) => (
-            <li key={a.name}>
+            <li key={a.id}>
               <FlipCard
                 delay={i * 220}
                 className="award rounded-[var(--radius-panel)] bg-surface p-6"
@@ -91,13 +100,14 @@ export default function AboutPage() {
                   <>
                     <span aria-hidden="true" className="award-medal" />
                     <span className="font-display text-[clamp(2.5rem,2rem+3vw,4rem)] leading-none font-bold text-red">{a.year}</span>
+                    <span className="font-display text-lead leading-tight font-bold">{a.name}</span>
                   </>
                 }
                 back={
                   <>
-                    <span className="font-display text-lead leading-tight font-bold">{a.name}</span>
                     <span className="text-small text-muted">{a.detail}</span>
-                    <span className="font-bold text-red-deep">{a.year}</span>
+                    <span className="font-bold text-red-deep">{"date" in a ? a.date : a.year}</span>
+                    {"note" in a && <span className="text-small">{a.note}</span>}
                   </>
                 }
               />
@@ -108,7 +118,7 @@ export default function AboutPage() {
 
       <Section id="community" tone="teal">
         <SectionHeading id="community-title" fx="stroke" className="text-paper">
-          {"Community & leadership"}
+          {T.community}
         </SectionHeading>
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="grid content-start gap-3">
@@ -118,7 +128,12 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="grid content-start gap-3">
-            <h3 className="text-lead">{founder.community.rotary}</h3>
+            <h3 className="text-lead">{T.otherRoles}</h3>
+            <ul className="grid max-w-[48ch] gap-1">
+              {[founder.community.rotary, ...founder.community.roles].map((r) => (
+                <li key={r.org}>{`${r.role}, ${r.org}`}</li>
+              ))}
+            </ul>
             <p className="max-w-[48ch]">{founder.community.initiatives}</p>
           </div>
         </div>
@@ -128,6 +143,7 @@ export default function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="grid content-start gap-3">
             <SectionHeading id="vision-title" fx="stroke">{T.vision}</SectionHeading>
+            <p className="text-lead font-bold">{founder.vision}</p>
             <p className="text-lead">
               {vision.vision.lead} {vision.vision.outcomes.join(", ")}, {vision.vision.teachers}
             </p>
