@@ -11,7 +11,7 @@ export type Ratio = "4:5" | "4:3" | "3:2" | "1:1";
 export interface ImageSlotDef {
   description: string;
   ratio: Ratio;
-  photo?: { src: string; alt: string; width?: number; height?: number };
+  photo?: { src: string; alt: string; width?: number; height?: number; source?: string };
 }
 
 const slots = {
