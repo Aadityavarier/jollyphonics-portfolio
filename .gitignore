@@ -49,3 +49,6 @@ next-env.d.ts
 # photo inbox (npm run photos); only the README is tracked
 /raw-images/*
 !/raw-images/README.md
+
+# raw client exports (WhatsApp etc.); content.md is the record
+/client-input/

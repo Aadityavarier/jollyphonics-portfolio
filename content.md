@@ -18,7 +18,9 @@
 10. **Logo:** need the original high-resolution file (or approval to redraw it as SVG matching the current design).
 11. **Photo consent:** confirm parents have consented to children's photos being published.
 12. **"Scholarship Drawing"** — confirm meaning (drawing grade exam prep?).
-13. Draft intro was cut off at "With over 20 years" — confirm nothing else was meant to follow.
+13. ~~Draft intro was cut off at "With over 20 years" — confirm nothing else was meant to follow.~~ **ANSWERED (2026-10-24, bio-data):** "With over 20 years of experience in education, she has been teaching Jolly Phonics since 2001 across Ambernath and Ulhasnagar and has trained more than 4,500 students."
+
+**Confirmed (2026-10-24):** both Phonics Teacher Training and Montessori Teacher Training are still offered.
 
 ---
 
@@ -36,6 +38,7 @@
 - 20+ years of experience in education
 - Teaching Jolly Phonics since 2001
 - 4,500+ students trained
+- Institute founded: 2023
 
 ---
 
@@ -74,40 +77,56 @@ Jolly Phonics · Jolly Grammar · English · Coaching Classes · Reading & Spell
 
 - **Full name:** Revathi Raghunath Varier
 - **Known as:** Trainer Revathi
-- **Role:** Founder, Tr. Revathi Phonics & Coaching Classes
+- **Role:** Founder, Tr. Revathi Phonics & Coaching Classes (established 2023)
+- **Title line:** Educationist | Entrepreneur | Internationally Certified Jolly Phonics Trainer | Community Leader
 - **Headline credential:** Internationally Certified Jolly Phonics Trainer — CPD College UK, London
 - **Belief (quote):** "Every learner deserves the right foundation to learn with confidence."
 
-**Bio:** Experienced educator, phonics trainer, teacher trainer and education entrepreneur with 20+ years in education. Teaching Jolly Phonics since 2001, helping children build reading, writing, spelling, pronunciation and English skills through systematic phonics. Has worked with children of different ages and learning levels, plus parents, teachers and educators.
+**Bio:** Experienced educator, phonics trainer, teacher trainer and education entrepreneur with 20+ years in education. Founder of Tr. Revathi Phonics & Coaching Classes, established in 2023. Teaching Jolly Phonics since 2001 across Ambernath and Ulhasnagar, helping children build reading, writing, spelling, pronunciation and English skills through systematic phonics. Has worked with children of different ages and learning levels, plus parents, teachers and educators.
 
 ### Qualifications
 - M.A. — English
 - M.Com — Master of Commerce
 - D.El.Ed — Diploma in Elementary Education (secured 70%)
-- ECCEd — Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)
+- ECCEd / DECCED — Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)
 - CTET — Elementary Stage, Classes VI–VIII
 
 ### Certifications & training
 - Internationally Certified Jolly Phonics Trainer — CPD College UK, London
-- Certified ARPAN Trainer — Understanding Child Sexual Abuse & Personal Safety Education
+- Certified ARPAN Trainer — Understanding Child Sexual Abuse & Personal Safety Education — trained April 2021 and April 2023
+- Rapid Teacher's Training for ECCEd (certification)
 - Teacher-training and professional-development programs in early childhood education and classroom practice
+
+> **RTTI rule:** Rapid Teacher's Training is a separate organisation with its own website. It is listed only as a certification on /about, never as a program or teacher-training course on this site.
+
+### Areas of expertise
+Jolly Phonics & Jolly Grammar · Jolly English · English Reading, Writing & Spelling · English Speaking · English Grammar · Handwriting Improvement · Tuition & Coaching Classes · ECCEd Teacher Training · Drawing & Art · Vedic Mathematics · Olympiad Preparation · Scholarship Drawing
+
+(Jolly English is not a separate program: it is taught together with Jolly Grammar. "Rapid Teacher's Training" from the bio-data is left out here, see the RTTI rule.)
 
 ### Has worked with
 Preschool children · Kindergarten · Primary school children · School students · Teenagers · Adults · Parents · Teachers · Educators · Early childhood educators
 
-### Awards & recognition
+### Awards & recognition (newest first — exactly these four)
+- **Innovative Teaching Award 2026** — received 8 October 2026 at the India Preschool Products Expo 2026 Conference, Nehru Centre, Worli, Mumbai, for her dedication and contributions to education
+- **ROVEX Award – SHAKTI** — honoured among 61 Remarkable Women, 9 October 2025
+- **Nation Builder Award 2025** — Rotary Club of Ambernath North (RCAN), for her contribution to education ("RCAN Nation Builder Award 2025" is the same award: list it once)
 - **Business Entrepreneur Award** — India News Index, City Excellence Award 2023
-- **ROVEX Award – SHAKTI** — Recognised among 61 Remarkable Women, 2025
-- **Nation Builder Award** — Rotary Club of Ambernath North, 2025
+
+> **EXCLUDED — never publish:** Lata Mangeshkar National Musical Legacy Honour 2026; MIMAMSA Maharashtra Educational Conclave recognition (details not established); the duplicate RCAN Nation Builder entry.
 
 ### Community & leadership
-- **Inner Wheel Club of Ambernath** — Member since 2017; Club Correspondent 2022–23; Secretary 2023–24; President 2024–25
+- **Inner Wheel Club of Ambernath** — Member since 2017; Club Correspondent 2022–23; Centurion Secretary 2023–24; President 2024–25; IPP (Immediate Past President) 2025–26
 - **Rotarian** — Rotary Club of Ambernath East
+- **Project Coordinator** — Medical Project Jeevan Shakti (Zone 6)
+- **Zone 6 Coordinator** — MindShield Yagna
 - Initiatives in literacy, education, child safety, women empowerment, community service, health and awareness programs
 
 ---
 
 ## VISION & MISSION
+
+**Her professional vision:** "Passionate about creating strong foundations in English language learning and empowering learners through effective teaching methodologies." Motto: Teach • Guide • Transform.
 
 **Vision:** Help children become Confident Readers · Independent Learners · Better Spellers · Effective Communicators · Confident English Users — and empower teachers with practical knowledge and classroom strategies.
 
@@ -140,7 +159,7 @@ Preschool children · Kindergarten · Primary school children · School students
 - Adults & homemakers — improve reading, pronunciation, spelling, communication
 
 ### 2. Jolly Grammar
-From phonics to structured grammar. Topics: parts of speech (nouns, pronouns, verbs, adjectives, adverbs), tenses, sentence formation, punctuation, vocabulary, spelling, grammar rules, reading comprehension, writing. Goal: use English accurately and confidently.
+From phonics to structured grammar, taught together with Jolly English (shown on the site as "Jolly Grammar & Jolly English"; not a separate program). Topics: parts of speech (nouns, pronouns, verbs, adjectives, adverbs), tenses, sentence formation, punctuation, vocabulary, spelling, grammar rules, reading comprehension, writing. Goal: use English accurately and confidently.
 
 ### 3. English Language Programs
 - Reading — accuracy, fluency, confidence
