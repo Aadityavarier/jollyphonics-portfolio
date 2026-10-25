@@ -105,6 +105,7 @@ export default function AboutPage() {
                 }
                 back={
                   <>
+                    <span className="font-display text-lead leading-tight font-bold">{a.name}</span>
                     <span className="text-small text-muted">{a.detail}</span>
                     <span className="font-bold text-red-deep">{"date" in a ? a.date : a.year}</span>
                     {"note" in a && <span className="text-small">{a.note}</span>}

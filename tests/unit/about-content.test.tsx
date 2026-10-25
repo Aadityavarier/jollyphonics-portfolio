@@ -22,6 +22,11 @@ describe("/about with the 2026-10-24 bio-data", () => {
     expect(html).toContain("Rapid Teacher&#x27;s Training for ECCEd");
   });
 
+  it("names each award on both faces of its flip card", () => {
+    const awards = html.slice(html.indexOf('id="awards"'), html.indexOf('id="community"'));
+    founder.awards.forEach((a) => expect(awards.split(a.name.replace("&", "&amp;")).length - 1).toBeGreaterThanOrEqual(2));
+  });
+
   it("never shows excluded awards", () => {
     expect(html).not.toMatch(/Lata Mangeshkar|MIMAMSA|RCAN Nation Builder/);
   });
