@@ -22,6 +22,7 @@ export default function TeacherTrainingPage() {
         title={T.title}
         fx="wipe"
         art="teach"
+        slot="T1"
         intro={T.intro}
         trail={[{ name: labels.crumbs.home, path: "/" }, { name: labels.crumbs.teacherTraining, path: "/teacher-training" }]}
       >

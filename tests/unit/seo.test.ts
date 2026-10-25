@@ -10,12 +10,11 @@ type Node = Record<string, unknown>;
 const nodes = () => (siteGraph()["@graph"] as Node[]);
 
 describe("sitemap", () => {
-  it("lists the seven public pages and leaves the gallery out while it has no photos", () => {
-    expect(galleryHasPhotos()).toBe(false);
-    expect(sitemapPages()).toEqual(["home", "about", "programs", "coaching", "teacher-training", "for-schools", "contact"]);
+  it("lists the eight public pages, the gallery included now that it has live categories", () => {
+    expect(galleryHasPhotos()).toBe(true);
+    expect(sitemapPages()).toEqual(["home", "about", "programs", "coaching", "teacher-training", "for-schools", "gallery", "contact"]);
     const urls = sitemap().map((e) => e.url);
-    expect(urls).toHaveLength(7);
-    expect(urls.some((u) => u.includes("gallery"))).toBe(false);
+    expect(urls).toHaveLength(8);
     expect(urls.some((u) => u.includes("styleguide"))).toBe(false);
   });
 });

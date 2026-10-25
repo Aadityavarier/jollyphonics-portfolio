@@ -1601,3 +1601,67 @@ body:has(.enq :focus-within) .sticky-bar {
     transform: translateY(-0.6em) rotate(-14deg);
   }
 }
+
+/* ============ Gallery lightbox (native <dialog>) ============ */
+.lightbox {
+  width: min(100vw - 2rem, 72rem);
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-panel);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.lightbox::backdrop {
+  background: rgba(22, 32, 74, 0.82);
+}
+.lightbox-figure {
+  display: grid;
+  margin: 0;
+}
+.lightbox-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 7rem);
+  object-fit: contain;
+  background: #000;
+}
+.lightbox-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+}
+.lightbox-bar > :first-child {
+  flex: 1 1 16rem;
+}
+.lightbox-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: inherit;
+}
+.lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+.lightbox-btn:focus-visible {
+  outline: 3px solid var(--color-paper);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] {
+    animation: lightbox-in 200ms var(--ease-out);
+  }
+  @keyframes lightbox-in {
+    from {
+      opacity: 0;
+    }
+  }
+}

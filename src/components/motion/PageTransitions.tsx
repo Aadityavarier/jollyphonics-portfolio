@@ -31,6 +31,8 @@ export function PageTransitions() {
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin) return;
       if (url.pathname === location.pathname) return;
+      // Links to files (a gallery photo, a PDF) are not pages: leave them to their own handlers or the browser.
+      if (/\.[a-z0-9]+$/i.test(url.pathname)) return;
       e.preventDefault();
       e.stopPropagation();
       const href = url.pathname + url.search + url.hash;
