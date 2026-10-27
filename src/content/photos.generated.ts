@@ -43,7 +43,7 @@ export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoF
     "H3": {
       "src": "/images/home/H3.webp",
       "alt": "A class of young children at their desks, smiling and raising their hands",
-      "width": 1350,
+      "width": 1200,
       "height": 900,
       "source": "WA0064"
     },
@@ -51,14 +51,14 @@ export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoF
       "src": "/images/home/H4.webp",
       "alt": "Trainer Revathi going through a workbook at a desk with a small group of primary-school students",
       "width": 1200,
-      "height": 800,
+      "height": 900,
       "source": "WA0021"
     },
     "H6": {
       "src": "/images/home/H6.webp",
       "alt": "Four women at a teacher-training certificate presentation, one holding a certificate",
       "width": 960,
-      "height": 640,
+      "height": 720,
       "source": "20260620-WA0008"
     },
     "H7": {

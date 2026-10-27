@@ -24,7 +24,7 @@ export function ImageSlot({ id, sizes, preload = false, className = "" }: Props)
   if (slot.photo) {
     return (
       <div className={frame}>
-        <Image src={slot.photo.src} alt={slot.photo.alt} fill sizes={sizes} preload={preload} className="object-cover" />
+        <Image src={slot.photo.src} alt={slot.photo.alt} fill sizes={sizes} preload={preload} className="object-cover" style={slot.focus ? { objectPosition: slot.focus } : undefined} />
       </div>
     );
   }
