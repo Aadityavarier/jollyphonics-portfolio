@@ -24,24 +24,37 @@ const keepBullets = (s: string) => s.replace(/ • /g, "\u00a0• ");
 
 /** Footer: full area-first branch names (not cards), links, contact, trademark line. */
 export function SiteFooter() {
-  const links = [{ label: "Home", href: "/" }, ...nav.filter((i) => i.key !== "gallery" || galleryHasPhotos())];
-  const social = SOCIAL.flatMap((s) => (typeof s.value === "string" ? [{ label: s.label, href: s.value }] : []));
+  const links = [
+    { label: "Home", href: "/" },
+    ...nav.filter((i) => i.key !== "gallery" || galleryHasPhotos()),
+  ];
+  const social = SOCIAL.flatMap((s) =>
+    typeof s.value === "string" ? [{ label: s.label, href: s.value }] : [],
+  );
 
   return (
     <footer className="bg-surface text-ink">
       <div className="mx-auto grid max-w-[var(--content-max)] gap-12 px-[var(--gutter)] pt-16 pb-10 md:grid-cols-2 lg:grid-cols-[1.1fr_0.7fr_1fr_1.4fr]">
         <div className="grid content-start gap-4">
           <Logo className="h-14 w-auto self-start" />
-          <p className="font-display text-lead font-bold">{keepBullets(brand.tagline)}</p>
+          <p className="font-display text-lead font-bold">
+            {keepBullets(brand.tagline)}
+          </p>
           <p className="text-muted">{keepBullets(brand.secondaryLine)}</p>
         </div>
 
-        <nav aria-label={labels.footer.nav} className="grid content-start gap-3">
+        <nav
+          aria-label={labels.footer.nav}
+          className="grid content-start gap-3"
+        >
           <h2 className="text-lead">{labels.footer.explore}</h2>
           <ul className="grid gap-2">
             {links.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="hover:underline hover:decoration-2 hover:underline-offset-4">
+                <Link
+                  href={l.href}
+                  className="hover:underline hover:decoration-2 hover:underline-offset-4"
+                >
                   {l.label}
                 </Link>
               </li>
@@ -53,7 +66,10 @@ export function SiteFooter() {
           <h2 className="text-lead">{labels.footer.contact}</h2>
           <p>{contact.status}</p>
           <p>
-            <a href={telHref()} className="font-bold underline decoration-2 underline-offset-4">
+            <a
+              href={telHref()}
+              className="font-bold underline decoration-2 underline-offset-4"
+            >
               {labels.common.call} {contact.phoneDisplay}
             </a>
           </p>
@@ -67,14 +83,21 @@ export function SiteFooter() {
             <ul className="flex gap-4">
               {social.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener" className="underline underline-offset-4">
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener"
+                    className="underline underline-offset-4"
+                  >
                     {s.label}
                   </a>
                 </li>
               ))}
             </ul>
           ) : (
-            isTodo(contact.social.instagram) && <Todo value={contact.social.instagram} />
+            isTodo(contact.social.instagram) && (
+              <Todo value={contact.social.instagram} />
+            )
           )}
         </div>
 
@@ -85,7 +108,9 @@ export function SiteFooter() {
               {g.branches.map((b) => (
                 <li key={b.id}>
                   <p className="font-bold">{b.name}</p>
-                  {b.secondary && <p className="text-small text-muted">{b.secondary}</p>}
+                  {b.secondary && (
+                    <p className="text-small text-muted">{b.secondary}</p>
+                  )}
                   <p className="text-small text-muted">{b.address}</p>
                 </li>
               ))}
@@ -93,10 +118,33 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
-      <div className="mx-auto grid max-w-[var(--content-max)] gap-2 px-[var(--gutter)] pt-6 pb-10 text-small text-muted md:flex md:justify-between">
+      <div className="mx-auto grid max-w-[var(--content-max)] gap-2 px-[var(--gutter)] pt-6 pb-5 text-small text-muted md:flex md:justify-between">
         <p>{brand.fullName}</p>
         <p>{brand.trademarkNote}</p>
       </div>
+      <SiteCredit />
     </footer>
+  );
+}
+
+const C = labels.footer.credit;
+
+/** The site maker's credit: one quiet line under the brand row, never competing with it. Opens in a new tab. */
+function SiteCredit() {
+  const link = "underline decoration-1 underline-offset-2 hover:decoration-2";
+  return (
+    <div className="mx-auto max-w-[var(--content-max)] px-[var(--gutter)] pb-8">
+      <p className="border-t border-ink/10 pt-4 text-[0.8125rem] text-muted">
+        {C.by}{" "}
+        <a href={C.nameHref} target="_blank" rel="noopener" className={link}>
+          {C.name}
+        </a>
+        <span aria-hidden="true"> · </span>
+        {C.need}{" "}
+        <a href={C.talkHref} target="_blank" rel="noopener" className={link}>
+          {C.talk}
+        </a>
+      </p>
+    </div>
   );
 }
