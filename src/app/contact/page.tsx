@@ -7,7 +7,7 @@ import { Section, SectionHeading } from "@/components/layout/Section";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { CallLink } from "@/components/contact/CallLink";
 import { BranchList } from "@/components/contact/BranchList";
-import { FaqAccordion } from "@/components/blocks/FaqAccordion";
+import { FaqSection } from "@/components/blocks/FaqSection";
 import { EnquiryForm } from "@/components/contact/EnquiryForm";
 import { JsonLd } from "@/components/blocks/JsonLd";
 import { faqGraph } from "@/lib/jsonld";
@@ -56,12 +56,7 @@ export default function ContactPage() {
         </div>
       </Section>
 
-      <Section id="faq" tone="surface">
-        <SectionHeading id="faq-title" fx="lightup">{T.faq}</SectionHeading>
-        <div className="mt-6 max-w-[60ch]">
-          <FaqAccordion items={faq} group="contact-faq" />
-        </div>
-      </Section>
+      <FaqSection items={faq} group="contact-faq" title={T.faq} fx="lightup" />
     </>
   );
 }

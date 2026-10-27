@@ -11,6 +11,7 @@ export const messages = {
   teacherTraining: "Hi, I'd like to know more about your teacher training programs.",
   schools: "Hi, I'd like to book a phonics workshop for our school.",
   about: "Hi Trainer Revathi, I'd like to know more about your classes.",
+  faq: "Hi, I have a question about your classes that isn't answered on the website.",
 } as const;
 
 export type MessageKey = keyof typeof messages;

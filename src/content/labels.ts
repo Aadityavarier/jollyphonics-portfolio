@@ -13,6 +13,11 @@ export const labels = {
     call: "Call",
     whyUs: "Why Tr. Revathi",
     questionsParentsAsk: "Questions parents ask",
+    faq: {
+      notFound: "Didn't find your answer? Ask us directly.",
+      ask: "Ask on WhatsApp",
+      more: "More answers",
+    },
     skipToContent: "Skip to content",
     breadcrumb: "Breadcrumb",
   },
@@ -29,6 +34,15 @@ export const labels = {
     contact: "Contact",
     whatsapp: "WhatsApp",
     branches: "Branches",
+    /** Small site credit in the bottom bar. Not part of the client's content, JSON-LD or llms.txt. */
+    credit: {
+      by: "Website by",
+      name: "Aaditya Varier",
+      nameHref: "https://aadityavarier.vercel.app",
+      need: "Need a website?",
+      talk: "Let's talk",
+      talkHref: "https://aadityavarier.vercel.app/#contact",
+    },
   },
   stickyBar: {
     nav: "Contact",
@@ -69,7 +83,6 @@ export const labels = {
     why: { title: "Why parents choose" },
     whyPhonics: { howTaught: "How Jolly Phonics is taught", suits: "Ask if it suits your child" },
     board: { name: "Word board: tap sounds to build a word", clear: "Clear" },
-    faq: { more: "More answers" },
     testimonials: { title: "What parents say" },
   },
   /** Breadcrumb names (also used in the BreadcrumbList structured data). */

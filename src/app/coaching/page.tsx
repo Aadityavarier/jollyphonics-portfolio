@@ -7,7 +7,7 @@ import { faqByQuestion } from "@/content/faq";
 import { PageHero } from "@/components/blocks/PageHero";
 import { Section, SectionHeading } from "@/components/layout/Section";
 import { Todo } from "@/components/blocks/Todo";
-import { FaqAccordion } from "@/components/blocks/FaqAccordion";
+import { FaqSection } from "@/components/blocks/FaqSection";
 import { BranchList } from "@/components/contact/BranchList";
 import { CtaBand } from "@/components/blocks/CtaBand";
 import { PHONICS_TILES } from "@/components/blocks/PhonicsAccent";
@@ -18,7 +18,12 @@ import { labels } from "@/content/labels";
 
 export const metadata = pageMetadata("coaching");
 
-const COACHING_FAQ = faqByQuestion("Do you provide academic coaching?", "Where are classes held?");
+const COACHING_FAQ = faqByQuestion(
+  "Do you provide academic coaching?",
+  "Where are classes held?",
+  "What age can children start phonics?",
+  "Is phonics only for small children?",
+);
 
 const T = labels.pages.coaching;
 
@@ -107,14 +112,7 @@ export default function CoachingPage() {
         </div>
       </Section>
 
-      <Section id="faq" tone="surface">
-        <SectionHeading id="faq-title" fx="tileflip">
-          {labels.common.questionsParentsAsk}
-        </SectionHeading>
-        <div className="mt-6 max-w-[60ch]">
-          <FaqAccordion items={COACHING_FAQ} group="coaching-faq" />
-        </div>
-      </Section>
+      <FaqSection items={COACHING_FAQ} group="coaching-faq" fx="tileflip" more />
 
       <CtaBand title={T.cta.title} text={T.cta.text} message={messages.coaching} />
     </>

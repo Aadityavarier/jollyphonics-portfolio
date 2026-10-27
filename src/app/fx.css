@@ -1664,3 +1664,12 @@ body:has(.enq :focus-within) .sticky-bar {
     }
   }
 }
+
+/* ============ FAQ section: tighter than a full section ============ */
+.faq-section {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+.faq-section h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  line-height: 1.1;
+}
