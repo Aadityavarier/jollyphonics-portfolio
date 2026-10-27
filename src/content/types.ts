@@ -3,7 +3,7 @@ export type Todo = { readonly kind: "todo"; readonly id: string; readonly note: 
 
 export type Side = "east" | "west";
 
-export type BranchId = "om-dubey-dham" | "chinchpada" | "vadavali" | "nisarg-green";
+export type BranchId = "shiv-basav-nagar" | "chinchpada" | "vadavali" | "nisarg-green";
 
 export interface Branch {
   id: BranchId;

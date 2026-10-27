@@ -37,6 +37,8 @@ describe("JSON-LD", () => {
       ...founder.certifications.map((c) => c.name),
     ]);
     expect(person.knowsAbout).toEqual(founder.expertise);
+    expect(person.hasCredential).toHaveLength(8); // 4 qualifications (CTET removed 2026-10-27) + 4 certifications
+    expect(JSON.stringify(person)).not.toMatch(/CTET/i);
     const roles = person.memberOf as Node[];
     expect(roles.map((r) => (r.memberOf as Node).name)).toEqual(["Inner Wheel Club of Ambernath", "Rotary Club of Ambernath East"]);
     expect(roles[0]).toMatchObject({ "@type": "OrganizationRole", roleName: "IPP (Immediate Past President)", startDate: "2017" });
@@ -67,7 +69,9 @@ describe("llms.txt", () => {
   it("is built from content and has no placeholders", () => {
     const t = buildLlmsTxt();
     expect(t).toContain("Tr. Revathi Phonics & Coaching Classes");
-    expect(t).toContain("Om Dubey Dham");
+    expect(t).toContain("Ambernath East — Shiv Basav Nagar");
+    expect(t).toContain("302, Om Dubey Dham, Above Shobha Hospital, Shiv Basav Nagar, Ambernath East");
+    expect(t).not.toMatch(/CTET/i);
     expect(t).not.toMatch(/TODO|content\.md|undefined/);
   });
 });

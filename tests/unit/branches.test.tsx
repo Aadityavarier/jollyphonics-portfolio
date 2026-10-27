@@ -18,7 +18,7 @@ describe("groupBranchesBySide", () => {
   it("lists Ambernath East first with three branches, then Ambernath West", () => {
     const groups = groupBranchesBySide(branches);
     expect(groups.map((g) => g.label)).toEqual(["Ambernath East", "Ambernath West"]);
-    expect(groups[0].branches.map((b) => b.id)).toEqual(["om-dubey-dham", "vadavali", "nisarg-green"]);
+    expect(groups[0].branches.map((b) => b.id)).toEqual(["shiv-basav-nagar", "vadavali", "nisarg-green"]);
     expect(groups[1].branches.map((b) => b.id)).toEqual(["chinchpada"]);
   });
 });
@@ -65,7 +65,7 @@ describe("BranchList card text inside East/West groups", () => {
 
   it("titles each card with its locality only", () => {
     render(<BranchList />);
-    expect(partText("name")).toEqual(["Om Dubey Dham", "Vadavali", "Nisarg Green", "Chinchpada"]);
+    expect(partText("name")).toEqual(["Shiv Basav Nagar", "Vadavali", "Nisarg Green", "Chinchpada"]);
   });
 
   it("shows a host-preschool line for branches 3 and 4 only, and no landmark line", () => {
@@ -140,12 +140,12 @@ describe("BranchCard", () => {
   });
 
   it("loads the map iframe only after Show map is pressed", () => {
-    render(<BranchCard branch={byId("om-dubey-dham")} withMap />);
+    render(<BranchCard branch={byId("shiv-basav-nagar")} withMap />);
     const card = screen.getByTestId("branch-card");
     expect(card.querySelector("iframe")).toBeNull();
     fireEvent.click(within(card).getByRole("button", { name: /show map/i }));
     const frames = card.querySelectorAll("iframe");
     expect(frames).toHaveLength(1);
-    expect(frames[0].title).toBe("Map of Ambernath East — Om Dubey Dham");
+    expect(frames[0].title).toBe("Map of Ambernath East — Shiv Basav Nagar");
   });
 });

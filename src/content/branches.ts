@@ -4,11 +4,11 @@ import type { Branch } from "./types";
 /** content.md order. All four are presented identically; `schema` only affects JSON-LD (C2). */
 export const branches: Branch[] = [
   {
-    id: "om-dubey-dham",
+    id: "shiv-basav-nagar",
     side: "east",
-    name: "Ambernath East — Om Dubey Dham",
-    locality: "Om Dubey Dham",
-    address: "302, Om Dubey Dham, Above Shobha Hospital, Ambernath East",
+    name: "Ambernath East — Shiv Basav Nagar",
+    locality: "Shiv Basav Nagar",
+    address: "302, Om Dubey Dham, Above Shobha Hospital, Shiv Basav Nagar, Ambernath East",
     schema: "LocalBusiness",
   },
   {

@@ -49,7 +49,6 @@ export const founder = {
       title: "ECCEd / DECCED",
       detail: "Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)",
     },
-    { title: "CTET", detail: "Elementary Stage, Classes VI–VIII" },
   ],
   certifications: [
     { id: "jolly-phonics", name: "Internationally Certified Jolly Phonics Trainer", detail: "CPD College UK, London" },

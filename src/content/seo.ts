@@ -13,7 +13,7 @@ export const seo: Record<PageKey, PageSeo> = {
     path: "/about",
     title: "Trainer Revathi, Jolly Phonics Trainer in Ambernath",
     description:
-      "Meet Trainer Revathi Varier: Internationally Certified Jolly Phonics Trainer (CPD College UK), M.A. English, D.El.Ed, CTET, teaching phonics since 2001.",
+      "Meet Trainer Revathi Varier: Internationally Certified Jolly Phonics Trainer (CPD College UK), M.A. English, D.El.Ed, ECCEd, teaching phonics since 2001.",
     keyword: "Jolly Phonics trainer Ambernath",
   },
   programs: {

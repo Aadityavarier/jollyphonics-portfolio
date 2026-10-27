@@ -63,7 +63,7 @@ Thank you for the photos! They are on the site now. Three things are still missi
 |---|---|---|---|
 | H1 | **You, from the waist up, smiling at the camera.** Plain light wall or a softly blurred classroom behind you. | Home page, at the top and in "Meet Trainer Revathi" | Portrait (tall) |
 | A1 | **A second photo of you, different from H1**: in your classroom, standing or sitting, more of you in view. | Top of the About page | Portrait (tall) |
-| B1 | Om Dubey Dham building entrance or your signboard ("above Shobha Hospital"), so parents recognise it. | Branch cards | Landscape (wide) |
+| B1 | Shiv Basav Nagar branch: the building entrance (302, Om Dubey Dham, above Shobha Hospital) or your signboard, so parents recognise it. | Branch cards | Landscape (wide) |
 | B2 | Navare Residency (Chinchpada) entrance or signboard. | Branch cards | Landscape (wide) |
 | B3 | Little Champs Playschool entrance (Vadavali). | Branch cards | Landscape (wide) |
 | B4 | Flying Bird Preschool entrance (Nisarg Green). | Branch cards | Landscape (wide) |

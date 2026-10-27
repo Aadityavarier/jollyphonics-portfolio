@@ -53,8 +53,9 @@
 ### Branches
 Visitor-facing names are area first (how parents in Ambernath recognise locations). Inside an "Ambernath East / West" group the card title is the locality alone; the full area-first name is used in the footer, the enquiry form and WhatsApp messages. Branches 3–4 carry a secondary line naming the host preschool. All four are presented identically on the site.
 
-1. **Ambernath East — Om Dubey Dham**
-   302, Om Dubey Dham, Above Shobha Hospital, Ambernath East
+1. **Ambernath East — Shiv Basav Nagar**
+   302, Om Dubey Dham, Above Shobha Hospital, Shiv Basav Nagar, Ambernath East
+   (Renamed 2026-10-27: the branch is now identified by its locality, Shiv Basav Nagar; Om Dubey Dham stays in the street address only.)
 2. **Ambernath West — Chinchpada**
    Ground floor, Navare Residency and Library, Next to Y-Cafe, Near Fire Brigade Office, Chinchpada, Ambernath West
 3. **Ambernath East — Vadavali**
@@ -85,11 +86,11 @@ Jolly Phonics · Jolly Grammar · English · Coaching Classes · Reading & Spell
 **Bio:** Experienced educator, phonics trainer, teacher trainer and education entrepreneur with 20+ years in education. Founder of Tr. Revathi Phonics & Coaching Classes, established in 2023. Teaching Jolly Phonics since 2001 across Ambernath and Ulhasnagar, helping children build reading, writing, spelling, pronunciation and English skills through systematic phonics. Has worked with children of different ages and learning levels, plus parents, teachers and educators.
 
 ### Qualifications
+(CTET removed 2026-10-27 at the client's request.)
 - M.A. — English
 - M.Com — Master of Commerce
 - D.El.Ed — Diploma in Elementary Education (secured 70%)
 - ECCEd / DECCED — Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)
-- CTET — Elementary Stage, Classes VI–VIII
 
 ### Certifications & training
 - Internationally Certified Jolly Phonics Trainer — CPD College UK, London
@@ -224,7 +225,7 @@ Sounds · Listening · Speaking · Activities · Games · Reading · Writing · 
 - **Experience** — 20+ years in education
 - **Expertise** — Internationally Certified Jolly Phonics Trainer
 - **Reach** — 4,500+ students trained
-- **Qualifications** — M.A. English, M.Com, D.El.Ed, ECCEd, CTET
+- **Qualifications** — M.A. English, M.Com, D.El.Ed, ECCEd / DECCED
 - **Practical knowledge** — years of classroom teaching and teacher training
 - **Holistic approach** — reading, writing, grammar, communication, confidence
 - **Teacher empowerment** — programs for educators and aspiring teachers

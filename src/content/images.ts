@@ -60,7 +60,7 @@ const slots = {
   S1: { description: "Phonics workshop in a school classroom or hall", ratio: "3:2" },
   S2: { description: "Tr. Revathi with a school's teachers", ratio: "3:2" },
   // Branches
-  B1: { description: "Ambernath East — Om Dubey Dham: building entrance or signage", ratio: "3:2" },
+  B1: { description: "Ambernath East — Shiv Basav Nagar: building entrance or signage (Om Dubey Dham, above Shobha Hospital)", ratio: "3:2" },
   B2: { description: "Ambernath West — Chinchpada: Navare Residency entrance or signage", ratio: "3:2" },
   B3: { description: "Ambernath East — Vadavali: Little Champs Playschool entrance", ratio: "3:2" },
   B4: { description: "Ambernath East — Nisarg Green: Flying Bird Preschool entrance", ratio: "3:2" },
@@ -73,7 +73,7 @@ export const imageSlots: Record<SlotId, ImageSlotDef> = Object.fromEntries(
 ) as Record<SlotId, ImageSlotDef>;
 
 export const branchPhotoSlot: Record<BranchId, SlotId> = {
-  "om-dubey-dham": "B1",
+  "shiv-basav-nagar": "B1",
   chinchpada: "B2",
   vadavali: "B3",
   "nisarg-green": "B4",
