@@ -105,10 +105,10 @@ export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoF
     },
     "T1": {
       "src": "/images/teacher-training/T1.webp",
-      "alt": "Trainer Revathi leading a teacher-training talk in front of a screen titled “Jolly Phonics in the Classroom”",
-      "width": 1010,
-      "height": 673,
-      "source": "20260918-WA0001"
+      "alt": "Three women at a teacher-training certificate presentation, one holding the certificate",
+      "width": 1200,
+      "height": 800,
+      "source": "20260610-WA0005"
     }
   },
   "gallery": [

@@ -18,7 +18,7 @@ edits are kept the next time the script runs. Everything else in this file is re
 | P5 | /images/programs/P5.webp | A child colouring a drawing of a house with felt pens at a round table | Summer camp, drawing or art activity |
 | S1 | /images/for-schools/S1.webp | Trainer Revathi in a school classroom teaching letter sounds from a whiteboard to children in red uniforms | Phonics workshop in a school classroom or hall |
 | S2 | /images/for-schools/S2.webp | Trainer Revathi chatting with a young boy in a school classroom while a teacher looks on | Tr. Revathi with a school's teachers |
-| T1 | /images/teacher-training/T1.webp | Trainer Revathi leading a teacher-training talk in front of a screen titled “Jolly Phonics in the Classroom” | Tr. Revathi leading a teacher-training session |
+| T1 | /images/teacher-training/T1.webp | Three women at a teacher-training certificate presentation, one holding the certificate | Tr. Revathi leading a teacher-training session |
 | gallery/certificate-distribution/1 | /images/gallery/certificate-distribution/1.webp | Trainer Revathi with a young girl holding her phonics course certificate | Gallery: Certificate distribution |
 | gallery/certificate-distribution/2 | /images/gallery/certificate-distribution/2.webp | A girl in glasses and Trainer Revathi holding her certificate in the classroom | Gallery: Certificate distribution |
 | gallery/certificate-distribution/3 | /images/gallery/certificate-distribution/3.webp | Trainer Revathi standing behind a smiling girl who holds her phonics certificate | Gallery: Certificate distribution |
