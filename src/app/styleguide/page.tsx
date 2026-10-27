@@ -250,7 +250,7 @@ export default function StyleguidePage() {
         <p className="mb-8 max-w-[60ch]">Missing photos show this placeholder in development and nothing at all in production.</p>
         <div className="grid gap-4 sm:grid-cols-[1fr_1.5fr]">
           <ImageSlot id="H1" sizes="(min-width: 640px) 40vw, 100vw" className="rounded-[var(--radius-panel)]" />
-          <ImageSlot id="H7" sizes="(min-width: 640px) 60vw, 100vw" className="rounded-[var(--radius-panel)]" />
+          <ImageSlot id="H3" sizes="(min-width: 640px) 60vw, 100vw" className="rounded-[var(--radius-panel)]" />
         </div>
       </Block>
 

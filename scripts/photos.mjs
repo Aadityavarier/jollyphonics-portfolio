@@ -30,6 +30,13 @@ function readSlots() {
   return slots;
 }
 
+/** The slots a page renders (placedSlots in images.ts); photos for any other slot are skipped. */
+function readPlaced() {
+  const src = readFileSync(join(ROOT, "src/content/images.ts"), "utf8");
+  const list = src.match(/export const placedSlots[^=]*= \[([^\]]*)\]/);
+  return new Set(list ? [...list[1].matchAll(/"([A-Z]\d+)"/g)].map((m) => m[1]) : []);
+}
+
 function readGallery() {
   const src = readFileSync(join(ROOT, "src/content/gallery.ts"), "utf8");
   const cats = new Map();
@@ -69,6 +76,7 @@ export async function runPhotos({
 } = {}) {
   const log = (...a) => !quiet && console.log(...a);
   const slots = readSlots();
+  const placed = readPlaced();
   const cats = readGallery();
   const keptAlt = existsSync(md) ? parseImagesMd(readFileSync(md, "utf8")) : new Map();
   const out = { slots: {}, gallery: [] };
@@ -97,6 +105,11 @@ export async function runPhotos({
     }
     try {
       if (slot) {
+        if (!placed.has(slot)) {
+          skipped.push(rel);
+          log(`skip  ${rel}  (${slot} is not placed on any page; add it to placedSlots in images.ts once it is)`);
+          continue;
+        }
         if (out.slots[slot]) {
           skipped.push(rel);
           log(`skip  ${rel}  (${slot} already has a photo from this folder)`);

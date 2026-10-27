@@ -103,6 +103,17 @@ describe("npm run photos: gallery thumbnails, inbox and metadata", () => {
     expect(ts).toContain('"source": "WA0093"');
     expect(ts).toContain('"source": "x"');
   }, 60000);
+
+  it("skips a photo for a slot that no page renders", async () => {
+    const root = mkdtempSync(join(tmpdir(), "photos-"));
+    const raw = join(root, "raw");
+    mkdirSync(raw, { recursive: true });
+    await sharp({ create: { width: 900, height: 600, channels: 3, background: "#888" } }).jpeg().toFile(join(raw, "P2-WA0053.jpg"));
+    const report = await runPhotos({ raw, publicDir: join(root, "public"), manifest: join(root, "m.ts"), md: join(root, "i.md"), quiet: true });
+    expect(report.slots).toEqual([]);
+    expect(report.skipped).toEqual(["P2-WA0053.jpg"]);
+    expect(existsSync(join(root, "public", "images", "programs", "P2.webp"))).toBe(false);
+  }, 60000);
 });
 
 describe("gallery goes live at 3 photos per category", () => {

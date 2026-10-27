@@ -19,26 +19,12 @@ export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoF
       "height": 1263,
       "source": "20260918-WA0001"
     },
-    "A8": {
-      "src": "/images/about/A8.webp",
-      "alt": "Trainer Revathi sitting on a sofa beside a smiling young girl who holds her phonics certificate",
-      "width": 899,
-      "height": 899,
-      "source": "WA0010"
-    },
     "C1": {
       "src": "/images/coaching/C1.webp",
       "alt": "Trainer Revathi at a desk explaining a workbook to a small group of school children",
       "width": 1200,
       "height": 800,
       "source": "20260922-WA0008"
-    },
-    "C2": {
-      "src": "/images/coaching/C2.webp",
-      "alt": "Children writing in notebooks at their desks while a teacher bends to help one of them",
-      "width": 1350,
-      "height": 900,
-      "source": "WA0053"
     },
     "H3": {
       "src": "/images/home/H3.webp",
@@ -61,47 +47,12 @@ export const photoManifest: { slots: Record<string, PhotoFile>; gallery: (PhotoF
       "height": 720,
       "source": "20260620-WA0008"
     },
-    "H7": {
-      "src": "/images/home/H7.webp",
-      "alt": "Trainer Revathi holding up a phonics card for a class of children in red school uniforms",
-      "width": 900,
-      "height": 600,
-      "source": "WA0047"
-    },
-    "P1": {
-      "src": "/images/programs/P1.webp",
-      "alt": "Trainer Revathi holding up a phonics card for a class of children in red school uniforms",
-      "width": 900,
-      "height": 600,
-      "source": "WA0047"
-    },
-    "P2": {
-      "src": "/images/programs/P2.webp",
-      "alt": "Children writing in notebooks at their desks while a teacher bends to help one of them",
-      "width": 1350,
-      "height": 900,
-      "source": "WA0053"
-    },
-    "P5": {
-      "src": "/images/programs/P5.webp",
-      "alt": "A child colouring a drawing of a house with felt pens at a round table",
-      "width": 1600,
-      "height": 1067,
-      "source": "WA0023"
-    },
     "S1": {
       "src": "/images/for-schools/S1.webp",
       "alt": "Trainer Revathi in a school classroom teaching letter sounds from a whiteboard to children in red uniforms",
       "width": 1350,
       "height": 900,
       "source": "WA0045"
-    },
-    "S2": {
-      "src": "/images/for-schools/S2.webp",
-      "alt": "Trainer Revathi chatting with a young boy in a school classroom while a teacher looks on",
-      "width": 1200,
-      "height": 800,
-      "source": "WA0048"
     },
     "T1": {
       "src": "/images/teacher-training/T1.webp",

@@ -68,6 +68,12 @@ const slots = {
 
 export type SlotId = keyof typeof slots;
 
+/**
+ * Slots some page actually renders. `npm run photos` publishes photos only for these, so a photo dropped in for
+ * an unplaced slot never ships. Place a slot on a page, then add it here (a test keeps the two in step).
+ */
+export const placedSlots: readonly SlotId[] = ["H1", "H3", "H4", "H5", "H6", "A1", "C1", "S1", "T1", "B1", "B2", "B3", "B4"];
+
 export const imageSlots: Record<SlotId, ImageSlotDef> = Object.fromEntries(
   Object.entries(slots).map(([id, def]) => [id, { ...def, photo: (def as ImageSlotDef).photo ?? photoManifest.slots[id] }]),
 ) as Record<SlotId, ImageSlotDef>;

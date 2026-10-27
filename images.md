@@ -6,18 +6,11 @@ edits are kept the next time the script runs. Everything else in this file is re
 | Slot | File | Alt text | What the slot is for |
 |---|---|---|---|
 | A1 | /images/about/A1.webp | Trainer Revathi speaking to a hall of teachers with a microphone, in front of a screen titled “Jolly Phonics in the Classroom” | Second portrait of Tr. Revathi in her classroom, three-quarter length |
-| A8 | /images/about/A8.webp | Trainer Revathi sitting on a sofa beside a smiling young girl who holds her phonics certificate | Little moment: Tr. Revathi with one child, candid |
 | C1 | /images/coaching/C1.webp | Trainer Revathi at a desk explaining a workbook to a small group of school children | Tutor helping a primary-school student at a desk |
-| C2 | /images/coaching/C2.webp | Children writing in notebooks at their desks while a teacher bends to help one of them | Small group studying together, notebooks open |
 | H3 | /images/home/H3.webp | A class of young children at their desks, smiling and raising their hands | Small group of young children in a phonics activity |
 | H4 | /images/home/H4.webp | Trainer Revathi going through a workbook at a desk with a small group of primary-school students | Older primary student working with tutor at a desk |
 | H6 | /images/home/H6.webp | Four women at a teacher-training certificate presentation, one holding a certificate | Tr. Revathi training a group of teachers |
-| H7 | /images/home/H7.webp | Trainer Revathi holding up a phonics card for a class of children in red school uniforms | Candid: Tr. Revathi teaching a small group of children |
-| P1 | /images/programs/P1.webp | Trainer Revathi holding up a phonics card for a class of children in red school uniforms | Children doing phonics sound actions or sound cards |
-| P2 | /images/programs/P2.webp | Children writing in notebooks at their desks while a teacher bends to help one of them | Children writing sentences or doing a grammar worksheet |
-| P5 | /images/programs/P5.webp | A child colouring a drawing of a house with felt pens at a round table | Summer camp, drawing or art activity |
 | S1 | /images/for-schools/S1.webp | Trainer Revathi in a school classroom teaching letter sounds from a whiteboard to children in red uniforms | Phonics workshop in a school classroom or hall |
-| S2 | /images/for-schools/S2.webp | Trainer Revathi chatting with a young boy in a school classroom while a teacher looks on | Tr. Revathi with a school's teachers |
 | T1 | /images/teacher-training/T1.webp | Three women at a teacher-training certificate presentation, one holding the certificate | Tr. Revathi leading a teacher-training session |
 | gallery/certificate-distribution/1 | /images/gallery/certificate-distribution/1.webp | Trainer Revathi with a young girl holding her phonics course certificate | Gallery: Certificate distribution |
 | gallery/certificate-distribution/2 | /images/gallery/certificate-distribution/2.webp | A girl in glasses and Trainer Revathi holding her certificate in the classroom | Gallery: Certificate distribution |
