@@ -52,12 +52,6 @@ export const founder = {
   ],
   certifications: [
     { id: "jolly-phonics", name: "Internationally Certified Jolly Phonics Trainer", detail: "CPD College UK, London" },
-    {
-      id: "arpan",
-      name: "Certified ARPAN Trainer",
-      detail: "Understanding Child Sexual Abuse & Personal Safety Education",
-      trained: ["April 2021", "April 2023"],
-    },
     // A certification only: Rapid Teacher's Training is a separate organisation, never a program here.
     { id: "rapid-ecced", name: "Rapid Teacher's Training for ECCEd" },
     {
@@ -141,7 +135,7 @@ export const founder = {
   },
 } as const;
 
-/** "Certified ARPAN Trainer (…), trained April 2021 and April 2023" */
+/** "Name (detail)", plus ", trained <dates>" when content.md gives training dates. */
 export function certificationLine(c: Certification): string {
   const base = c.detail ? `${c.name} (${c.detail})` : c.name;
   return c.trained?.length ? `${base}, trained ${c.trained.join(" and ")}` : base;

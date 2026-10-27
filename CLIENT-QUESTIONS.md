@@ -85,7 +85,7 @@ Branch photos appear only when all four (B1 to B4) are in, so the cards look the
 
 ### For later (we have a place ready for these)
 
-Your Jolly Phonics Trainer certificate and ARPAN Trainer certificate (photographed flat and straight-on); you
+Your Jolly Phonics Trainer certificate (photographed flat and straight-on); you
 receiving each of your awards (including the Innovative Teaching Award 2026); you at an Inner Wheel or Rotary event; a child's hand on letter-sound cards or
 tracing letters; a close-up of pencil grip on a practice sheet;
 Montessori materials on a table; teachers practising phonics activities.

@@ -54,7 +54,7 @@
   [data-reveal="panel"][data-shown] {
     transition-duration: 900ms;
   }
-  /* Calm: a single slow opacity fade, no movement (ARPAN). */
+  /* Calm: a single slow opacity fade, no movement. */
   [data-reveal="calm"][data-shown] {
     transition: opacity 1000ms ease-out;
   }

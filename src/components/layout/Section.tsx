@@ -10,7 +10,7 @@ const TONE: Record<SectionTone, string> = {
   red: "on-dark bg-red text-paper",
   teal: "on-dark bg-teal text-paper",
   ink: "on-dark bg-ink text-paper", // at most one ink band per page
-  calm: "bg-calm text-calm-ink", // ARPAN: muted ground, no playful colour
+  calm: "bg-calm text-calm-ink", // muted ground, no playful colour
 };
 
 export function Container({ className = "", children }: { className?: string; children: ReactNode }) {

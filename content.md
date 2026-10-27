@@ -94,7 +94,6 @@ Jolly Phonics · Jolly Grammar · English · Coaching Classes · Reading & Spell
 
 ### Certifications & training
 - Internationally Certified Jolly Phonics Trainer — CPD College UK, London
-- Certified ARPAN Trainer — Understanding Child Sexual Abuse & Personal Safety Education — trained April 2021 and April 2023
 - Rapid Teacher's Training for ECCEd (certification)
 - Teacher-training and professional-development programs in early childhood education and classroom practice
 
@@ -114,7 +113,7 @@ Preschool children · Kindergarten · Primary school children · School students
 - **Nation Builder Award 2025** — Rotary Club of Ambernath North (RCAN), for her contribution to education ("RCAN Nation Builder Award 2025" is the same award: list it once)
 - **Business Entrepreneur Award** — India News Index, City Excellence Award 2023
 
-> **EXCLUDED — never publish:** Lata Mangeshkar National Musical Legacy Honour 2026; MIMAMSA Maharashtra Educational Conclave recognition (details not established); the duplicate RCAN Nation Builder entry.
+> **EXCLUDED — never publish:** Lata Mangeshkar National Musical Legacy Honour 2026; MIMAMSA Maharashtra Educational Conclave recognition (details not established); the duplicate RCAN Nation Builder entry; **ARPAN** (the Certified ARPAN Trainer certification, its April 2021 / April 2023 training dates and the "ARPAN Training & Child Safety" section): client asked to remove from the website, 2026-10-27.
 
 ### Community & leadership
 - **Inner Wheel Club of Ambernath** — Member since 2017; Club Correspondent 2022–23; Centurion Secretary 2023–24; President 2024–25; IPP (Immediate Past President) 2025–26
@@ -195,9 +194,6 @@ Vacation batches · Summer programs · Phonics workshops · Reading programs · 
 ### Montessori Teacher Training
 Montessori-inspired principles and practical approaches: child-centred learning, practical life activities, sensory development, independence, classroom environment, learning materials, observation, early childhood development.
 
-### ARPAN Training & Child Safety
-Certified ARPAN Trainer (Understanding Child Sexual Abuse & Personal Safety Education). Helps adults and educators understand age-appropriate approaches to personal safety, safe and unsafe situations, body safety, communication, awareness, prevention, and responding appropriately to concerns.
-*(Present in a calm, reassuring tone. No alarming imagery.)*
 
 ---
 

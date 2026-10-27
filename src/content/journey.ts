@@ -14,24 +14,20 @@ export interface Milestone {
   lines: MilestoneLine[];
 }
 
-type Founder = Pick<typeof founder, "founded" | "certifications" | "awards" | "community">;
+type Founder = Pick<typeof founder, "founded" | "awards" | "community">;
 type Event = MilestoneLine & { when: string };
 
 const year = (when: string) => parseInt(when.replace(/^\D+/, ""), 10);
 
 /**
- * Her years, oldest first: the start, the founding, ARPAN's first training, and every Inner Wheel role and award
+ * Her years, oldest first: the start, the founding, and every Inner Wheel role and award
  * flagged `journey` in founder.ts. Events with the same date share one stop. Every date is read from content/.
  */
 export function buildJourney(f: Founder): Milestone[] {
   const iw = f.community.innerWheel;
-  const arpan = f.certifications.find((c) => c.id === "arpan");
   const events: Event[] = [
     { id: "start", when: brand.numbers.since, title: "Started teaching Jolly Phonics" },
     { id: "founded", when: f.founded, title: "Founded the institute", detail: brand.fullName },
-    ...(arpan && "trained" in arpan && arpan.trained?.length
-      ? [{ id: "arpan", when: String(year(arpan.trained[0])), title: arpan.name, detail: arpan.detail }]
-      : []),
     ...iw.roles
       .filter((r) => "journey" in r && r.journey)
       .map((r) =>

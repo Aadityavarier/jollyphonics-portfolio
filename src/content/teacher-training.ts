@@ -1,5 +1,3 @@
-import { certificationLine, founder } from "./founder";
-
 export const teacherTraining = {
   phonics: {
     id: "phonics-tt",
@@ -70,20 +68,6 @@ export const teacherTraining = {
       "Learning materials",
       "Observation",
       "Early childhood development",
-    ],
-  },
-  arpan: {
-    id: "arpan",
-    title: "ARPAN Training & Child Safety",
-    credential: certificationLine(founder.certifications.find((c) => c.id === "arpan")!),
-    intro: "Helps adults and educators understand age-appropriate approaches to personal safety.",
-    topics: [
-      "Safe and unsafe situations",
-      "Body safety",
-      "Communication",
-      "Awareness",
-      "Prevention",
-      "Responding appropriately to concerns",
     ],
   },
 };

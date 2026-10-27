@@ -22,7 +22,7 @@ npm run probe:mobile        # taps through all 8 pages on two phone profiles
 | About `/about` | `founder.ts` (bio, qualifications, certifications, awards, expertise, community, vision line, worked-with), `journey.ts` (curated: set `journey: true` on an award or Inner Wheel role to add a stop; same-year events share one stop), `vision.ts` | `labels.ts` → `pages.about` |
 | Programs `/programs` | `programs.ts` (every program, the learning path, special classes), `brand.ts` (the program chips) | `labels.ts` → `pages.programs` |
 | Coaching `/coaching` | `coaching.ts` (range, subjects, boards, approach), `why.ts`, `faq.ts` | `labels.ts` → `pages.coaching` |
-| Teacher training `/teacher-training` | `teacher-training.ts` (Phonics TT, ECCEd, Montessori, ARPAN), `founder.ts` (trainer qualifications) | `labels.ts` → `pages.teacherTraining` |
+| Teacher training `/teacher-training` | `teacher-training.ts` (Phonics TT, ECCEd, Montessori), `founder.ts` (trainer qualifications) | `labels.ts` → `pages.teacherTraining` |
 | For schools `/for-schools` | `schools.ts` (intro, the three workshop tracks), `why.ts` | `labels.ts` → `pages.schools` |
 | Contact `/contact` | `contact.ts` (phone, WhatsApp, enquiry topics, timings line, social links), `branches.ts`, `faq.ts` | `labels.ts` → `pages.contact`, `enquiry` |
 | Gallery `/gallery` | `gallery.ts` (categories), photos via `npm run photos` | `labels.ts` → `pages.gallery` |

@@ -4,8 +4,8 @@ import { teaserMilestones } from "@/lib/journey";
 import { founder } from "@/content/founder";
 
 describe("journey (curated, data-driven)", () => {
-  it("has the seven agreed stops, oldest first", () => {
-    expect(journey.map((m) => m.when)).toEqual(["2001", "2017", "2021", "2023", "2024–25", "2025", "2026"]);
+  it("has the six agreed stops, oldest first (ARPAN 2021 removed 2026-10-27)", () => {
+    expect(journey.map((m) => m.when)).toEqual(["2001", "2017", "2023", "2024–25", "2025", "2026"]);
   });
 
   it("groups same-year events into one stop: 2023 founding + Business award, 2025 ROVEX + Nation Builder", () => {
@@ -18,7 +18,7 @@ describe("journey (curated, data-driven)", () => {
     const ids = journey.flatMap((m) => m.lines.map((l) => l.id));
     expect(ids).not.toContain("iw-ipp");
     expect(ids).not.toContain("iw-centurion-secretary");
-    expect(ids.filter((i) => i.startsWith("arpan"))).toHaveLength(1);
+    expect(ids.some((i) => /arpan/i.test(i))).toBe(false);
   });
 
   it("a new flagged award becomes a new last stop with no code change", () => {

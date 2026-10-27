@@ -34,7 +34,7 @@ export const seo: Record<PageKey, PageSeo> = {
     path: "/teacher-training",
     title: "Phonics, ECCEd & Montessori Teacher Training, Ambernath",
     description:
-      "Phonics, ECCEd and Montessori teacher training in Ambernath by an Internationally Certified Jolly Phonics Trainer and certified ARPAN trainer.",
+      "Phonics, ECCEd and Montessori teacher training in Ambernath by an Internationally Certified Jolly Phonics Trainer with 20+ years in education.",
     keyword: "teacher training Ambernath",
   },
   "for-schools": {

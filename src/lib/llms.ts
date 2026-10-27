@@ -27,7 +27,7 @@ export function buildLlmsTxt(): string {
     `- ${programs.english.title}: ${programs.english.items.map((i) => i.title).join(", ")}`,
     `- ${programs.handwriting.title}`,
     `- Coaching & tuition: ${coaching.range}`,
-    "- Teacher training: Phonics, ECCEd, Montessori; ARPAN child-safety training",
+    "- Teacher training: Phonics, ECCEd, Montessori",
     `- School workshops: ${schools.intro}`,
     "",
     "## Branches",

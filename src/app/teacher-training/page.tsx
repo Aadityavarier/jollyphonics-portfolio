@@ -7,7 +7,6 @@ import { Section, SectionHeading } from "@/components/layout/Section";
 import { CredentialLine } from "@/components/blocks/CredentialLine";
 import { ChipList } from "@/components/blocks/ChipList";
 import { CtaBand } from "@/components/blocks/CtaBand";
-import { Reveal } from "@/components/motion/Reveal";
 import { CourseCard } from "@/components/teacher-training/CourseCard";
 import { labels } from "@/content/labels";
 
@@ -55,17 +54,6 @@ export default function TeacherTrainingPage() {
             topics={teacherTraining.montessori.topics}
           />
         </div>
-      </Section>
-
-      <Section id="arpan" tone="calm">
-        <Reveal variant="calm" className="grid gap-4">
-          <h2 id="arpan-title" className="max-w-[20ch] text-head">
-            {teacherTraining.arpan.title}
-          </h2>
-          <p className="max-w-[60ch] text-lead">{teacherTraining.arpan.credential}</p>
-          <p className="max-w-[60ch]">{teacherTraining.arpan.intro}</p>
-          <ChipList items={teacherTraining.arpan.topics} tone="paper" className="mt-2" />
-        </Reveal>
       </Section>
 
       <Section id="trainer" tone="paper">

@@ -44,7 +44,7 @@ const COLOURS = [
   { name: "red", hex: "#e3001b", text: "#ffffff", role: "Large flat panels, CTA bands" },
   { name: "teal", hex: "#0e6e5d", text: "#ffffff", role: "Large flat panels, CTA bands" },
   { name: "action", hex: "#1db33a", text: "#16204a", role: "WhatsApp only" },
-  { name: "calm", hex: "#e9eef5", text: "#2f3a5c", role: "ARPAN section" },
+  { name: "calm", hex: "#e9eef5", text: "#2f3a5c", role: "Quiet section" },
 ];
 const LETTERS = [
   ["P", "#f80000"],

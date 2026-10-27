@@ -1,4 +1,4 @@
-// WS1 checks: ARPAN has no transform motion; back/forward leaves nothing hidden; page transitions without startViewTransition.
+// WS1 checks: back/forward leaves nothing hidden; page transitions without startViewTransition.
 const { pw, BASE, hiddenOnScreen } = require("./lib.cjs");
 (async () => {
   const b = await pw.chromium.launch();
@@ -7,22 +7,6 @@ const { pw, BASE, hiddenOnScreen } = require("./lib.cjs");
   const errs = [];
   p.on("console", (m) => m.type() === "error" && errs.push(m.text().slice(0, 140)));
   let fail = 0;
-
-  await p.goto(BASE + "/teacher-training", { waitUntil: "networkidle" });
-  await p.evaluate(() => document.querySelector("#arpan").scrollIntoView());
-  await p.waitForTimeout(300);
-  const arpan = await p.evaluate(() => {
-    const out = [];
-    for (const el of [document.querySelector("#arpan"), ...document.querySelectorAll("#arpan *")]) {
-      const s = getComputedStyle(el);
-      const anims = el.getAnimations().map((a) => (a.effect?.getKeyframes?.() || []).flatMap((k) => Object.keys(k)).join("|"));
-      if (anims.some((a) => /transform|translate|scale|rotate/.test(a)) || (/transform|translate|scale|rotate|all/.test(s.transitionProperty) && s.transitionDuration !== "0s"))
-        out.push(el.tagName + "." + String(el.className).slice(0, 30));
-    }
-    return out;
-  });
-  console.log("ARPAN transform motion:", arpan.length ? arpan : "none");
-  fail += arpan.length;
 
   await p.goto(BASE + "/", { waitUntil: "networkidle" });
   await p.click('header a[href="/about"]');

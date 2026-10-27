@@ -18,7 +18,7 @@ describe("/about with the 2026-10-24 bio-data", () => {
     expect(html).toContain("Centurion Secretary");
     expect(html).toContain("MindShield Yagna");
     expect(html).toContain(founder.vision);
-    expect(html).toContain("trained April 2021 and April 2023");
+    expect(html).not.toMatch(/ARPAN/i);
     expect(html).toContain("Rapid Teacher&#x27;s Training for ECCEd");
   });
 
@@ -39,6 +39,6 @@ describe("Jolly English and the RTTI rule", () => {
 
   it("Rapid Teacher's Training is a certification only, never a program or a teacher-training course", () => {
     expect(JSON.stringify([programs, teacherTraining])).not.toMatch(/Rapid/);
-    expect(teacherTraining.arpan.credential).toContain("trained April 2021 and April 2023");
+    expect(JSON.stringify(teacherTraining)).not.toMatch(/ARPAN/i);
   });
 });
