@@ -987,7 +987,6 @@
   .stack {
     display: grid;
     gap: 9rem;
-    padding-bottom: 4rem;
   }
   .stack-card {
     position: sticky;

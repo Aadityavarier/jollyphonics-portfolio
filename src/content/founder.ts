@@ -44,10 +44,10 @@ export const founder = {
   qualifications: [
     { title: "M.A.", detail: "English" },
     { title: "M.Com", detail: "Master of Commerce" },
-    { title: "D.El.Ed", detail: "Diploma in Elementary Education (secured 70%)" },
+    { title: "D.El.Ed", detail: "Diploma in Elementary Education" },
     {
       title: "ECCEd / DECCED",
-      detail: "Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)",
+      detail: "Diploma in Early Childhood Care, Education & Development, ITES Board (one-year)",
     },
   ],
   certifications: [

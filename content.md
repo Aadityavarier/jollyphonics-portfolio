@@ -89,8 +89,8 @@ Jolly Phonics · Jolly Grammar · English · Coaching Classes · Reading & Spell
 (CTET removed 2026-10-27 at the client's request.)
 - M.A. — English
 - M.Com — Master of Commerce
-- D.El.Ed — Diploma in Elementary Education (secured 70%)
-- ECCEd / DECCED — Diploma in Early Childhood Care, Education & Development, ITES Board (one-year, secured 73%)
+- D.El.Ed — Diploma in Elementary Education
+- ECCEd / DECCED — Diploma in Early Childhood Care, Education & Development, ITES Board (one-year)
 
 ### Certifications & training
 - Internationally Certified Jolly Phonics Trainer — CPD College UK, London
